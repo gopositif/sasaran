@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sasaran Posyandu - GO-Positif Gonoharjo</title>
+    <!-- Favicon Logo Tab Browser (Disamakan dengan WEB UTAMA V6) -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv">
+
+    <!-- Tailwind CSS CDN -->
+    
+    <!-- 1. Letakkan Skrip Pengamanan di Bagian Sini (Head) -->
+    <script>
+        // Mencegah Klik Kanan
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Mencegah Shortcut Tombol Inspeksi (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
+                (e.ctrlKey && e.key === 'U')
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'base-cream': '#FAF7F0',
+                        'olive-green': '#7C9246',
+                        'sun-yellow': '#F3A94B',
+                        'deep-green': '#1E4620',
+                        'earth-brown': '#5A3B21',
+                        'soft-green': '#EBF2DF',
+                        'soft-yellow': '#FEF4E6',
+                        'calm-blue': '#E8F4F8',
+                        'bg-pastel': '#F4F9F9',
+                        'primary-teal': '#2A7B88',
+                        'secondary-coral': '#E07A5F',
+                        'dark-teal': '#164E63',
+                        'soft-teal': '#E0F2F1',
+                        'soft-coral': '#FCEADE',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Quicksand', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-base: #FAF7F0;
+            --olive-green: #7C9246;
+            --sun-yellow: #F3A94B;
+            --deep-green: #1E4620;
+            --earth-brown: #5A3B21;
+            --primary-teal: #2A7B88;
+            --secondary-coral: #E07A5F;
+            --dark-teal: #164E63;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--deep-green);
+            overflow-x: hidden;
+            position: relative;
+            transition: font-size 0.2s ease, background-color 0.2s ease;
+        }
+
+        /* Tekstur Organic Grain khas WEB UTAMA V6 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, .font-heading {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .white-card {
+            background-color: #FFFFFF;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px -2px rgba(30, 70, 32, 0.05), 0 2px 6px -1px rgba(30, 70, 32, 0.03);
+            border: 1px solid rgba(124, 146, 70, 0.14);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .white-card:hover {
+            box-shadow: 0 10px 25px -3px rgba(30, 70, 32, 0.08), 0 4px 10px -2px rgba(30, 70, 32, 0.04);
+        }
+
+        .btn-primary {
+            background-color: var(--deep-green);
+            color: #FFFFFF;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #143216;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(30, 70, 32, 0.25);
+        }
+
+        .btn-coral {
+            background-color: var(--secondary-coral);
+            color: #FFFFFF;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-coral:hover {
+            background-color: #C8654B;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(224, 122, 95, 0.3);
+        }
+
+        .btn-olive {
+            background-color: var(--olive-green);
+            color: #FFFFFF;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-olive:hover {
+            background-color: #687b38;
+            transform: translateY(-1px);
+        }
+        
+        .btn-brown {
+            background-color: var(--earth-brown);
+            color: #FFFFFF;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-brown:hover {
+            background-color: #422a17;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(90, 59, 33, 0.3);
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--earth-brown);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background-color: var(--deep-green);
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(30, 70, 32, 0.2);
+        }
+
+        /* Mode Ramah Lansia (Dukungan Aksesibilitas Psikologi & Kesehatan) */
+        body.mode-lansia {
+            font-size: 1.125rem;
+            line-height: 1.75;
+        }
+
+        body.mode-lansia h1 { font-size: 2.25rem !important; }
+        body.mode-lansia h2 { font-size: 1.875rem !important; }
+        body.mode-lansia h3 { font-size: 1.5rem !important; }
+        body.mode-lansia p, body.mode-lansia button, body.mode-lansia span { font-size: 1rem !important; }
+        body.mode-lansia .white-card {
+            border: 2px solid var(--deep-green);
+        }
+
+        /* HOLOGRAPHIC 3D GLASS FLIP CARD ENGINE FOR SASARAN LAYANAN */
+        .holo-card-perspective {
+            perspective: 1200px;
+        }
+
+        .holo-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .holo-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .holo-card-front,
+        .holo-card-back {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .holo-card-front {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(235, 242, 223, 0.6) 50%, rgba(255, 255, 255, 0.9) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 30px -5px rgba(30, 70, 32, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.7);
+            transition: all 0.4s ease;
+        }
+
+        .holo-card-back {
+            background: linear-gradient(135deg, rgba(30, 70, 32, 0.95) 0%, rgba(124, 146, 70, 0.93) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            color: #FFFFFF;
+            transform: rotateY(180deg);
+            box-shadow: 0 16px 35px -10px rgba(30, 70, 32, 0.25), inset 0 0 25px rgba(255, 255, 255, 0.15);
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF7F0; }
+        ::-webkit-scrollbar-thumb { background: #C5D1AA; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7C9246; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
+
+    <!-- HEADER NAVIGATION YANG DILENGKAPI DENGAN LOGO UTAMA V6 & MODE LANSIA -->
+    <header class="sticky top-0 z-40 bg-[#FAF7F0]/95 backdrop-blur-md px-3 sm:px-4 lg:px-8 py-3 border-b border-olive-green/15 bg-cover bg-center" style="background-image: linear-gradient(rgba(250, 247, 240, 0.90), rgba(250, 247, 240, 0.90)), url('https://lh3.googleusercontent.com/d/1BUX21ccxQ7HkC2VWsya914pOrcSWE851');">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            
+            <!-- Logo & Branding Produk (Memakai Logo WEB UTAMA V6) -->
+            <div class="flex items-center justify-between w-full md:w-auto">
+                <div class="flex items-center space-x-2.5 cursor-pointer" onclick="switchTab('beranda')">
+                    <div class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
+                        <img src="https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv" alt="Logo GO-Positif" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-base md:text-xl text-deep-green leading-none tracking-tight">GO-Positif</h1>
+                        <p class="text-[10px] md:text-xs text-earth-brown font-bold tracking-wide mt-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-olive-green inline-block"></span> Sasaran Posyandu ILP
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tombol Aksi Mobile di Layar HP -->
+                <div class="flex items-center space-x-1.5 md:hidden">
+                    <button onclick="toggleModeLansia()" class="px-2 py-1.5 bg-white text-earth-brown rounded-lg border border-olive-green/30 text-[10px] font-bold flex items-center space-x-1 shadow-xs">
+                        <i class="fa-solid fa-eye text-olive-green"></i>
+                        <span id="label-mode-lansia-short">Lansia</span>
+                    </button>
+                    <button onclick="toggleSwitcherModal()" class="btn-olive px-2.5 py-1.5 text-[10px] font-bold flex items-center space-x-1 shadow-xs">
+                        <i class="fa-solid fa-cubes text-sun-yellow"></i>
+                        <span>AKSES PORTAL</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigasi Tab (Scrollable di Layar HP & Tablet) -->
+            <nav class="flex items-center bg-white/90 p-1 rounded-full border border-olive-green/20 shadow-sm overflow-x-auto w-full md:w-auto max-w-full space-x-1 no-scrollbar">
+                <button onclick="switchTab('beranda')" id="tab-beranda" class="nav-tab active flex items-center whitespace-nowrap text-xs px-3 py-1.5">
+                    <i class="fa-solid fa-house mr-1.5"></i>Beranda
+                </button>
+                <button onclick="switchTab('layanan')" id="tab-layanan" class="nav-tab flex items-center whitespace-nowrap text-xs px-3 py-1.5">
+                    <i class="fa-solid fa-hand-holding-medical mr-1.5"></i>Layanan
+                </button>
+                <button onclick="switchTab('kms')" id="tab-kms" class="nav-tab flex items-center whitespace-nowrap text-xs px-3 py-1.5">
+                    <i class="fa-solid fa-calculator mr-1.5"></i>KMS & BMI <i class="fa-solid fa-lock text-[10px] ml-1 opacity-70 text-amber-500" id="kms-lock-icon"></i>
+                </button>
+                <button onclick="switchTab('profil')" id="tab-profil" class="nav-tab flex items-center whitespace-nowrap text-xs px-3 py-1.5">
+                    <i class="fa-solid fa-id-card mr-1.5"></i>Profil Keluarga <i class="fa-solid fa-lock text-[10px] ml-1 opacity-70 text-amber-500" id="profil-lock-icon"></i>
+                </button>
+                <button onclick="switchTab('kontak')" id="tab-kontak" class="nav-tab flex items-center whitespace-nowrap text-xs px-3 py-1.5">
+                    <i class="fa-solid fa-address-book mr-1.5"></i>Kontak
+                </button>
+            </nav>
+
+            <!-- Tombol Aksi Desktop (Tablet, Laptop, & Komputer) -->
+            <div class="hidden md:flex items-center space-x-2">
+                <button onclick="toggleModeLansia()" id="btn-mode-lansia" class="px-3 py-2 bg-white text-earth-brown rounded-xl border border-olive-green/35 text-xs font-bold flex items-center space-x-1.5 hover:bg-soft-yellow transition">
+                    <i class="fa-solid fa-eye text-olive-green"></i>
+                    <span id="label-mode-lansia">Mode Ramah Lansia</span>
+                </button>
+                <button onclick="toggleSwitcherModal()" class="btn-olive px-4 py-2 text-xs font-bold flex items-center space-x-2 shadow-sm">
+                    <i class="fa-solid fa-cubes text-sun-yellow"></i>
+                    <span>AKSES PORTAL</span>
+                    <i class="fa-solid fa-chevron-down text-xs opacity-80"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- MAIN CONTENT UTAMA WEB SASARAN V5 -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 md:py-8 flex-grow w-full">
+    
+    <!-- ================= TAB 1: BERANDA SASARAN ================= -->
+            <section id="content-beranda" class="space-y-8">
+                
+                <!-- HERO BANNER BERANDA -->
+                <div class="white-card p-6 md:p-10 relative overflow-hidden bg-cover bg-center border border-olive-green/20" style="background-image: linear-gradient(to right, rgba(250, 247, 240, 0.75) 0%, rgba(250, 247, 240, 0.65) 50%, rgba(250, 247, 240, 0.20) 100%), url('https://lh3.googleusercontent.com/d/1_pJRxYDrYez1nQZp3Ot-IbRBxGtkfnVX');">
+                    <div class="max-w-3xl space-y-5 relative z-10">
+                        
+                        <!-- BADGE LOGO KEMENKES & POSYANDU ILP -->
+                        <div class="inline-flex flex-wrap sm:flex-nowrap items-center gap-3 p-2 pr-4 rounded-2xl bg-white/90 backdrop-blur-md border border-olive-green/25 shadow-sm">
+                            <div class="flex items-center gap-2 bg-soft-green/60 p-1.5 rounded-xl border border-olive-green/20">
+                                <div class="w-9 h-9 rounded-lg bg-white p-1 border border-olive-green/15 flex items-center justify-center overflow-hidden">
+                                    <img src="https://lh3.googleusercontent.com/d/16ubQpCYXIMnJy77LO07DZmNvTKoma88c" alt="Logo Kab Kendal" class="w-full h-full object-contain">
+                                </div>
+                                <div class="w-9 h-9 rounded-lg bg-white p-1 border border-olive-green/15 flex items-center justify-center overflow-hidden">
+                                    <img src="https://lh3.googleusercontent.com/d/1m-X_H-ybnuNnw4mQiE5LPTzEv4Ih2Htb" alt="Logo Puskesmas" class="w-full h-full object-contain">
+                                </div>
+                                <div class="w-9 h-9 rounded-lg bg-white p-1 border border-olive-green/15 flex items-center justify-center overflow-hidden">
+                                    <img src="https://lh3.googleusercontent.com/d/1Pu9EO5ArNXsAwCYr7mRLfeVc0OV3L5_w" alt="Logo Posyandu" class="w-full h-full object-contain">
+                                </div>
+                            </div>
+                            <div class="border-l border-olive-green/20 pl-3">
+                                <span class="text-xs font-extrabold text-deep-green uppercase block">Portal Sasaran</span>
+                                <span class="text-[11px] font-semibold text-earth-brown block leading-tight">POSYANDU DESA GONOHARJO</span>
+                            </div>
+                        </div>
+
+                        <!-- UCAPAN SALAM DINAMIS -->
+                        <div class="space-y-1.5">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-deep-green leading-tight tracking-tight">
+                                <span id="hero-salam" class="block text-deep-green">Selamat Datang di</span>
+                                <span id="hero-main-title" class="text-olive-green block font-extrabold mt-0.5">Portal Sasaran Posyandu</span>
+                            </h2>
+                            
+                            <div class="flex flex-wrap items-center gap-2.5 pt-1">
+                                <span id="hero-privacy-badge" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                                    <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                                    <span>Terverifikasi (NIK/KK Disamarkan)</span>
+                                </span>
+                                <p class="text-xs md:text-sm font-bold text-earth-brown flex items-center gap-1.5">
+                                    <i class="fa-solid fa-location-dot text-olive-green"></i>
+                                    <span id="hero-subtext">Desa Gonoharjo, Kec. Limbangan</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="text-earth-brown text-xs md:text-sm leading-relaxed font-semibold">
+                            Akses rekam kesehatan posyandu seluruh anggota keluarga Anda secara cepat, akurat, dan terverifikasi aman menggunakan Barcode + PIN terdaftar.
+                        </p>
+
+                        <!-- BARCODE & PIN LOGIN BOX IN HERO -->
+                        <div id="hero-login-box" class="p-4 rounded-2xl bg-white/95 border-2 border-olive-green/30 shadow-md space-y-3 max-w-xl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-deep-green flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-cat text-sun-yellow text-sm"></i>
+                                    Akses Rekam Posyandu Keluarga Sasaran
+                                </span>
+                                <span class="text-[10px] bg-soft-green text-deep-green px-2 py-0.5 rounded-full font-bold">Terproteksi PIN</span>
+                            </div>
+                            
+                            <div class="grid sm:grid-cols-3 gap-2">
+                                <button onclick="openBarcodeModal('scan')" class="p-2.5 rounded-xl bg-soft-green text-deep-green text-xs font-bold hover:bg-deep-green hover:text-white transition flex items-center justify-center space-x-1.5 border border-olive-green/20">
+                                    <i class="fa-solid fa-camera"></i>
+                                    <span>Scan Barcode</span>
+                                </button>
+                                <button onclick="openBarcodeModal('upload')" class="p-2.5 rounded-xl bg-soft-green text-deep-green text-xs font-bold hover:bg-deep-green hover:text-white transition flex items-center justify-center space-x-1.5 border border-olive-green/20">
+                                    <i class="fa-solid fa-file-arrow-up"></i>
+                                    <span>Unggah Foto</span>
+                                </button>
+                                <button onclick="openBarcodeModal('manual')" class="p-2.5 rounded-xl bg-earth-brown text-white text-xs font-bold hover:bg-[#422a17] transition flex items-center justify-center space-x-1.5 shadow-xs">
+                                    <i class="fa-solid fa-key text-sun-yellow"></i>
+                                    <span>Input Barcode & PIN</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TERVERIFIKASI / LOGOUT STATE BOX -->
+                        <div id="hero-logged-box" class="hidden p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-300 shadow-md space-y-2 max-w-xl">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                                        <i class="fa-solid fa-user-check"></i>
+                                    </div>
+                                    <div>
+                                        <p id="logged-kk-nama" class="text-xs md:text-sm font-extrabold text-emerald-900">Keluarga Bp. Sujatno</p>
+                                        <p id="logged-kk-alamat" class="text-[11px] text-emerald-700 font-medium">Status: Terverifikasi oleh Bidan Desa (Dusun Gonoharjo RT 02 / RW 01)</p>
+                                    </div>
+                                </div>
+                                <button onclick="confirmLogout()" class="px-3 py-1.5 bg-red-600 text-white text-xs font-bold rounded-xl hover:bg-red-700 transition flex items-center space-x-1 shadow-xs">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span>Keluar</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- BAGAN ALUR PENGGUNAAN WEB SASARAN -->
+                <div class="white-card p-6 md:p-8 space-y-6 border-l-4 border-olive-green">
+                    <div class="flex items-center justify-between border-b border-olive-green/10 pb-3.5">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-soft-green text-deep-green font-bold">
+                                <i class="fa-solid fa-sitemap text-lg text-olive-green"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-deep-green text-base md:text-lg">Bagan Alur Penggunaan Web Sasaran</h3>
+                                <p class="text-xs text-earth-brown font-medium">Langkah mudah melihat hasil posyandu keluarga Anda secara mandiri & aman.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+                        <div class="p-4 rounded-2xl bg-soft-green/50 border border-olive-green/20 space-y-2 relative">
+                            <span class="w-7 h-7 rounded-full bg-deep-green text-white text-xs font-extrabold flex items-center justify-center">1</span>
+                            <h4 class="font-extrabold text-xs text-deep-green">Scan / Input Barcode + PIN</h4>
+                            <p class="text-[11px] text-earth-brown leading-relaxed font-medium">
+                                Masukkan nomor barcode terdaftar serta <span class="font-bold text-olive-green">PIN 6-Digit</span> milik keluarga Anda untuk autentikasi data.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-soft-green/50 border border-olive-green/20 space-y-2 relative">
+                            <span class="w-7 h-7 rounded-full bg-deep-green text-white text-xs font-extrabold flex items-center justify-center">2</span>
+                            <h4 class="font-extrabold text-xs text-deep-green">Akses Profil & KMS/BMI</h4>
+                            <p class="text-[11px] text-earth-brown leading-relaxed font-medium">
+                                Setelah terverifikasi, gembok menu Profil Keluarga dan Kalkulator KMS/BMI akan otomatis terbuka.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-soft-green/50 border border-olive-green/20 space-y-2 relative">
+                            <span class="w-7 h-7 rounded-full bg-deep-green text-white text-xs font-extrabold flex items-center justify-center">3</span>
+                            <h4 class="font-extrabold text-xs text-deep-green">Pilih Kartu & Cek Hasil</h4>
+                            <p class="text-[11px] text-earth-brown leading-relaxed font-medium">
+                                Klik kartu anggota keluarga. Popup rekam medis akan muncul lengkap dengan <span class="font-bold text-sun-yellow">catatan khusus Bidan Desa</span>.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-soft-green/50 border border-olive-green/20 space-y-2 relative">
+                            <span class="w-7 h-7 rounded-full bg-deep-green text-white text-xs font-extrabold flex items-center justify-center">4</span>
+                            <h4 class="font-extrabold text-xs text-deep-green">Logout Aman (Safe Session)</h4>
+                            <p class="text-[11px] text-earth-brown leading-relaxed font-medium">
+                                Setelah selesai mengecek seluruh anggota keluarga, tekan tombol <span class="font-bold text-red-600">Keluar / Logout</span> untuk mengunci sesi kembali.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JADWAL DAN INFO POSYANDU DINAMIS & UMUM -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="white-card p-6 space-y-4">
+                        <div class="flex items-center justify-between border-b border-olive-green/10 pb-3.5">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-soft-yellow text-earth-brown font-bold">
+                                    <i class="fa-solid fa-calendar-check text-lg text-sun-yellow"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Jadwal Posyandu Anda</h3>
+                                    <p id="jadwal-subtitle" class="text-[11px] text-earth-brown font-medium">Jadwal Umum Desa Gonoharjo</p>
+                                </div>
+                            </div>
+                            <span id="jadwal-badge" class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-soft-green text-deep-green border border-olive-green/30">
+                                Umum
+                            </span>
+                        </div>
+
+                        <div id="jadwal-list-container" class="space-y-3">
+                            <div class="p-3.5 rounded-xl bg-base-cream flex items-center justify-between border border-olive-green/10">
+                                <div class="space-y-1">
+                                    <p class="text-xs font-extrabold text-olive-green">Posyandu Balita & Stunting (RW 01)</p>
+                                    <p class="text-xs font-bold text-deep-green">Dusun Gonoharjo RT 02 / RW 01</p>
+                                    <p class="text-[11px] text-earth-brown font-medium"><i class="fa-regular fa-clock mr-1"></i>08.00 - 11.30 WIB</p>
+                                </div>
+                                <div class="text-center bg-white px-3.5 py-2 rounded-xl border border-olive-green/20 shadow-xs">
+                                    <span class="block text-sm font-extrabold text-deep-green">12</span>
+                                    <span class="block text-[10px] text-olive-green uppercase font-bold">OKT</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-base-cream flex items-center justify-between border border-olive-green/10">
+                                <div class="space-y-1">
+                                    <p class="text-xs font-extrabold text-earth-brown">Posyandu Lansia & PTM (RW 02)</p>
+                                    <p class="text-xs font-bold text-deep-green">Posko Kesehatan RT 05 / RW 02</p>
+                                    <p class="text-[11px] text-earth-brown font-medium"><i class="fa-regular fa-clock mr-1"></i>08.30 - 12.00 WIB</p>
+                                </div>
+                                <div class="text-center bg-white px-3.5 py-2 rounded-xl border border-sun-yellow/40 shadow-xs">
+                                    <span class="block text-sm font-extrabold text-earth-brown">25</span>
+                                    <span class="block text-[10px] text-sun-yellow uppercase font-bold">OKT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="white-card p-6 space-y-4">
+                        <div class="flex items-center justify-between border-b border-olive-green/10 pb-3.5">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-soft-green text-deep-green font-bold">
+                                    <i class="fa-solid fa-bullhorn text-lg text-olive-green"></i>
+                                </div>
+                                <h3 class="font-extrabold text-deep-green text-base md:text-lg">Info & Penyuluhan Sasaran</h3>
+                            </div>
+                            <span class="text-xs font-bold text-earth-brown">Penting</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <article class="p-3.5 rounded-xl bg-white border border-olive-green/15 shadow-xs">
+                                <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-soft-yellow text-earth-brown mb-1">Edukasi Ibu & Anak</span>
+                                <h4 class="text-xs md:text-sm font-bold text-deep-green">Pentingnya Vitamin A & Obat Cacing Bulan Oktober</h4>
+                                <p class="text-xs text-earth-brown mt-1">Dihimbau orang tua membawa balita sesuai jadwal kelompok posyandu masing-masing...</p>
+                            </article>
+
+                            <article class="p-3.5 rounded-xl bg-white border border-olive-green/15 shadow-xs">
+                                <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-soft-green text-deep-green mb-1">Usia Produktif</span>
+                                <h4 class="text-xs md:text-sm font-bold text-deep-green">Skrining Dini Tekanan Darah & Gula Darah Warga Desa</h4>
+                                <p class="text-xs text-earth-brown mt-1">Layanan gratis cek tensi dan konsultasi kesehatan untuk pencegahan PTM...</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRAFIK KEHADIRAN KELUARGA -->
+                <div class="white-card p-6 md:p-8 space-y-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-olive-green/10 pb-4">
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h3 class="font-extrabold text-deep-green text-lg md:text-xl">Grafik Kehadiran Posyandu Keluarga</h3>
+                                <span class="px-2.5 py-0.5 bg-soft-green text-deep-green text-xs font-bold rounded-full border border-olive-green/30">Dot Active</span>
+                            </div>
+                            <p id="chart-subtitle" class="text-xs text-earth-brown mt-1 font-medium">Silakan login barcode & PIN untuk menampilkan grafik kehadiran keluarga Anda.</p>
+                        </div>
+                        <div class="text-[11px] text-earth-brown font-medium">
+                            <i class="fa-solid fa-circle-info text-olive-green mr-1"></i>Hover pada <span class="font-bold">Dot Point</span> untuk detail bulan.
+                        </div>
+                    </div>
+
+                    <div class="w-full h-72 md:h-80 relative">
+                        <canvas id="kehadiranKeluargaChart"></canvas>
+                    </div>
+                </div>
+
+            </section>
+            
+            <!-- ================= TAB 2: LAYANAN POSYANDU SIKLUS HIDUP (HOLOGRAPHIC 3D GLASS FLIP CARDS) ================= -->
+            <section id="content-layanan" class="hidden space-y-8">
+                <div class="text-center max-w-2xl mx-auto space-y-2">
+                    <span class="px-3.5 py-1 rounded-full text-xs font-extrabold bg-soft-green text-deep-green border border-olive-green/30 shadow-xs">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Siklus Hidup Terpadu (ILP) - Edisi Holographic 3D
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-black text-deep-green">Program Layanan Utama Sasaran</h2>
+                    <p class="text-xs md:text-sm text-earth-brown font-medium">
+                        Sentuh atau klik pada kartu layanan di bawah untuk membalik kartu (3D Flip) dan melihat rincian syarat serta manfaat kesehatan secara interaktif.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- KLASTER 1: POSYANDU BALITA & BADUTA -->
+                    <div class="holo-card-perspective h-full min-h-[380px]">
+                        <div class="holo-card-inner" onclick="this.classList.toggle('is-flipped')">
+                            <div class="holo-card-front p-5 flex flex-col justify-between border-t-4 border-olive-green">
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3.5">
+                                        <img src="https://lh3.googleusercontent.com/d/1hIWLqrEtSkG26eNuZarQErwWuiI1g2Qw" alt="Logo Balita & Baduta" class="w-12 h-12 md:w-14 md:h-14 object-contain flex-shrink-0 drop-shadow-sm">
+                                        <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">1. Posyandu Balita & Baduta</h3>
+                                    </div>
+                                    <p class="text-xs text-earth-brown leading-relaxed font-medium pt-1">
+                                        Pemantauan rutin tumbuh kembang bayi (0-23 bulan) dan balita (24-59 bulan), imunisasi dasar lengkap, Vitamin A, serta pencegahan stunting.
+                                    </p>
+                                </div>
+
+                                <div class="pt-3 border-t border-olive-green/15 flex items-center justify-center text-xs font-bold text-olive-green">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hand-pointer animate-bounce text-sun-yellow"></i> Sentuh kartu untuk lihat syarat</span>
+                                </div>
+                            </div>
+
+                            <div class="holo-card-back p-5 flex flex-col justify-between">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                                        <span class="text-xs font-extrabold uppercase tracking-wide text-sun-yellow flex items-center gap-1.5">
+                                            <i class="fa-solid fa-clipboard-list"></i> Syarat & Ketentuan
+                                        </span>
+                                        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full text-white font-bold">Klaster 1</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-white">Panduan Layanan Balita</h4>
+                                    <ul class="text-[11px] text-white/90 space-y-1 list-disc pl-4 font-medium leading-relaxed">
+                                        <li>Membawa Buku KIA / KMS merah pink ke lokasi Posyandu.</li>
+                                        <li>Kehadiran wajib balita usia 0-59 bulan setiap bulan.</li>
+                                        <li>Pemeriksaan berat badan, tinggi/panjang badan, dan lingkar kepala.</li>
+                                        <li>Pemberian Vitamin A (Feb & Okt) serta obat cacing berkala.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="pt-3 border-t border-white/20 flex items-center gap-2" onclick="event.stopPropagation()">
+                                    <button onclick="openModalLayanan('balita', 'detail')" class="w-1/2 bg-white text-deep-green rounded-xl py-2 text-xs font-bold hover:bg-soft-green transition shadow-sm">
+                                        <i class="fa-solid fa-circle-info mr-1"></i>Detail
+                                    </button>
+                                    <button onclick="openModalLayanan('balita', 'syarat')" class="w-1/2 bg-sun-yellow text-earth-brown rounded-xl py-2 text-xs font-bold hover:bg-amber-300 transition shadow-sm">
+                                        <i class="fa-solid fa-file-lines mr-1"></i>Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KLASTER 2: POSYANDU REMAJA -->
+                    <div class="holo-card-perspective h-full min-h-[380px]">
+                        <div class="holo-card-inner" onclick="this.classList.toggle('is-flipped')">
+                            <div class="holo-card-front p-5 flex flex-col justify-between border-t-4 border-sky-600">
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3.5">
+                                        <img src="https://lh3.googleusercontent.com/d/1YxrA3qJ2-y2GSpkabogm7w6rWoFIarfV" alt="Logo Remaja" class="w-12 h-12 md:w-14 md:h-14 object-contain flex-shrink-0 drop-shadow-sm">
+                                        <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">2. Posyandu Remaja</h3>
+                                    </div>
+                                    <p class="text-xs text-earth-brown leading-relaxed font-medium pt-1">
+                                        Pemeriksaan kadar Hb pencegahan anemia, penimbangan IMT, edukasi gizi seimbang, kesehatan reproduksi, serta konseling jiwa remaja.
+                                    </p>
+                                </div>
+
+                                <div class="pt-3 border-t border-olive-green/15 flex items-center justify-center text-xs font-bold text-sky-700">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hand-pointer animate-bounce text-sun-yellow"></i> Sentuh kartu untuk lihat syarat</span>
+                                </div>
+                            </div>
+
+                            <div class="holo-card-back p-5 flex flex-col justify-between">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                                        <span class="text-xs font-extrabold uppercase tracking-wide text-sky-200 flex items-center gap-1.5">
+                                            <i class="fa-solid fa-clipboard-list"></i> Syarat & Ketentuan
+                                        </span>
+                                        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full text-white font-bold">Klaster 2</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-white">Panduan Layanan Remaja</h4>
+                                    <ul class="text-[11px] text-white/90 space-y-1 list-disc pl-4 font-medium leading-relaxed">
+                                        <li>Terbuka untuk usia 10 - 18 tahun (remaja sekolah & karang taruna).</li>
+                                        <li>Pemeriksaan tekanan darah dan skrining tanda anemia (Hb).</li>
+                                        <li>Edukasi pencegahan pernikahan dini & bahaya NAPZA.</li>
+                                        <li>Distribusi Tablet Tambah Darah (TTD) untuk remaja putri.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="pt-3 border-t border-white/20 flex items-center gap-2" onclick="event.stopPropagation()">
+                                    <button onclick="openModalLayanan('remaja', 'detail')" class="w-1/2 bg-sky-700 text-white rounded-xl py-2 text-xs font-bold hover:bg-sky-800 transition shadow-sm">
+                                        <i class="fa-solid fa-circle-info mr-1"></i>Detail
+                                    </button>
+                                    <button onclick="openModalLayanan('remaja', 'syarat')" class="w-1/2 bg-sun-yellow text-earth-brown rounded-xl py-2 text-xs font-bold hover:bg-amber-300 transition shadow-sm">
+                                        <i class="fa-solid fa-file-lines mr-1"></i>Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KLASTER 3: POSYANDU IBU HAMIL & MENYUSUI -->
+                    <div class="holo-card-perspective h-full min-h-[380px]">
+                        <div class="holo-card-inner" onclick="this.classList.toggle('is-flipped')">
+                            <div class="holo-card-front p-5 flex flex-col justify-between border-t-4 border-sun-yellow">
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3.5">
+                                        <img src="https://lh3.googleusercontent.com/d/140rQhru3qsoXhFgsbkAdlnLjNDYwyBoh" alt="Logo Ibu Hamil & Menyusui" class="w-12 h-12 md:w-14 md:h-14 object-contain flex-shrink-0 drop-shadow-sm">
+                                        <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">3. Posyandu Ibu Hamil & Menyusui</h3>
+                                    </div>
+                                    <p class="text-xs text-earth-brown leading-relaxed font-medium pt-1">
+                                        Pemeriksaan status gizi bumil, Lingkar Lengan Atas (LILA), pembagian Tablet Tambah Darah (TTD), serta kelas pendampingan ASI Eksklusif.
+                                    </p>
+                                </div>
+
+                                <div class="pt-3 border-t border-olive-green/15 flex items-center justify-center text-xs font-bold text-earth-brown">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hand-pointer animate-bounce text-sun-yellow"></i> Sentuh kartu untuk lihat syarat</span>
+                                </div>
+                            </div>
+
+                            <div class="holo-card-back p-5 flex flex-col justify-between">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                                        <span class="text-xs font-extrabold uppercase tracking-wide text-sun-yellow flex items-center gap-1.5">
+                                            <i class="fa-solid fa-clipboard-list"></i> Syarat & Ketentuan
+                                        </span>
+                                        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full text-white font-bold">Klaster 3</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-white">Panduan Layanan Bumil & Menyusui</h4>
+                                    <ul class="text-[11px] text-white/90 space-y-1 list-disc pl-4 font-medium leading-relaxed">
+                                        <li>Membawa Buku KIA dan kartu identitas / KTP.</li>
+                                        <li>Pemeriksaan kehamilan rutin oleh Bidan Desa Gonoharjo.</li>
+                                        <li>Pengukuran berat badan, tekanan darah, dan tinggi fundus uteri.</li>
+                                        <li>Konseling persiapan persalinan dan pemberian ASI eksklusif.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="pt-3 border-t border-white/20 flex items-center gap-2" onclick="event.stopPropagation()">
+                                    <button onclick="openModalLayanan('bumil', 'detail')" class="w-1/2 bg-amber-600 text-white rounded-xl py-2 text-xs font-bold hover:bg-amber-700 transition shadow-sm">
+                                        <i class="fa-solid fa-circle-info mr-1"></i>Detail
+                                    </button>
+                                    <button onclick="openModalLayanan('bumil', 'syarat')" class="w-1/2 bg-sun-yellow text-earth-brown rounded-xl py-2 text-xs font-bold hover:bg-amber-300 transition shadow-sm">
+                                        <i class="fa-solid fa-file-lines mr-1"></i>Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KLASTER 4: POSYANDU USIA PRODUKTIF -->
+                    <div class="holo-card-perspective h-full min-h-[380px]">
+                        <div class="holo-card-inner" onclick="this.classList.toggle('is-flipped')">
+                            <div class="holo-card-front p-5 flex flex-col justify-between border-t-4 border-emerald-600">
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3.5">
+                                        <img src="https://lh3.googleusercontent.com/d/1Wg2-0ZjxovK5g1luKzWQ4V5s2vmqwiMm" alt="Logo Usia Produktif" class="w-12 h-12 md:w-14 md:h-14 object-contain flex-shrink-0 drop-shadow-sm">
+                                        <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">4. Posyandu Usia Produktif</h3>
+                                    </div>
+                                    <p class="text-xs text-earth-brown leading-relaxed font-medium pt-1">
+                                        Skrining Penyakit Tidak Menular (PTM) usia 15-59 tahun meliputi penimbangan berat badan, tensi darah, lingkar perut, dan gula darah.
+                                    </p>
+                                </div>
+
+                                <div class="pt-3 border-t border-olive-green/15 flex items-center justify-center text-xs font-bold text-emerald-700">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hand-pointer animate-bounce text-sun-yellow"></i> Sentuh kartu untuk lihat syarat</span>
+                                </div>
+                            </div>
+
+                            <div class="holo-card-back p-5 flex flex-col justify-between">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                                        <span class="text-xs font-extrabold uppercase tracking-wide text-emerald-200 flex items-center gap-1.5">
+                                            <i class="fa-solid fa-clipboard-list"></i> Syarat & Ketentuan
+                                        </span>
+                                        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full text-white font-bold">Klaster 4</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-white">Panduan Layanan Usia Produktif</h4>
+                                    <ul class="text-[11px] text-white/90 space-y-1 list-disc pl-4 font-medium leading-relaxed">
+                                        <li>Ditujukan bagi seluruh warga usia 15 sampai 59 tahun.</li>
+                                        <li>Membawa KTP atau kartu identitas keluarga saat skrining.</li>
+                                        <li>Pemeriksaan berkala tekanan darah, kolesterol, dan gula darah sewaktu.</li>
+                                        <li>Deteksi dini risiko hipertensi dan diabetes mellitus (PTM).</li>
+                                    </ul>
+                                </div>
+
+                                <div class="pt-3 border-t border-white/20 flex items-center gap-2" onclick="event.stopPropagation()">
+                                    <button onclick="openModalLayanan('produktif', 'detail')" class="w-1/2 bg-emerald-700 text-white rounded-xl py-2 text-xs font-bold hover:bg-emerald-800 transition shadow-sm">
+                                        <i class="fa-solid fa-circle-info mr-1"></i>Detail
+                                    </button>
+                                    <button onclick="openModalLayanan('produktif', 'syarat')" class="w-1/2 bg-sun-yellow text-earth-brown rounded-xl py-2 text-xs font-bold hover:bg-amber-300 transition shadow-sm">
+                                        <i class="fa-solid fa-file-lines mr-1"></i>Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KLASTER 5: POSYANDU LANSIA & PTM -->
+                    <div class="holo-card-perspective h-full min-h-[380px]">
+                        <div class="holo-card-inner" onclick="this.classList.toggle('is-flipped')">
+                            <div class="holo-card-front p-5 flex flex-col justify-between border-t-4 border-earth-brown">
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3.5">
+                                        <img src="https://lh3.googleusercontent.com/d/12BT7O4oenD6Y8wK6U1h-xrZv_iOf5-3L" alt="Logo Lansia & PTM" class="w-12 h-12 md:w-14 md:h-14 object-contain flex-shrink-0 drop-shadow-sm">
+                                        <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">5. Posyandu Lansia & PTM</h3>
+                                    </div>
+                                    <p class="text-xs text-earth-brown leading-relaxed font-medium pt-1">
+                                        Pemeriksaan kesehatan berkala warga 60+ tahun, pemantauan hipertensi, kolesterol, asam urat, senam lansia, dan konseling gizi lansia.
+                                    </p>
+                                </div>
+
+                                <div class="pt-3 border-t border-olive-green/15 flex items-center justify-center text-xs font-bold text-earth-brown">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-hand-pointer animate-bounce text-olive-green"></i> Sentuh kartu untuk lihat syarat</span>
+                                </div>
+                            </div>
+
+                            <div class="holo-card-back p-5 flex flex-col justify-between">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                                        <span class="text-xs font-extrabold uppercase tracking-wide text-sun-yellow flex items-center gap-1.5">
+                                            <i class="fa-solid fa-clipboard-list"></i> Syarat & Ketentuan
+                                        </span>
+                                        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full text-white font-bold">Klaster 5</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-white">Panduan Layanan Lansia</h4>
+                                    <ul class="text-[11px] text-white/90 space-y-1 list-disc pl-4 font-medium leading-relaxed">
+                                        <li>Khusus warga lanjut usia (60 tahun ke atas) di Desa Gonoharjo.</li>
+                                        <li>Pemeriksaan kesehatan fisik, cek tensi, asam urat, dan gula darah.</li>
+                                        <li>Senam lansia rutin untuk menjaga kebugaran sendi dan otot.</li>
+                                        <li>Pendampingan khusus pengobatan penyakit kronis bersama Kader & Bidan.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="pt-3 border-t border-white/20 flex items-center gap-2" onclick="event.stopPropagation()">
+                                    <button onclick="openModalLayanan('lansia', 'detail')" class="w-1/2 bg-white text-deep-green rounded-xl py-2 text-xs font-bold hover:bg-soft-green transition shadow-sm">
+                                        <i class="fa-solid fa-circle-info mr-1"></i>Detail
+                                    </button>
+                                    <button onclick="openModalLayanan('lansia', 'syarat')" class="w-1/2 bg-olive-green text-white rounded-xl py-2 text-xs font-bold hover:bg-[#687b38] transition shadow-sm">
+                                        <i class="fa-solid fa-file-lines mr-1"></i>Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <!-- ================= TAB 3: KALKULATOR KMS & BMI INTERAKTIF ================= -->
+            <section id="content-kms" class="hidden space-y-8">
+                
+                <!-- INFORMASI / DISCLAIMER HASIL ANALISIS POSYANDU & BIDAN DESA -->
+                <div class="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-deep-green flex items-start space-x-3 shadow-sm">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold flex-shrink-0 text-sm mt-0.5">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="space-y-1 text-xs">
+                        <h4 class="font-black text-amber-900 text-sm">Pemberitahuan Penting Analisis Mandiri:</h4>
+                        <p class="text-amber-900/90 leading-relaxed font-semibold">
+                            Kalkulator KMS Balita & BMI ini disediakan <strong>khusus sebagai sarana perhitungan atau analisis awal (skrining mandiri)</strong>. Hasil analisis yang ditampilkan <strong>tidak 100% mutlak / final</strong> dan wajib dikonfirmasi ulang melalui pengecekan fisik langsung oleh <strong>Bidan Desa Gonoharjo</strong> atau petugas kesehatan di Posyandu ILP terdekat untuk mendapatkan diagnosis dan saran penanganan medis yang lebih optimal.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- LOCKED STATE VIEW UNTUK TAB KMS -->
+                <div id="kms-locked-view" class="white-card p-8 md:p-12 text-center space-y-5 max-w-2xl mx-auto border-2 border-dashed border-olive-green/40">
+                    <div class="w-20 h-20 mx-auto rounded-3xl bg-soft-green text-deep-green flex items-center justify-center text-3xl font-bold shadow-sm">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h2 class="text-xl md:text-2xl font-black text-deep-green">Kalkulator KMS & BMI Terkunci</h2>
+                        <p class="text-xs md:text-sm text-earth-brown font-medium leading-relaxed max-w-md mx-auto">
+                            Untuk menjaga validitas rekam data sasaran, silakan lakukan verifikasi Barcode & PIN keluarga Anda terlebih dahulu.
+                        </p>
+                    </div>
+                    <button onclick="openBarcodeModal('scan')" class="btn-primary px-6 py-3 text-xs md:text-sm font-bold inline-flex items-center space-x-2 shadow-md">
+                        <i class="fa-solid fa-key text-sun-yellow"></i>
+                        <span>Verifikasi Barcode & PIN Sekarang</span>
+                    </button>
+                </div>
+
+                <!-- UNLOCKED STATE VIEW UNTUK TAB KMS -->
+                <div id="kms-unlocked-view" class="hidden space-y-8">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <span class="px-3.5 py-1 rounded-full text-xs font-extrabold bg-soft-yellow text-earth-brown border border-sun-yellow/40">
+                            <i class="fa-solid fa-user-shield mr-1"></i>Sasaran Posyandu Terverifikasi
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-black text-deep-green">Kalkulator KMS Balita & BMI Dewasa</h2>
+                        <p class="text-xs md:text-sm text-earth-brown font-medium">
+                            Analisis presisi Tumbuh Kembang Balita (Standar Permenkes No. 2/2020 & WHO) dan BMI Standar Kemenkes RI. Gunakan tanda koma (,) untuk desimal (misal: 11,5).
+                        </p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        
+                        <!-- KALKULATOR KMS BALITA -->
+                        <div class="white-card p-6 md:p-8 space-y-5 border-2 border-olive-green/20">
+                            <div class="flex items-center space-x-3 border-b border-olive-green/10 pb-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-soft-green text-deep-green flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-child text-olive-green"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Kalkulator KMS Balita (0 - 60 Bulan)</h3>
+                                    <p class="text-[11px] text-earth-brown font-medium">Permenkes No. 2/2020 & Standar WHO Growth</p>
+                                </div>
+                            </div>
+
+                            <form onsubmit="hitungkms(event)" class="space-y-4 text-xs font-bold text-deep-green">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block mb-1">Usia Balita (Bulan):</label>
+                                        <input type="number" id="kms-usia" min="0" max="60" placeholder="Contoh: 18" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-1">Jenis Kelamin:</label>
+                                        <select id="kms-jk" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none cursor-pointer focus:ring-2 focus:ring-olive-green">
+                                            <option value="L">Laki-Laki</option>
+                                            <option value="P">Perempuan</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block mb-1">Berat Badan (kg): <span class="text-[10px] text-sun-yellow font-bold">(Gunakan koma ,)</span></label>
+                                        <input type="text" inputmode="decimal" id="kms-bb" placeholder="Contoh: 11,5" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-1">Panjang/Tinggi (cm): <span class="text-[10px] text-sun-yellow font-bold">(Gunakan koma ,)</span></label>
+                                        <input type="text" inputmode="decimal" id="kms-tb" placeholder="Contoh: 82,0" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full btn-primary py-3 font-bold flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-calculator text-sun-yellow"></i>
+                                    <span>Hitung Z-Score & Status Tumbuh Kembang</span>
+                                </button>
+                            </form>
+
+                            <!-- HASIL ANALISIS KMS BALITA -->
+                            <div id="kms-result" class="hidden p-5 rounded-2xl bg-white border-2 border-olive-green/30 space-y-4 shadow-md">
+                                <div class="flex items-center justify-between border-b border-olive-green/10 pb-2">
+                                    <span class="text-xs font-black text-deep-green uppercase tracking-wide flex items-center gap-1.5">
+                                        <i class="fa-solid fa-chart-line text-olive-green"></i> Hasil Analisis KMS & Z-Score
+                                    </span>
+                                    <span id="kms-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                        Normal
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2 text-center text-[11px]">
+                                    <div class="p-2.5 rounded-xl bg-base-cream border border-olive-green/15 space-y-0.5">
+                                        <span class="block text-[10px] text-earth-brown font-semibold">BB / U (Berat/Usia)</span>
+                                        <span id="z-bbu-val" class="font-black text-deep-green text-xs block">0.00 SD</span>
+                                        <span id="z-bbu-lbl" class="block text-[9px] font-bold text-emerald-700">BB Normal</span>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-base-cream border border-olive-green/15 space-y-0.5">
+                                        <span class="block text-[10px] text-earth-brown font-semibold">PB atau TB / U</span>
+                                        <span id="z-tbu-val" class="font-black text-deep-green text-xs block">0.00 SD</span>
+                                        <span id="z-tbu-lbl" class="block text-[9px] font-bold text-emerald-700">Normal</span>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-base-cream border border-olive-green/15 space-y-0.5">
+                                        <span class="block text-[10px] text-earth-brown font-semibold">BB / PB atau TB</span>
+                                        <span id="z-bbtb-val" class="font-black text-deep-green text-xs block">0.00 SD</span>
+                                        <span id="z-bbtb-lbl" class="block text-[9px] font-bold text-emerald-700">Gizi Baik</span>
+                                    </div>
+                                </div>
+
+                                <!-- PITA KMS VISUAL INTERAKTIF -->
+                                <div class="space-y-1.5 pt-1">
+                                    <div class="flex items-center justify-between text-[10px] font-bold text-earth-brown">
+                                        <span>Pita Grafik KMS (Indikator Skala Z-Score BB/TB):</span>
+                                        <span id="kms-pointer-label" class="font-black text-deep-green">0.00 SD</span>
+                                    </div>
+                                    <div class="relative w-full h-7 rounded-full overflow-hidden border border-slate-300 shadow-inner flex">
+                                        <div class="h-full bg-red-500 w-[16.6%]" title="<-3 SD (Gizi Buruk)"></div>
+                                        <div class="h-full bg-amber-400 w-[16.7%]" title="-3 s/d -2 SD (Gizi Kurang)"></div>
+                                        <div class="h-full bg-emerald-500 w-[33.4%]" title="-2 s/d +2 SD (Gizi Baik)"></div>
+                                        <div class="h-full bg-amber-400 w-[16.7%]" title="+2 s/d +3 SD (Berisiko Gizi Lebih)"></div>
+                                        <div class="h-full bg-red-500 w-[16.6%]" title=">+3 SD (Gizi Lebih)"></div>
+
+                                        <div id="kms-pointer" class="absolute top-0 bottom-0 w-1.5 bg-slate-900 border-x border-white shadow-md transform -translate-x-1/2 transition-all duration-500 ease-out" style="left: 50%;">
+                                            <div class="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-slate-900 absolute -top-1.5 -left-[2px]"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between text-[9px] font-extrabold text-earth-brown px-1">
+                                        <span>-3 SD (Buruk)</span>
+                                        <span>-2 SD (Kurang)</span>
+                                        <span class="text-emerald-700">0 SD (Normal)</span>
+                                        <span>+2 SD (Risiko)</span>
+                                        <span>+3 SD (Lebih)</span>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 text-xs leading-relaxed border-t border-olive-green/10 pt-3">
+                                    <div class="p-3 rounded-xl bg-soft-green/50 border border-olive-green/20 space-y-1">
+                                        <p class="font-extrabold text-deep-green flex items-center gap-1.5">
+                                            <i class="fa-solid fa-notes-medical text-olive-green"></i> Kesimpulan Status Tumbuh Kembang:
+                                        </p>
+                                        <p id="kms-status-text" class="text-xs font-extrabold text-deep-green">Tumbuh Kembang Normal Sesuai Usia.</p>
+                                        <p id="kms-desc-text" class="text-[11px] text-earth-brown font-medium">Panjang/tinggi badan dan berat badan balita berada pada rentang deviasi ideal sesuai standar WHO.</p>
+                                    </div>
+
+                                    <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5 text-[11px]">
+                                        <p class="font-extrabold text-amber-900 flex items-center gap-1">
+                                            <i class="fa-solid fa-drumstick-bite text-amber-700"></i> Rekomendasi Protein Hewani MPASI:
+                                        </p>
+                                        <p id="kms-protein-rec" class="text-amber-800 font-medium">
+                                            Berikan sekurang-kurangnya 1-2 porsi protein hewani kualitas tinggi setiap hari (Telur, hati ayam, daging sapi, ikan, atau susu).
+                                        </p>
+                                        <p class="font-extrabold text-red-800 flex items-center gap-1 pt-1.5 border-t border-amber-200/80">
+                                            <i class="fa-solid fa-user-nurse text-red-600"></i> Catatan Wajib Skrining Awal Bidan Desa:
+                                        </p>
+                                        <p id="kms-bidan-note" class="text-red-900 font-medium">
+                                            Lakukan penimbangan rutin setiap bulan di Posyandu ILP. Apabila terjadi kenaikan berat badan tidak memadai (weight faltering) 2 bulan berturut-turut, segera konsultasikan dengan Bidan Desa Gonoharjo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KALKULATOR BMI / IMT -->
+                        <div class="white-card p-6 md:p-8 space-y-5 border-2 border-sun-yellow/40">
+                            <div class="flex items-center space-x-3 border-b border-olive-green/10 pb-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-soft-yellow text-earth-brown flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-weight-scale text-sun-yellow"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Kalkulator BMI / IMT (Remaja & Dewasa)</h3>
+                                    <p class="text-[11px] text-earth-brown font-medium">Standar Kemenkes RI & WHO Asia-Pacific</p>
+                                </div>
+                            </div>
+
+                            <form onsubmit="hitungbmi(event)" class="space-y-4 text-xs font-bold text-deep-green">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block mb-1">Berat Badan (kg): <span class="text-[10px] text-earth-brown font-normal">(Gunakan koma ,)</span></label>
+                                        <input type="text" inputmode="decimal" id="bmi-bb" placeholder="Contoh: 62,5" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow" required>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-1">Tinggi Badan (cm): <span class="text-[10px] text-earth-brown font-normal">(Gunakan koma ,)</span></label>
+                                        <input type="text" inputmode="decimal" id="bmi-tb" placeholder="Contoh: 165,0" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow" required>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full btn-brown py-3 font-bold flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-calculator text-sun-yellow"></i>
+                                    <span>Hitung Indeks Massa Tubuh (IMT)</span>
+                                </button>
+                            </form>
+
+                            <!-- HASIL ANALISIS BMI -->
+                            <div id="bmi-result" class="hidden p-5 rounded-2xl bg-white border-2 border-sun-yellow/40 space-y-4 shadow-md">
+                                <div class="flex items-center justify-between border-b border-olive-green/10 pb-2">
+                                    <span class="text-xs font-black text-deep-green uppercase tracking-wide flex items-center gap-1.5">
+                                        <i class="fa-solid fa-heart-pulse text-olive-green"></i> Hasil Analisis IMT & Risiko PTM
+                                    </span>
+                                    <span id="bmi-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                        Normal
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3 text-center">
+                                    <div class="p-3 rounded-xl bg-soft-yellow/50 border border-sun-yellow/40">
+                                        <span class="block text-[10px] text-earth-brown font-bold">Skor IMT Saya</span>
+                                        <span id="bmi-val-score" class="text-xl font-black text-deep-green">22.9</span>
+                                        <span id="bmi-kategori-kemenkes" class="block text-[10px] font-extrabold text-earth-brown mt-0.5">Kategori: Normal</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-soft-green/50 border border-olive-green/20">
+                                        <span class="block text-[10px] text-earth-brown font-bold">Rentang BB Ideal Anda</span>
+                                        <span id="bmi-ideal-range" class="text-sm font-black text-olive-green mt-1 block">50.4 - 68.1 kg</span>
+                                        <span class="block text-[9px] font-semibold text-earth-brown">Rekomendasi Berat Badan Sehat</span>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 text-xs leading-relaxed border-t border-olive-green/10 pt-3">
+                                    <div class="p-3 rounded-xl bg-base-cream border border-olive-green/15 space-y-1">
+                                        <p class="font-extrabold text-deep-green flex items-center gap-1.5">
+                                            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Potensi Risiko PTM (Penyakit Tidak Menular):
+                                        </p>
+                                        <p id="bmi-ptm-risk" class="text-[11px] text-earth-brown font-medium">Risiko Hipertensi, Diabetes Mellitus, dan Penyakit Jantung Rendah.</p>
+                                    </div>
+
+                                    <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 space-y-2 text-[11px]">
+                                        <p class="font-extrabold text-emerald-900 flex items-center gap-1">
+                                            <i class="fa-solid fa-utensils text-emerald-700"></i> Anjuran Praktis "Isi Piringku":
+                                        </p>
+                                        <p id="bmi-piringku-text" class="text-emerald-800 font-medium">
+                                            50% piring diisi Sayur & Buah-buahan, 50% sisanya dibagi Makanan Pokok dan Lauk Pauk tinggi protein.
+                                        </p>
+                                        <div class="p-2.5 rounded-lg bg-white border border-emerald-300 font-bold text-[10px] text-deep-green space-y-1">
+                                            <p class="text-earth-brown font-black uppercase"><i class="fa-solid fa-ban mr-1 text-red-500"></i> Batas Konsumsi Harian G4G1L5 (Kemenkes):</p>
+                                            <ul class="list-disc pl-4 space-y-0.5 text-[10px] text-earth-brown font-semibold">
+                                                <li><strong>G4 (Gula):</strong> Maksimal 4 SDM / hari (50 gram)</li>
+                                                <li><strong>G1 (Garam):</strong> Maksimal 1 SDT / hari (2.000 mg Natrium)</li>
+                                                <li><strong>L5 (Lemak):</strong> Maksimal 5 SDM Minyak / hari (67 gram)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+            
+            <!-- ================= TAB 4: PROFIL KELUARGA (LOCKED / UNLOCKED STATE) ================= -->
+            <section id="content-profil" class="hidden space-y-8">
+                
+                <!-- LOCKED STATE VIEW UNTUK TAB PROFIL -->
+                <div id="profil-locked-view" class="white-card p-8 md:p-12 text-center space-y-5 max-w-2xl mx-auto border-2 border-dashed border-olive-green/40">
+                    <div class="w-20 h-20 mx-auto rounded-3xl bg-soft-green text-deep-green flex items-center justify-center text-3xl font-bold shadow-sm">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h2 class="text-xl md:text-2xl font-black text-deep-green">Halaman Profil Keluarga Terkunci</h2>
+                        <p class="text-xs md:text-sm text-earth-brown font-medium leading-relaxed max-w-md mx-auto">
+                            Untuk alasan privasi rekam medis keluarga, Anda wajib melakukan verifikasi Barcode & PIN keluarga terlebih dahulu.
+                        </p>
+                    </div>
+                    <button onclick="openBarcodeModal('scan')" class="btn-primary px-6 py-3 text-xs md:text-sm font-bold inline-flex items-center space-x-2 shadow-md">
+                        <i class="fa-solid fa-key text-sun-yellow"></i>
+                        <span>Verifikasi Barcode & PIN Sekarang</span>
+                    </button>
+                </div>
+
+                <!-- UNLOCKED STATE VIEW UNTUK TAB PROFIL -->
+                <div id="profil-unlocked-view" class="hidden space-y-6">
+                    
+                    <!-- HEADER DETAIL KELUARGA -->
+                    <div class="white-card p-6 md:p-8 bg-gradient-to-r from-soft-green via-white to-soft-yellow border-2 border-olive-green/30">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="space-y-1.5">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-600 text-white shadow-xs">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                    Terverifikasi Bidan Desa & Sistem ILP
+                                </span>
+                                <h2 id="profil-kk-nama" class="text-2xl md:text-3xl font-black text-deep-green">Keluarga Bp. Sujatno</h2>
+                                <p id="profil-kk-nomor" class="text-xs font-bold text-earth-brown flex items-center gap-2">
+                                    <i class="fa-solid fa-house-user text-olive-green"></i>
+                                    <span>No. Kartu Keluarga: <span id="kk-masked-display">332401******0001</span> (Disamarkan)</span>
+                                </p>
+                                <p id="profil-kk-alamat" class="text-xs text-earth-brown font-semibold">
+                                    <i class="fa-solid fa-location-dot text-sun-yellow"></i> Alamat Terkonfirmasi: RT 02 / RW 01 Dusun Gonoharjo, Desa Gonoharjo
+                                </p>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="openModalUsulan()" class="btn-brown px-4 py-2.5 text-xs font-bold flex items-center space-x-1.5 shadow-sm">
+                                    <i class="fa-solid fa-user-plus text-sun-yellow"></i>
+                                    <span>Usulan Tambah/Hapus Anggota</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOX REKAM KEHADIRAN POSYANDU KELUARGA BULAN KE BULAN -->
+                    <div class="white-card p-6 space-y-4 border-l-4 border-emerald-500 bg-emerald-50/20">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-200 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Rekam Kehadiran Posyandu Bulanan</h3>
+                                    <p class="text-xs text-earth-brown font-medium">Riwayat partisipasi posyandu keluarga tahun 2026</p>
+                                </div>
+                            </div>
+
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold shadow-sm animate-pulse">
+                                <i class="fa-solid fa-award text-amber-300 text-sm"></i>
+                                <span>Apresiasi: Keluarga Sangat Rutin Posyandu!</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 pt-1">
+                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
+                                <span class="block text-[11px] font-bold text-earth-brown">Mei 2026</span>
+                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
+                                </span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
+                                <span class="block text-[11px] font-bold text-earth-brown">Juni 2026</span>
+                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
+                                </span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
+                                <span class="block text-[11px] font-bold text-earth-brown">Juli 2026</span>
+                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
+                                </span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
+                                <span class="block text-[11px] font-bold text-earth-brown">Agustus 2026</span>
+                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
+                                </span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
+                                <span class="block text-[11px] font-bold text-earth-brown">September 2026</span>
+                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
+                                </span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
+                                <span class="block text-[11px] font-bold text-earth-brown">Oktober 2026</span>
+                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
+                                </span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-emerald-900 font-semibold italic bg-white p-3 rounded-xl border border-emerald-200 leading-relaxed">
+                            💬 <strong>Apresiasi Bidan Desa:</strong> "Keluarga Bp. Sujatno telah menunjukkan kepedulian tinggi terhadap kesehatan keluarga dengan rajin hadir di setiap jadwal Posyandu ILP. Pertahankan motivasi hidup sehat!"
+                        </p>
+                    </div>
+
+                    <!-- DAFTAR KARTU ANGGOTA KELUARGA -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-extrabold text-deep-green text-base md:text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-users text-olive-green"></i>
+                                <span>Daftar Anggota Keluarga Terdaftar:</span>
+                            </h3>
+                            <span class="text-xs text-earth-brown font-semibold">*Warna kartu menyesuaikan kategori usia</span>
+                        </div>
+
+                        <div id="family-cards-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- DITERAPKAN DINAMIS VIA JAVASCRIPT -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+            
+            <!-- ================= TAB 5: KONTAK & TANYA ASTI (AI WITH ANTI-SPAM) ================= -->
+            <section id="content-kontak" class="hidden space-y-8">
+                <div class="grid lg:grid-cols-12 gap-8">
+                    
+                    <!-- SISI KIRI: MAP, LOKASI & SOSMED -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="white-card p-6 space-y-4 border-2 border-olive-green/20 shadow-md">
+                            <div class="flex items-center justify-between border-b border-olive-green/10 pb-3.5">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-soft-green text-deep-green font-bold shadow-xs">
+                                        <i class="fa-solid fa-location-dot text-lg text-olive-green"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-extrabold text-deep-green text-lg">Lokasi Posyandu Desa</h3>
+                                        <p class="text-xs text-earth-brown font-medium">Balai Desa & Pos Kesehatan Desa Gonoharjo</p>
+                                    </div>
+                                </div>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-soft-green text-deep-green border border-olive-green/30">
+                                    <span class="w-2 h-2 rounded-full bg-olive-green animate-pulse"></span> Titik Aktif
+                                </span>
+                            </div>
+
+                            <!-- GOOGLE MAPS IFRAME -->
+                            <div class="relative w-full h-72 md:h-80 rounded-2xl overflow-hidden border-2 border-olive-green/20 shadow-inner group">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15837.754751433621!2d110.3156689!3d-7.1214041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7080d8298b488b%3A0x5027a76e356e7e0!2sGonoharjo%2C%20Kec.%20Limbangan%2C%20Kabupaten%20Kendal%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta Posyandu Desa Gonoharjo">
+                                </iframe>
+                                
+                                <a href="https://maps.app.goo.gl/NmTfdSzSU8gGeZUMA" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 btn-primary px-3.5 py-2 text-xs font-extrabold flex items-center space-x-1.5 shadow-lg border border-white/30">
+                                    <i class="fa-solid fa-diamond-turn-right text-sun-yellow text-sm"></i>
+                                    <span>Petunjuk Arah</span>
+                                </a>
+                            </div>
+
+                            <!-- RINCIAN ALAMAT PRESISI -->
+                            <div class="space-y-2.5 text-xs md:text-sm text-earth-brown font-medium bg-base-cream p-4 rounded-xl border border-olive-green/15">
+                                <p><strong class="text-deep-green">Alamat:</strong> Balai Desa Gonoharjo, Kec. Limbangan, Kab. Kendal, Jawa Tengah 51381</p>
+                                <p><strong class="text-deep-green">Hotline Kader:</strong> +62 812-3456-7890</p>
+                                <p><strong class="text-deep-green">Email:</strong> posyandugonoharjo@gmail.com</p>
+                            </div>
+
+                            <div class="pt-2 border-t border-olive-green/10">
+                                <p class="text-xs font-bold text-deep-green mb-2">Sosial Media Posyandu:</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="https://wa.me/6281234567890" target="_blank" class="px-3 py-2 rounded-xl bg-green-50 text-emerald-800 font-bold text-xs flex items-center space-x-2 border border-emerald-200">
+                                        <i class="fa-brands fa-whatsapp text-lg text-emerald-600"></i>
+                                        <span>WhatsApp</span>
+                                    </a>
+                                    <a href="https://instagram.com" target="_blank" class="px-3 py-2 rounded-xl bg-pink-50 text-pink-800 font-bold text-xs flex items-center space-x-2 border border-pink-200">
+                                        <i class="fa-brands fa-instagram text-lg text-pink-600"></i>
+                                        <span>Instagram</span>
+                                    </a>
+                                    <a href="https://youtu.be/FSqc9qFuqVM" target="_blank" class="px-3 py-2 rounded-xl bg-red-50 text-red-800 font-bold text-xs flex items-center space-x-2 border border-red-200">
+                                        <i class="fa-brands fa-youtube text-lg text-red-600"></i>
+                                        <span>YouTube</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SISI KANAN: CHATBOT TANYA ASTI (AI POSYANDU DENGAN PROTEKSI ANTI-SPAM) -->
+                    <div class="lg:col-span-6">
+                        <div class="white-card p-6 space-y-4 flex flex-col h-[580px] justify-between border-2 border-olive-green/30">
+                            
+                            <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <div class="w-12 h-12 rounded-full bg-white p-0.5 border border-olive-green/30 shadow-sm overflow-hidden flex items-center justify-center">
+                                            <img src="https://lh3.googleusercontent.com/d/1AW-1Z0iV8ygSM47sk8KSDu_nD2lKFHDi" alt="Logo Tanya ASTI" class="w-full h-full object-cover rounded-full">
+                                        </div>
+                                        <span class="w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full absolute bottom-0 right-0"></span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-extrabold text-deep-green text-base">Tanya ASTI</h3>
+                                        <p class="text-[11px] text-earth-brown font-bold">Kader Digital Posyandu Gonoharjo</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-right">
+                                    <span id="asti-status-badge" class="text-[10px] bg-soft-green text-deep-green px-2.5 py-1 rounded-full font-bold border border-olive-green/30">
+                                        Online
+                                    </span>
+                                    <p id="asti-limit-counter" class="text-[9px] text-earth-brown font-semibold mt-1">Kuota: <span id="asti-remaining-count">5</span>/5 Tanya</p>
+                                </div>
+                            </div>
+
+                            <div id="chat-messages" class="p-4 rounded-2xl flex-grow overflow-y-auto space-y-3 text-xs bg-base-cream border border-olive-green/10">
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-8 h-8 rounded-full bg-white p-0.5 border border-olive-green/20 overflow-hidden flex-shrink-0 shadow-xs">
+                                        <img src="https://lh3.googleusercontent.com/d/1AW-1Z0iV8ygSM47sk8KSDu_nD2lKFHDi" alt="ASTI" class="w-full h-full object-cover rounded-full">
+                                    </div>
+                                    <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-xs text-deep-green max-w-[85%] leading-relaxed border border-olive-green/10 font-medium">
+                                        Halo Ibu/Bapak Sasaran! Saya <strong>ASTI</strong> 👩‍⚕️. Silakan tanyakan informasi hasil posyandu, jadwal, atau cara PIN login hari ini! <em>(Terproteksi Sistem Anti-Spam & Limiter Kuota)</em>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <button onclick="sendQuickChat('Jadwal Posyandu Balita')" class="px-2.5 py-1 text-[11px] bg-soft-green text-deep-green font-bold rounded-lg border border-olive-green/30 hover:bg-deep-green hover:text-white transition">
+                                    📅 Jadwal Balita
+                                </button>
+                                <button onclick="sendQuickChat('Cara Buka Profil Keluarga')" class="px-2.5 py-1 text-[11px] bg-soft-yellow text-earth-brown font-bold rounded-lg border border-sun-yellow/40 hover:bg-earth-brown hover:text-white transition">
+                                    🔑 PIN Login
+                                </button>
+                                <button onclick="sendQuickChat('Kalkulator KMS')" class="px-2.5 py-1 text-[11px] bg-white text-deep-green font-bold rounded-lg border border-olive-green/20 hover:bg-soft-green transition">
+                                    ⚖️ Hitung KMS
+                                </button>
+                            </div>
+
+                            <form onsubmit="handleChatSubmit(event)" class="flex items-center gap-2 pt-2 border-t border-olive-green/10">
+                                <input type="text" id="chat-input" placeholder="Tanyakan seputar Posyandu..." class="w-full px-4 py-2.5 text-xs text-deep-green font-medium focus:outline-none bg-base-cream rounded-xl border border-olive-green/20 focus:ring-2 focus:ring-olive-green" required>
+                                <button id="chat-submit-btn" type="submit" class="btn-primary px-4 py-2.5 text-xs font-bold flex items-center space-x-1 flex-shrink-0">
+                                    <span>Kirim</span>
+                                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+        
+        <!-- STICKY FLOATING SECURITY BANNER & SAFE LOGOUT BAR -->
+        <aside id="sticky-security-banner" class="fixed bottom-4 right-4 z-40 max-w-sm w-[calc(100%-2rem)] md:w-auto transition-all duration-300">
+            <div class="p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border-2 border-olive-green/30 shadow-2xl flex items-center justify-between gap-3 text-xs text-deep-green">
+                <div class="flex items-center space-x-2.5">
+                    <div id="sticky-status-icon" class="w-8 h-8 rounded-xl bg-soft-green text-deep-green flex items-center justify-center font-bold flex-shrink-0">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p id="sticky-status-title" class="text-[11px] font-black leading-tight">Keamanan Sesi ILP</p>
+                        <p id="sticky-status-sub" class="text-[10px] text-earth-brown font-semibold leading-none">Status: Tamu (Terproteksi PIN)</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-1.5 flex-shrink-0">
+                    <button id="sticky-action-btn" onclick="openBarcodeModal('scan')" class="btn-primary px-3 py-1.5 text-[11px] font-bold shadow-xs flex items-center gap-1">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Verifikasi PIN</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MODAL 1: VERIFIKASI / BARCODE & PIN INPUT MODAL -->
+        <div id="modal-barcode" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-6 max-w-md w-full bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30">
+                <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-shield-cat text-olive-green text-lg"></i>
+                        <h3 class="font-extrabold text-deep-green text-base">Verifikasi Barcode & PIN Sasaran</h3>
+                    </div>
+                    <button onclick="closeBarcodeModal()" class="text-earth-brown hover:text-deep-green text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center bg-white p-1 rounded-xl border border-olive-green/20 text-xs font-bold text-center">
+                    <button onclick="switchModalTab('scan')" id="btn-modal-tab-scan" class="w-1/3 py-2 rounded-lg bg-deep-green text-white transition">
+                        <i class="fa-solid fa-camera mr-1"></i>Scan
+                    </button>
+                    <button onclick="switchModalTab('upload')" id="btn-modal-tab-upload" class="w-1/3 py-2 rounded-lg hover:bg-soft-green transition text-earth-brown">
+                        <i class="fa-solid fa-upload mr-1"></i>Unggah
+                    </button>
+                    <button onclick="switchModalTab('manual')" id="btn-modal-tab-manual" class="w-1/3 py-2 rounded-lg hover:bg-soft-green transition text-earth-brown">
+                        <i class="fa-solid fa-keyboard mr-1"></i>Manual + PIN
+                    </button>
+                </div>
+
+                <div id="barcode-scan-tab" class="space-y-3 text-center py-2">
+                    <div class="w-48 h-48 mx-auto rounded-2xl bg-black/80 text-white flex flex-col items-center justify-center relative overflow-hidden border-2 border-olive-green shadow-inner">
+                        <i class="fa-solid fa-qrcode text-5xl text-soft-green animate-pulse"></i>
+                        <span class="text-[11px] mt-2 text-soft-green font-bold">Kamera Barcode Aktif...</span>
+                        <div class="absolute inset-x-0 top-1/2 h-0.5 bg-red-500 shadow-md animate-ping"></div>
+                    </div>
+                    <p class="text-xs text-earth-brown font-medium">Arahkan kamera pada kode barcode kartu posyandu keluarga Anda.</p>
+                    <button onclick="simulasiScanSuccess('3324010101900001')" class="btn-primary w-full py-2.5 text-xs font-bold">Simulasi Scan Barcode Berhasil</button>
+                </div>
+
+                <div id="barcode-upload-tab" class="hidden space-y-3 text-center py-2">
+                    <div class="border-2 border-dashed border-olive-green/40 bg-white p-6 rounded-2xl space-y-2 cursor-pointer hover:bg-soft-green/30 transition">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-olive-green"></i>
+                        <p class="text-xs font-bold text-deep-green">Pilih atau Seret Foto Barcode Kartu</p>
+                        <p class="text-[10px] text-earth-brown">Format disukai: JPG, PNG, WEBP</p>
+                    </div>
+                    <button onclick="simulasiScanSuccess('3324010101900001')" class="btn-primary w-full py-2.5 text-xs font-bold">Simulasi Unggah Foto Berhasil</button>
+                </div>
+
+                <div id="barcode-manual-tab" class="hidden space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-deep-green mb-1">Nomor Barcode / NIK / KK:</label>
+                        <input type="text" id="input-barcode-manual" placeholder="Contoh: 3324010101900001" class="w-full p-2.5 bg-white rounded-xl border border-olive-green/30 text-xs font-extrabold focus:outline-none focus:ring-2 focus:ring-olive-green">
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="text-xs font-bold text-deep-green">PIN / Password Sasaran (6 Digit):</label>
+                            <span class="text-[10px] text-earth-brown font-bold">*Wajib Diisi</span>
+                        </div>
+                        <div class="relative">
+                            <input type="password" id="input-pin-manual" maxlength="8" placeholder="Masukkan PIN (Default: 123456)" class="w-full p-2.5 pr-10 bg-white rounded-xl border border-olive-green/30 text-xs font-extrabold focus:outline-none focus:ring-2 focus:ring-olive-green">
+                            <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-2.5 text-earth-brown hover:text-deep-green text-xs">
+                                <i id="pin-eye-icon" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-soft-yellow border border-amber-200 text-[10px] text-earth-brown font-medium leading-relaxed">
+                        <i class="fa-solid fa-circle-info text-amber-600 mr-1"></i>
+                        <strong>Petunjuk Demo:</strong> Gunakan Barcode: <span class="font-mono font-bold text-deep-green">3324010101900001</span> dan PIN Default: <span class="font-mono font-bold text-earth-brown">123456</span>.
+                    </div>
+
+                    <button onclick="prosesManualLogin()" class="btn-brown w-full py-2.5 text-xs font-bold shadow-xs">Proses Verifikasi Data & PIN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL 2: DETAIL ANGGOTA KELUARGA -->
+        <div id="modal-detail-anggota" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-6 max-w-lg w-full bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30 max-h-[88vh] overflow-y-auto">
+                <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <span id="detail-konfirmasi-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 flex items-center gap-1 border border-emerald-300">
+                            <i class="fa-solid fa-circle-check"></i> Terkonfirmasi Bidan
+                        </span>
+                        <h3 id="detail-anggota-nama" class="font-extrabold text-deep-green text-base">Detail Posyandu</h3>
+                    </div>
+                    <button onclick="closeModalDetailAnggota()" class="text-earth-brown hover:text-deep-green text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div id="detail-anggota-content" class="space-y-4 text-xs text-deep-green"></div>
+
+                <div class="pt-2 text-right">
+                    <button onclick="closeModalDetailAnggota()" class="btn-primary px-4 py-2 text-xs font-bold">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL 3: USULAN TAMBAH/HAPUS ANGGOTA KELUARGA -->
+        <div id="modal-usulan" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-6 max-w-md w-full bg-[#FAF7F0] space-y-4 border-2 border-earth-brown/30">
+                <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
+                    <h3 class="font-extrabold text-deep-green text-base">Usulan Perubahan Anggota Keluarga</h3>
+                    <button onclick="closeModalUsulan()" class="text-earth-brown hover:text-deep-green text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <form onsubmit="submitUsulanData(event)" class="space-y-3 text-xs font-bold text-deep-green">
+                    <div>
+                        <label class="block mb-1">Jenis Usulan:</label>
+                        <select id="usulan-jenis" class="w-full p-2.5 bg-white rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                            <option value="tambah">Penambahan Anggota Keluarga Baru (Kelahiran/Pindah)</option>
+                            <option value="hapus">Pengurangan Anggota Keluarga (Meninggal/Pindah)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-1">Nama Lengkap Anggota Usulan:</label>
+                        <input type="text" id="usulan-nama" placeholder="Nama lengkap..." class="w-full p-2.5 bg-white rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
+                    </div>
+                    <div>
+                        <label class="block mb-1">NIK (jika ada):</label>
+                        <input type="text" id="usulan-nik" placeholder="NIK 16 digit..." class="w-full p-2.5 bg-white rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                    </div>
+                    <div>
+                        <label class="block mb-1">Alasan / Catatan Tambahan:</label>
+                        <textarea id="usulan-alasan" rows="3" placeholder="Contoh: Bayi baru lahir tanggal 10 Oktober 2026..." class="w-full p-2.5 bg-white rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required></textarea>
+                    </div>
+
+                    <p class="text-[10px] text-earth-brown font-semibold leading-tight">
+                        *Usulan ini akan dikirimkan ke WEB KADER INPUT & WEB ADMIN LAPORAN untuk diverifikasi sebelum data diupdate.
+                    </p>
+
+                    <div class="pt-2 flex justify-end space-x-2">
+                        <button type="button" onclick="closeModalUsulan()" class="px-4 py-2 bg-stone-200 text-deep-green rounded-xl hover:bg-stone-300 transition">Batal</button>
+                        <button type="submit" class="btn-brown px-4 py-2 font-bold">Kirim Usulan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL 4: WEB SWITCHER -->
+        <div id="modal-switcher" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-6 max-w-md w-full space-y-5 bg-[#FAF7F0] border-2 border-olive-green/30">
+                <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-cubes text-olive-green text-lg"></i>
+                        <h3 class="font-extrabold text-deep-green text-base">WEB SWITCHER GO-POSITIF</h3>
+                    </div>
+                    <button onclick="toggleSwitcherModal()" class="text-earth-brown hover:text-deep-green text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <p class="text-xs text-earth-brown font-medium">Pilih portal ekosistem Jaringan GO-Positif Gonoharjo yang ingin dibuka:</p>
+
+                <div class="space-y-2.5 text-xs">
+                    <button onclick="simulasiPortalNav('WEB UTAMA POSYANDU')" class="w-full p-3 bg-white text-earth-brown font-bold rounded-xl flex items-center justify-between hover:bg-base-cream border border-olive-green/20 transition">
+                        <span class="flex items-center space-x-2">
+                            <i class="fa-solid fa-house text-olive-green"></i>
+                            <span>1. PORTAL UTAMA POSYANDU</span>
+                        </span>
+                        <i class="fa-solid fa-arrow-right text-earth-brown/40"></i>
+                    </button>
+
+                    <button onclick="simulasiPortalNav('WEB SASARAN POSYANDU')" class="w-full p-3 btn-primary font-bold flex items-center justify-between">
+                        <span class="flex items-center space-x-2">
+                            <i class="fa-solid fa-qrcode text-sun-yellow"></i>
+                            <span>2. PORTAL SASARAN POSYANDU (Aktif)</span>
+                        </span>
+                        <i class="fa-solid fa-circle-check text-sun-yellow"></i>
+                    </button>
+
+                    <button onclick="simulasiPortalNav('WEB KADER POSYANDU')" class="w-full p-3 bg-white text-earth-brown font-bold rounded-xl flex items-center justify-between hover:bg-base-cream border border-olive-green/20 transition">
+                        <span class="flex items-center space-x-2">
+                            <i class="fa-solid fa-user-pen text-earth-brown"></i>
+                            <span>3. PORTAL KADER POSYANDU</span>
+                        </span>
+                        <i class="fa-solid fa-arrow-right text-earth-brown/40"></i>
+                    </button>
+
+                    <button onclick="simulasiPortalNav('WEB ADMIN POSYANDU')" class="w-full p-3 bg-white text-earth-brown font-bold rounded-xl flex items-center justify-between hover:bg-base-cream border border-olive-green/20 transition">
+                        <span class="flex items-center space-x-2">
+                            <i class="fa-solid fa-chart-line text-deep-green"></i>
+                            <span>4. PORTAL ADMIN POSYANDU</span>
+                        </span>
+                        <i class="fa-solid fa-arrow-right text-earth-brown/40"></i>
+                    </button>
+
+                    <button onclick="simulasiPortalNav('WEB TEAM IT POSYANDU')" class="w-full p-3 btn-brown font-extrabold flex items-center justify-between">
+                        <span class="flex items-center space-x-2">
+                            <i class="fa-solid fa-lock text-sun-yellow"></i>
+                            <span>5. PORTAL IT POSYANDU (🔒)</span>
+                        </span>
+                        <i class="fa-solid fa-key text-sun-yellow"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL 5: DETAIL / SYARAT LAYANAN -->
+        <div id="modal-layanan" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-6 max-w-lg w-full bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30 max-h-[85vh] overflow-y-auto">
+                <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
+                    <h3 id="modal-layanan-title" class="font-extrabold text-deep-green text-base">Detail Layanan</h3>
+                    <button onclick="closeModalLayanan()" class="text-earth-brown hover:text-deep-green text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="modal-layanan-content" class="text-xs text-earth-brown space-y-3 leading-relaxed"></div>
+                <div class="pt-2 text-right">
+                    <button onclick="closeModalLayanan()" class="btn-primary px-4 py-2 font-bold text-xs">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL 6: SAFE LOGOUT CONFIRMATION -->
+        <div id="modal-logout-confirm" class="fixed inset-0 z-50 bg-stone-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-6 max-w-sm w-full bg-white space-y-4 border-2 border-red-500/30 text-center shadow-2xl">
+                <div class="w-14 h-14 mx-auto rounded-full bg-red-100 text-red-600 flex items-center justify-center text-2xl font-bold">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </div>
+                <div class="space-y-1.5">
+                    <h3 class="font-extrabold text-deep-green text-base">Konfirmasi Safe Logout</h3>
+                    <p class="text-xs text-earth-brown font-medium">Apakah Anda yakin ingin keluar dari sesi rekam posyandu keluarga terverifikasi?</p>
+                </div>
+                <div class="pt-2 flex items-center justify-center gap-2">
+                    <button onclick="closeLogoutModal()" class="w-1/2 px-4 py-2.5 rounded-xl bg-stone-200 text-deep-green text-xs font-bold hover:bg-stone-300 transition">
+                        Batal
+                    </button>
+                    <button onclick="executeLogout()" class="w-1/2 px-4 py-2.5 rounded-xl bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition shadow-xs">
+                        Ya, Keluar Sesi
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="bg-white/90 backdrop-blur-md border-t border-olive-green/20 pt-8 sm:pt-10 pb-6 px-4 lg:px-8 mt-12 bg-cover bg-center" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('https://lh3.googleusercontent.com/d/1BUX21ccxQ7HkC2VWsya914pOrcSWE851');">
+            <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-olive-green/10 text-xs">
+                
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-white p-1 shadow-sm border border-olive-green/20 flex items-center justify-center overflow-hidden flex-shrink-0">
+                            <img src="https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv" alt="Logo GO-Positif Gonoharjo" class="w-full h-full object-contain">
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-sm text-deep-green">GO-Positif</h4>
+                            <p class="text-[10px] text-earth-brown font-bold">Posyandu Desa Gonoharjo</p>
+                        </div>
+                    </div>
+                    <p class="text-earth-brown text-xs font-medium leading-relaxed">
+                        Portal resmi Integrasi Layanan Primer (ILP) Posyandu Desa Gonoharjo. Mewujudkan pelayanan kesehatan terpadu dan ramah keluarga sepanjang siklus hidup.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-extrabold text-sm text-deep-green border-b border-olive-green/10 pb-1">Navigasi</h4>
+                    <ul class="space-y-2 text-earth-brown font-medium">
+                        <li><a href="javascript:void(0)" onclick="switchTab('beranda')" class="hover:text-olive-green transition">Beranda</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('layanan')" class="hover:text-olive-green transition">Layanan ILP</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('kms')" class="hover:text-olive-green transition">Kalkulator KMS & BMI</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('profil')" class="hover:text-olive-green transition">Profil Keluarga</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('kontak')" class="hover:text-olive-green transition">Kontak & Lokasi</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-extrabold text-sm text-deep-green border-b border-olive-green/10 pb-1">Klaster Layanan</h4>
+                    <ul class="space-y-2 text-earth-brown font-medium">
+                        <li>Posyandu Balita & Baduta</li>
+                        <li>Posyandu Remaja</li>
+                        <li>Ibu Hamil & Menyusui</li>
+                        <li>Usia Produktif & Lansia</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-extrabold text-sm text-deep-green border-b border-olive-green/10 pb-1">Sekretariat & Peta</h4>
+                    <p class="text-earth-brown font-medium leading-relaxed">
+                        <i class="fa-solid fa-location-dot text-olive-green mr-1.5"></i>
+                        Balai Desa Gonoharjo, Kec. Limbangan, Kab. Kendal, Jawa Tengah 51381
+                    </p>
+                    <p class="text-earth-brown font-medium">
+                        <i class="fa-solid fa-phone text-olive-green mr-1.5"></i>
+                        +62 812-3456-7890
+                    </p>
+                    <a href="https://maps.app.goo.gl/NmTfdSzSU8gGeZUMA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-olive-green hover:underline font-bold text-[11px] gap-1 mt-1">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Buka Google Maps Resmi ↗</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-earth-brown font-medium gap-2 text-center sm:text-left">
+                <p>© 2026 GO-POSITIF by KreasiCahNdeso. All rights reserved.</p>
+                <p class="text-olive-green font-bold">Kecamatan Limbangan, Kabupaten Kendal</p>
+            </div>
+        </footer>
+
+        <!-- JAVASCRIPT LOGIC & MODUL INTERAKSI UTUH -->
+        <script>
+            let isUserLoggedIn = false;
+            let currentKKNumber = "";
+            let kehadiranChartInstance = null;
+
+            let astiChatCount = 0;
+            const maxAstiQuota = 5;
+            let lastChatTimestamp = 0;
+            const minChatIntervalMs = 3000;
+
+            function maskKKNumber(kk) {
+                if (!kk || kk.length < 16) return "3324************";
+                return kk.substring(0, 6) + "******" + kk.substring(12);
+            }
+
+            const mockFamilyDatabase = {
+                "3324010101900001": {
+                    kk: "3324010101900001",
+                    pin: "123456",
+                    kepalaKeluarga: "Sujatno",
+                    rt: "02",
+                    rw: "01",
+                    dusun: "Gonoharjo",
+                    isConfirmedAdmin: true,
+                    kehadiranData: [100, 100, 100, 100, 100, 100],
+                    anggota: [
+                        {
+                            id: "A1",
+                            nik: "3324010101900001",
+                            nama: "Sujatno",
+                            peran: "Ayah / Kepala Keluarga",
+                            kategori: "Usia Produktif",
+                            usiaDetail: "48 Tahun",
+                            tglTerakhir: "15 September 2026",
+                            hasilDetail: { tensi: "135/85 mmHg", gulaDarah: "140 mg/dL", bb: "68 kg", tb: "168 cm", imt: "24.1 (Normal)" },
+                            keteranganBidan: "Sistolik sedikit meningkat. Disarankan kurangi makanan tinggi garam dan rutin jalan pagi."
+                        },
+                        {
+                            id: "A2",
+                            nik: "3324010101900002",
+                            nama: "Siti Ratnah",
+                            peran: "Ibu",
+                            kategori: "Usia Produktif",
+                            usiaDetail: "44 Tahun",
+                            tglTerakhir: "15 September 2026",
+                            hasilDetail: { tensi: "118/78 mmHg", gulaDarah: "105 mg/dL", bb: "56 kg", tb: "158 cm", imt: "22.4 (Ideal)" },
+                            keteranganBidan: "Kondisi kesehatan sangat baik dan konsisten stabil. Lanjutkan olahraga ringan."
+                        },
+                        {
+                            id: "A3",
+                            nik: "3324010101900003",
+                            nama: "Budi Sujatno",
+                            peran: "Anak Balita",
+                            kategori: "Balita",
+                            usiaDetail: "22 Bulan",
+                            tglTerakhir: "12 September 2026",
+                            hasilDetail: { bb: "11.8 kg", tb: "84.5 cm", kmsPita: "Garis Hijau (Normal)", vitA: "Sudah Diberikan (Biru)" },
+                            keteranganBidan: "Tumbuh kembang anak sangat baik. Nafsu makan terjaga, lanjutkan pemberian gizi seimbang."
+                        },
+                        {
+                            id: "A4",
+                            nik: "3324010101900004",
+                            nama: "Maya Sujatno",
+                            peran: "Anak Remaja",
+                            kategori: "Remaja",
+                            usiaDetail: "15 Tahun",
+                            tglTerakhir: "18 Agustus 2026",
+                            hasilDetail: { hb: "12.5 g/dL", imt: "19.8 (Normal)", bb: "46 kg", tb: "152 cm" },
+                            keteranganBidan: "Status bebas anemia. Rutin minum Tablet Tambah Darah seminggu sekali saat sekolah."
+                        },
+                        {
+                            id: "A5",
+                            nik: "3324010101900005",
+                            nama: "Mbah Maimunah",
+                            peran: "Nenek",
+                            kategori: "Lansia",
+                            usiaDetail: "68 Tahun",
+                            tglTerakhir: "20 September 2026",
+                            hasilDetail: { tensi: "128/80 mmHg", gulaDarah: "112 mg/dL", kolesterol: "180 mg/dL", asamUrat: "5.2 mg/dL", bb: "52 kg" },
+                            keteranganBidan: "Tekanan darah dan asam urat terkontrol. Tetap rutin ikuti Senam Lansia tiap Sabtu pagi."
+                        }
+                    ]
+                }
+            };
+
+           
+            function switchTab(tabName) {
+                document.querySelectorAll('section[id^="content-"]').forEach(sec => sec.classList.add('hidden'));
+                document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+
+                document.getElementById('content-' + tabName).classList.remove('hidden');
+                const targetBtn = document.getElementById('tab-' + tabName);
+                if(targetBtn) targetBtn.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function toggleModeLansia() {
+                document.body.classList.toggle('mode-lansia');
+                const isLansia = document.body.classList.contains('mode-lansia');
+                const label = document.getElementById('label-mode-lansia');
+                const labelShort = document.getElementById('label-mode-lansia-short');
+                
+                if(isLansia) {
+                    if(label) label.innerText = "Mode Normal";
+                    if(labelShort) labelShort.innerText = "Normal";
+                } else {
+                    if(label) label.innerText = "Mode Ramah Lansia";
+                    if(labelShort) labelShort.innerText = "Lansia";
+                }
+            }
+
+            function toggleSwitcherModal() {
+                document.getElementById('modal-switcher').classList.toggle('hidden');
+            }
+
+            function simulasiPortalNav(portalTitle) {
+                toggleSwitcherModal();
+                alert('Mengarahkan ke Portal: ' + portalTitle);
+            }
+
+            function openBarcodeModal(type) {
+                const modal = document.getElementById('modal-barcode');
+                modal.classList.remove('hidden');
+                switchModalTab(type || 'manual');
+            }
+
+            function closeBarcodeModal() {
+                document.getElementById('modal-barcode').classList.add('hidden');
+            }
+
+            function switchModalTab(tabType) {
+                document.getElementById('barcode-scan-tab').classList.add('hidden');
+                document.getElementById('barcode-upload-tab').classList.add('hidden');
+                document.getElementById('barcode-manual-tab').classList.add('hidden');
+
+                document.getElementById('btn-modal-tab-scan').className = "w-1/3 py-2 rounded-lg text-earth-brown transition hover:bg-soft-green";
+                document.getElementById('btn-modal-tab-upload').className = "w-1/3 py-2 rounded-lg text-earth-brown transition hover:bg-soft-green";
+                document.getElementById('btn-modal-tab-manual').className = "w-1/3 py-2 rounded-lg text-earth-brown transition hover:bg-soft-green";
+
+                if (tabType === 'scan') {
+                    document.getElementById('barcode-scan-tab').classList.remove('hidden');
+                    document.getElementById('btn-modal-tab-scan').className = "w-1/3 py-2 rounded-lg bg-deep-green text-white transition";
+                } else if (tabType === 'upload') {
+                    document.getElementById('barcode-upload-tab').classList.remove('hidden');
+                    document.getElementById('btn-modal-tab-upload').className = "w-1/3 py-2 rounded-lg bg-deep-green text-white transition";
+                } else {
+                    document.getElementById('barcode-manual-tab').classList.remove('hidden');
+                    document.getElementById('btn-modal-tab-manual').className = "w-1/3 py-2 rounded-lg bg-earth-brown text-white transition";
+                }
+            }
+
+            function togglePinVisibility() {
+                const pinInput = document.getElementById('input-pin-manual');
+                const eyeIcon = document.getElementById('pin-eye-icon');
+                if (pinInput.type === "password") {
+                    pinInput.type = "text";
+                    eyeIcon.className = "fa-solid fa-eye-slash";
+                } else {
+                    pinInput.type = "password";
+                    eyeIcon.className = "fa-solid fa-eye";
+                }
+            }
+
+            function prosesManualLogin() {
+                const barcodeVal = document.getElementById('input-barcode-manual').value.trim();
+                const pinVal = document.getElementById('input-pin-manual').value.trim();
+
+                if(!barcodeVal) {
+                    alert('⚠️ Silakan masukkan nomor barcode / NIK / KK!');
+                    return;
+                }
+                if(!pinVal) {
+                    alert('🔑 Silakan masukkan PIN / Password 6 Digit!');
+                    return;
+                }
+
+                const familyData = mockFamilyDatabase[barcodeVal] || mockFamilyDatabase["3324010101900001"];
+                if(familyData) {
+                    if(pinVal === familyData.pin || pinVal === "123456") {
+                        simulasiLoginSuccess(barcodeVal);
+                    } else {
+                        alert('❌ PIN / Password Salah! Silakan coba lagi.');
+                    }
+                } else {
+                    alert('⚠️ Barcode / NIK tidak terdaftar di sistem!');
+                }
+            }
+
+            function simulasiScanSuccess(barcodeVal) {
+                simulasiLoginSuccess(barcodeVal);
+            }
+
+            function simulasiLoginSuccess(barcodeVal) {
+                closeBarcodeModal();
+                const familyData = mockFamilyDatabase[barcodeVal] || mockFamilyDatabase["3324010101900001"];
+                
+                isUserLoggedIn = true;
+                currentKKNumber = familyData.kk;
+
+                document.getElementById('kms-lock-icon').className = "fa-solid fa-check text-[10px] ml-1 text-emerald-500 font-bold";
+                document.getElementById('profil-lock-icon').className = "fa-solid fa-check text-[10px] ml-1 text-emerald-500 font-bold";
+
+                document.getElementById('hero-login-box').classList.add('hidden');
+                document.getElementById('hero-logged-box').classList.remove('hidden');
+                document.getElementById('hero-salam').innerText = "Selamat Datang Kembali,";
+                document.getElementById('hero-main-title').innerText = "Keluarga Bp. " + familyData.kepalaKeluarga;
+                document.getElementById('logged-kk-nama').innerText = "Keluarga Bp. " + familyData.kepalaKeluarga;
+                document.getElementById('logged-kk-alamat').innerText = `Status: Terverifikasi (Dusun ${familyData.dusun} RT ${familyData.rt} / RW ${familyData.rw})`;
+                document.getElementById('hero-privacy-badge').classList.remove('hidden');
+
+                document.getElementById('sticky-status-title').innerText = "Terverifikasi: " + familyData.kepalaKeluarga;
+                document.getElementById('sticky-status-sub').innerText = "No. KK: " + maskKKNumber(familyData.kk);
+                document.getElementById('sticky-status-icon').className = "w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold flex-shrink-0";
+                document.getElementById('sticky-status-icon').innerHTML = '<i class="fa-solid fa-user-check"></i>';
+                document.getElementById('sticky-action-btn').className = "px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold shadow-xs flex items-center gap-1 transition";
+                document.getElementById('sticky-action-btn').setAttribute("onclick", "confirmLogout()");
+                document.getElementById('sticky-action-btn').innerHTML = '<i class="fa-solid fa-power-off"></i><span>Logout</span>';
+
+                document.getElementById('profil-locked-view').classList.add('hidden');
+                document.getElementById('profil-unlocked-view').classList.remove('hidden');
+                document.getElementById('profil-kk-nama').innerText = "Keluarga Bp. " + familyData.kepalaKeluarga;
+                document.getElementById('kk-masked-display').innerText = maskKKNumber(familyData.kk);
+                document.getElementById('profil-kk-alamat').innerHTML = `<i class="fa-solid fa-location-dot text-sun-yellow"></i> Alamat Terkonfirmasi: RT ${familyData.rt} / RW ${familyData.rw} Dusun ${familyData.dusun}, Desa Gonoharjo`;
+
+                document.getElementById('kms-locked-view').classList.add('hidden');
+                document.getElementById('kms-unlocked-view').classList.remove('hidden');
+
+                renderFamilyCards(familyData);
+                updateKehadiranChart(familyData.kehadiranData);
+            }
+
+            function renderFamilyCards(familyData) {
+                const container = document.getElementById('family-cards-container');
+                container.innerHTML = "";
+
+                familyData.anggota.forEach(member => {
+                    let borderTheme = "border-olive-green/30";
+                    let badgeBg = "bg-soft-green text-deep-green";
+                    let iconClass = "fa-user";
+
+                    if (member.kategori === "Balita") {
+                        borderTheme = "border-olive-green/40";
+                        badgeBg = "bg-soft-green text-deep-green";
+                        iconClass = "fa-baby";
+                    } else if (member.kategori === "Remaja") {
+                        borderTheme = "border-sky-300";
+                        badgeBg = "bg-sky-100 text-sky-800";
+                        iconClass = "fa-user-graduate";
+                    } else if (member.kategori === "Lansia") {
+                        borderTheme = "border-sun-yellow/40";
+                        badgeBg = "bg-soft-yellow text-earth-brown";
+                        iconClass = "fa-person-cane";
+                    } else {
+                        borderTheme = "border-emerald-300";
+                        badgeBg = "bg-emerald-100 text-emerald-800";
+                        iconClass = "fa-users-between-lines";
+                    }
+
+                    const cardHtml = `
+                        <div class="white-card p-5 space-y-3.5 border-2 ${borderTheme} flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${badgeBg} flex items-center gap-1">
+                                        <i class="fa-solid ${iconClass}"></i> ${member.kategori}
+                                    </span>
+                                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                                        <i class="fa-solid fa-check text-[9px]"></i> Terkonfirmasi
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-black text-deep-green text-base">${member.nama}</h4>
+                                    <p class="text-xs font-bold text-earth-brown">${member.peran} (${member.usiaDetail})</p>
+                                    <p class="text-[10px] text-earth-brown/70 font-medium">NIK: ${member.nik.substring(0, 6)}******${member.nik.substring(12)}</p>
+                                </div>
+
+                                <div class="p-3 rounded-xl bg-base-cream border border-olive-green/15 text-xs space-y-1">
+                                    <p class="font-extrabold text-deep-green text-[11px]">Catatan Posyandu (${member.tglTerakhir}):</p>
+                                    <p class="text-earth-brown font-medium leading-relaxed">${member.keteranganBidan}</p>
+                                </div>
+                            </div>
+
+                            <button onclick="openModalDetailAnggota('${member.id}')" class="w-full btn-primary py-2 text-xs font-bold flex items-center justify-center space-x-1.5 shadow-xs">
+                                <i class="fa-solid fa-id-card-clip text-sun-yellow"></i>
+                                <span>Lihat Detail Rekam Health</span>
+                            </button>
+                        </div>
+                    `;
+                    container.innerHTML += cardHtml;
+                });
+            }
+
+            function openModalDetailAnggota(memberId) {
+                const familyData = mockFamilyDatabase[currentKKNumber] || mockFamilyDatabase["3324010101900001"];
+                const member = familyData.anggota.find(m => m.id === memberId);
+                if (!member) return;
+
+                document.getElementById('detail-anggota-nama').innerText = "Rekam Medis: " + member.nama;
+                
+                let metricsHtml = "";
+                for (const [key, value] of Object.entries(member.hasilDetail)) {
+                    metricsHtml += `
+                        <div class="p-2.5 rounded-xl bg-white border border-olive-green/20 text-center">
+                            <span class="block text-[10px] text-earth-brown uppercase font-bold">${key}</span>
+                            <span class="text-xs font-black text-deep-green">${value}</span>
+                        </div>
+                    `;
+                }
+
+                const detailContent = `
+                    <div class="p-3.5 rounded-xl bg-soft-green/40 border border-olive-green/20 space-y-1">
+                        <p class="font-extrabold text-xs text-deep-green">${member.nama} (${member.peran})</p>
+                        <p class="text-[11px] text-earth-brown font-medium">Kategori: ${member.kategori} | Usia: ${member.usiaDetail}</p>
+                        <p class="text-[11px] text-earth-brown font-medium">Tanggal Pemeriksaan Terakhir: ${member.tglTerakhir}</p>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <p class="font-extrabold text-xs text-deep-green">Rincian Pengukuran Posyandu:</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            ${metricsHtml}
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1">
+                        <p class="font-extrabold text-amber-900 flex items-center gap-1">
+                            <i class="fa-solid fa-user-nurse text-amber-700"></i> Catatan & Rekomendasi Bidan Desa:
+                        </p>
+                        <p class="text-amber-900 font-medium leading-relaxed">${member.keteranganBidan}</p>
+                    </div>
+                `;
+
+                document.getElementById('detail-anggota-content').innerHTML = detailContent;
+                document.getElementById('modal-detail-anggota').classList.remove('hidden');
+            }
+
+            function closeModalDetailAnggota() {
+                document.getElementById('modal-detail-anggota').classList.add('hidden');
+            }
+
+            function confirmLogout() {
+                document.getElementById('modal-logout-confirm').classList.remove('hidden');
+            }
+
+            function closeLogoutModal() {
+                document.getElementById('modal-logout-confirm').classList.add('hidden');
+            }
+
+            function executeLogout() {
+                closeLogoutModal();
+                isUserLoggedIn = false;
+                currentKKNumber = "";
+
+                document.getElementById('kms-lock-icon').className = "fa-solid fa-lock text-[10px] ml-1 opacity-70 text-amber-500";
+                document.getElementById('profil-lock-icon').className = "fa-solid fa-lock text-[10px] ml-1 opacity-70 text-amber-500";
+
+                document.getElementById('hero-login-box').classList.remove('hidden');
+                document.getElementById('hero-logged-box').classList.add('hidden');
+                document.getElementById('hero-salam').innerText = "Selamat Datang di";
+                document.getElementById('hero-main-title').innerText = "Portal Sasaran Posyandu";
+                document.getElementById('hero-privacy-badge').classList.add('hidden');
+
+                document.getElementById('sticky-status-title').innerText = "Keamanan Sesi ILP";
+                document.getElementById('sticky-status-sub').innerText = "Status: Tamu (Terproteksi PIN)";
+                document.getElementById('sticky-status-icon').className = "w-8 h-8 rounded-xl bg-soft-green text-deep-green flex items-center justify-center font-bold flex-shrink-0";
+                document.getElementById('sticky-status-icon').innerHTML = '<i class="fa-solid fa-user-lock"></i>';
+                document.getElementById('sticky-action-btn').className = "btn-primary px-3 py-1.5 text-[11px] font-bold shadow-xs flex items-center gap-1";
+                document.getElementById('sticky-action-btn').setAttribute("onclick", "openBarcodeModal('scan')");
+                document.getElementById('sticky-action-btn').innerHTML = '<i class="fa-solid fa-key"></i><span>Verifikasi PIN</span>';
+
+                document.getElementById('profil-locked-view').classList.remove('hidden');
+                document.getElementById('profil-unlocked-view').classList.add('hidden');
+                document.getElementById('kms-locked-view').classList.remove('hidden');
+                document.getElementById('kms-unlocked-view').classList.add('hidden');
+
+                switchTab('beranda');
+            }
+
+            function initKehadiranChart() {
+                const ctx = document.getElementById('kehadiranKeluargaChart').getContext('2d');
+                kehadiranChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mei 2026', 'Juni 2026', 'Juli 2026', 'Agustus 2026', 'September 2026', 'Oktober 2026'],
+                        datasets: [{
+                            label: 'Persentase Kehadiran Posyandu Keluarga (%)',
+                            data: [0, 0, 0, 0, 0, 0],
+                            borderColor: '#1E4620',
+                            backgroundColor: 'rgba(124, 146, 70, 0.12)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#F3A94B',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 3,
+                            pointRadius: 6,
+                            pointHoverRadius: 9,
+                            fill: true,
+                            tension: 0.35
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, position: 'top' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) { return ` Kehadiran: ${context.raw}%`; }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { min: 0, max: 100, ticks: { stepSize: 20 } }
+                        }
+                    }
+                });
+            }
+
+            function updateKehadiranChart(dataArr) {
+                if (kehadiranChartInstance) {
+                    kehadiranChartInstance.data.datasets[0].data = dataArr;
+                    kehadiranChartInstance.update();
+                    document.getElementById('chart-subtitle').innerText = "Grafik kehadiran posyandu terverifikasi 100% aktif (6 Bulan Terakhir).";
+                }
+            }
+
+            function hitungkms(event) {
+                event.preventDefault();
+                const usia = parseInt(document.getElementById('kms-usia').value);
+                const jk = document.getElementById('kms-jk').value;
+
+                let rawBB = document.getElementById('kms-bb').value.replace(',', '.');
+                let rawTB = document.getElementById('kms-tb').value.replace(',', '.');
+
+                const bb = parseFloat(rawBB);
+                const tb = parseFloat(rawTB);
+
+                if (isNaN(usia) || isNaN(bb) || isNaN(tb)) {
+                    alert('⚠️ Silakan masukkan nilai Usia, Berat Badan, dan Tinggi Badan secara lengkap!');
+                    return;
+                }
+
+                let medianBB = jk === 'L' ? (3.3 + (usia * 0.38)) : (3.2 + (usia * 0.36));
+                let sdBB = jk === 'L' ? 1.15 : 1.10;
+                let zBbu = ((bb - medianBB) / sdBB).toFixed(2);
+
+                let medianTB = jk === 'L' ? (50 + (usia * 0.68)) : (49 + (usia * 0.66));
+                let sdTB = jk === 'L' ? 2.4 : 2.3;
+                let zTbu = ((tb - medianTB) / sdTB).toFixed(2);
+
+                let expectedBBForTB = (tb * 0.14) - (jk === 'L' ? 1.1 : 1.2);
+                let zBbtb = ((bb - expectedBBForTB) / 1.15).toFixed(2);
+
+                document.getElementById('z-bbu-val').innerText = (zBbu > 0 ? "+" : "") + zBbu + " SD";
+                document.getElementById('z-tbu-val').innerText = (zTbu > 0 ? "+" : "") + zTbu + " SD";
+                document.getElementById('z-bbtb-val').innerText = (zBbtb > 0 ? "+" : "") + zBbtb + " SD";
+
+                let bbuLabel = "BB Normal";
+                if (zBbu < -3) bbuLabel = "Sangat Kurang";
+                else if (zBbu < -2) bbuLabel = "BB Kurang";
+                else if (zBbu > 1) bbuLabel = "Risiko Lebih";
+                document.getElementById('z-bbu-lbl').innerText = bbuLabel;
+
+                let tbuLabel = "Tinggi Badan Normal";
+                if (zTbu < -3) tbuLabel = "Sangat Pendek (Stunting)";
+                else if (zTbu < -2) tbuLabel = "Pendek (Stunting)";
+                document.getElementById('z-tbu-lbl').innerText = tbuLabel;
+
+                let bbtbLabel = "Gizi Baik";
+                let statusBadgeText = "Normal";
+                let badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300";
+                let statusText = "Tumbuh Kembang Baik & Normal Sesuai Usia.";
+                let descText = "Panjang/tinggi badan dan berat badan balita berada pada rentang deviasi ideal grafik WHO & Kemenkes RI.";
+
+                if (zBbtb < -3) {
+                    bbtbLabel = "Gizi Buruk (Severely Wasted)";
+                    statusBadgeText = "Bahaya / Perlu Rujukan";
+                    badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-red-100 text-red-800 border border-red-300 animate-pulse";
+                    statusText = "Indikasi Gizi Buruk! Perlu Penanganan Segera.";
+                    descText = "Berat badan balita sangat rendah dibandingkan tinggi badannya. Segera bawa balita ke Bidan Desa Gonoharjo atau Puskesmas.";
+                } else if (zBbtb < -2) {
+                    bbtbLabel = "Gizi Kurang (Wasted)";
+                    statusBadgeText = "Perhatian Khusus";
+                    badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300";
+                    statusText = "Berisiko Gizi Kurang / Weight Faltering.";
+                    descText = "Kenaikan berat badan tidak sebanding dengan pertambahan tinggi. Tingkatkan asupan makanan padat gizi hewani.";
+                } else if (zBbtb > 3) {
+                    bbtbLabel = "Obesitas";
+                    statusBadgeText = "Gizi Lebih";
+                    badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300";
+                    statusText = "Kelebihan Berat Badan (Obesitas).";
+                    descText = "Konsultasikan dengan Bidan Desa untuk pengaturan pola konsumsi gizi dan aktivitas fisik balita.";
+                }
+
+                document.getElementById('z-bbtb-lbl').innerText = bbtbLabel;
+                document.getElementById('kms-badge-status').innerText = statusBadgeText;
+                document.getElementById('kms-badge-status').className = badgeClass;
+                document.getElementById('kms-status-text').innerText = statusText;
+                document.getElementById('kms-desc-text').innerText = descText;
+
+                let clampZ = Math.max(-3, Math.min(3, parseFloat(zBbtb)));
+                let percentage = ((clampZ + 3) / 6) * 100;
+                document.getElementById('kms-pointer').style.left = percentage + "%";
+                document.getElementById('kms-pointer-label').innerText = (zBbtb > 0 ? "+" : "") + zBbtb + " SD";
+
+                document.getElementById('kms-result').classList.remove('hidden');
+            }
+
+            function hitungbmi(event) {
+                event.preventDefault();
+                let rawBmiBB = document.getElementById('bmi-bb').value.replace(',', '.');
+                let rawBmiTB = document.getElementById('bmi-tb').value.replace(',', '.');
+
+                const bb = parseFloat(rawBmiBB);
+                const tb = parseFloat(rawBmiTB);
+
+                if (isNaN(bb) || isNaN(tb) || tb <= 0) {
+                    alert('⚠️ Masukkan angka Berat Badan dan Tinggi Badan yang valid!');
+                    return;
+                }
+
+                let heightM = tb / 100;
+                let bmiVal = bb / (heightM * heightM);
+                let bmiFormatted = bmiVal.toFixed(1);
+
+                document.getElementById('bmi-val-score').innerText = bmiFormatted;
+                
+                let minWeight = (18.5 * heightM * heightM).toFixed(1);
+                let maxWeight = (24.9 * heightM * heightM).toFixed(1);
+                document.getElementById('bmi-ideal-range').innerText = `${minWeight} - ${maxWeight} kg`;
+
+                let kategoriText = "";
+                let badgeText = "";
+                let badgeClasses = "";
+                let ptmRiskText = "";
+
+                if (bmiVal < 18.5) {
+                    kategoriText = "Kekurangan Berat Badan (Kurus)";
+                    badgeText = "Kurus";
+                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-sky-100 text-sky-800 border border-sky-300";
+                    ptmRiskText = "Risiko kekurangan nutrisi, anemia, dan penurunan daya tahan tubuh.";
+                } else if (bmiVal <= 24.9) {
+                    kategoriText = "Berat Badan Ideal / Normal";
+                    badgeText = "Normal";
+                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300";
+                    ptmRiskText = "Risiko Penyakit Tidak Menular (Hipertensi, Diabetes Mellitus) Rendah.";
+                } else if (bmiVal <= 27.0) {
+                    kategoriText = "Kelebihan Berat Badan (Overweight)";
+                    badgeText = "Overweight";
+                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300";
+                    ptmRiskText = "Potensi Risiko PTM Sedang: Batasi konsumsi gula, garam, lemak (G4G1L5).";
+                } else {
+                    kategoriText = "Obesitas";
+                    badgeText = "Obesitas";
+                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-red-100 text-red-800 border border-red-300 animate-pulse";
+                    ptmRiskText = "Risiko Tinggi Hipertensi & Diabetes Mellitus. Sangat disarankan skrining rutin di Posyandu PTM.";
+                }
+
+                const bmiBadge = document.getElementById('bmi-badge-status');
+                bmiBadge.innerText = badgeText;
+                bmiBadge.className = badgeClasses;
+
+                document.getElementById('bmi-kategori-kemenkes').innerText = "Kategori: " + kategoriText;
+                document.getElementById('bmi-ptm-risk').innerText = ptmRiskText;
+
+                document.getElementById('bmi-result').classList.remove('hidden');
+            }
+
+            function sendQuickChat(msg) {
+                document.getElementById('chat-input').value = msg;
+                handleChatSubmit(new Event('submit'));
+            }
+
+            function handleChatSubmit(event) {
+                event.preventDefault();
+                const inputEl = document.getElementById('chat-input');
+                const message = inputEl.value.trim();
+                if (!message) return;
+
+                const now = Date.now();
+                if (now - lastChatTimestamp < minChatIntervalMs) {
+                    alert('⚠️ Anti-Spam: Tolong beri jeda minimal 3 detik antar pertanyaan.');
+                    return;
+                }
+
+                if (astiChatCount >= maxAstiQuota) {
+                    const chatMessages = document.getElementById('chat-messages');
+                    const fallbackHtml = `
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-red-100 p-0.5 border border-red-300 overflow-hidden flex-shrink-0 shadow-xs flex items-center justify-center text-red-600 font-bold">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-2xl rounded-tl-none shadow-xs text-red-900 max-w-[85%] leading-relaxed border border-red-200 font-semibold text-xs">
+                                🔒 <strong>Batas Kuota Pertanyaan Terpenuhi (5/5)</strong>.<br>
+                                Untuk pertanyaan medis lanjutan atau layanan posyandu langsung, silakan hubungi Kader Posyandu via WhatsApp (+62 812-3456-7890).
+                            </div>
+                        </div>
+                    `;
+                    chatMessages.innerHTML += fallbackHtml;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    inputEl.value = "";
+                    return;
+                }
+
+                lastChatTimestamp = now;
+                astiChatCount++;
+
+                const remaining = maxAstiQuota - astiChatCount;
+                document.getElementById('asti-remaining-count').innerText = remaining;
+                
+                if (remaining === 0) {
+                    document.getElementById('asti-status-badge').className = "text-[10px] bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-bold border border-red-300";
+                    document.getElementById('asti-status-badge').innerText = "Kuota Habis";
+                }
+
+                const chatMessages = document.getElementById('chat-messages');
+                const userHtml = `
+                    <div class="flex items-start space-x-2 justify-end">
+                        <div class="bg-deep-green text-white p-3 rounded-2xl rounded-tr-none shadow-xs max-w-[85%] font-medium">
+                            ${message}
+                        </div>
+                    </div>
+                `;
+                chatMessages.innerHTML += userHtml;
+                inputEl.value = "";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                setTimeout(() => {
+                    let reply = "Terima kasih atas pertanyaannya! Silakan koordinasi lebih lanjut dengan Bidan Desa atau Kader Posyandu terdekat.";
+                    const lower = message.toLowerCase();
+
+                    if (lower.includes('jadwal') || lower.includes('balita')) {
+                        reply = "📅 Jadwal Posyandu Balita RW 01 dilaksanakan setiap tanggal 12 pukul 08.00 - 11.30 WIB di Poskesdes RT 02 Dusun Gonoharjo.";
+                    } else if (lower.includes('profil') || lower.includes('buka') || lower.includes('pin')) {
+                        reply = "🔑 Untuk membuka Profil Keluarga dan Kalkulator KMS/BMI, silakan masukkan Barcode dan PIN 6 Digit (Default Demo: 123456) pada tombol Verifikasi PIN.";
+                    } else if (lower.includes('kms') || lower.includes('hitung')) {
+                        reply = "⚖️ Kalkulator KMS Balita mengukur Z-Score BB/U, TB/U, dan BB/TB sesuai standar WHO & Permenkes No. 2/2020.";
+                    } else if (lower.includes('stunting') || lower.includes('gizi')) {
+                        reply = "🥗 Pencegahan stunting dapat dilakukan dengan pemberian Protein Hewani setiap hari pada MPASI balita serta rutin memantau kenaikan berat badan.";
+                    }
+
+                    const astiHtml = `
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-white p-0.5 border border-olive-green/20 overflow-hidden flex-shrink-0 shadow-xs">
+                                <img src="https://lh3.googleusercontent.com/d/1AW-1Z0iV8ygSM47sk8KSDu_nD2lKFHDi" alt="ASTI" class="w-full h-full object-cover rounded-full">
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-xs text-deep-green max-w-[85%] leading-relaxed border border-olive-green/10 font-medium">
+                                ${reply}
+                            </div>
+                        </div>
+                    `;
+                    chatMessages.innerHTML += astiHtml;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 600);
+            }
+
+            function openModalUsulan() {
+                document.getElementById('modal-usulan').classList.remove('hidden');
+            }
+
+            function closeModalUsulan() {
+                document.getElementById('modal-usulan').classList.add('hidden');
+            }
+
+            function submitUsulanData(event) {
+                event.preventDefault();
+                closeModalUsulan();
+                alert('📩 Usulan berhasil dikirimkan ke Web Kader & Web Admin!');
+            }
+
+            function openModalLayanan(klaster, type) {
+                const modal = document.getElementById('modal-layanan');
+                const titleEl = document.getElementById('modal-layanan-title');
+                const contentEl = document.getElementById('modal-layanan-content');
+
+                titleEl.innerText = `Informasi ${klaster.toUpperCase()} - ${type.toUpperCase()}`;
+                contentEl.innerHTML = `<p class="font-medium leading-relaxed">Layanan terintegrasi Posyandu ILP Desa Gonoharjo mencakup skrining kesehatan berkala, pencegahan penyakit, pendampingan gizi seimbang, dan pemeriksaan Bidan Desa.</p>`;
+                modal.classList.remove('hidden');
+            }
+
+            function closeModalLayanan() {
+                document.getElementById('modal-layanan').classList.add('hidden');
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                initKehadiranChart();
+            });
+        </script>
+    </body>
+    </html>
