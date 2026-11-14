@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- ===== BAGIAN 1 DARI 4 : MULAI (head, CSS, header, tab Beranda) ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#FAF7F0">
     <title>Sasaran Posyandu - GO-Positif Gonoharjo</title>
     <!-- Favicon Logo Tab Browser (Disamakan dengan WEB UTAMA V6) -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv">
@@ -184,18 +186,20 @@
             box-shadow: 0 2px 8px rgba(30, 70, 32, 0.2);
         }
 
+        @media screen {
         /* Mode Ramah Lansia (Dukungan Aksesibilitas Psikologi & Kesehatan) */
-        body.mode-lansia {
-            font-size: 1.125rem;
-            line-height: 1.75;
-        }
-
-        body.mode-lansia h1 { font-size: 2.25rem !important; }
-        body.mode-lansia h2 { font-size: 1.875rem !important; }
-        body.mode-lansia h3 { font-size: 1.5rem !important; }
-        body.mode-lansia p, body.mode-lansia button, body.mode-lansia span { font-size: 1rem !important; }
-        body.mode-lansia .white-card {
-            border: 2px solid var(--deep-green);
+            body.mode-lansia {
+                font-size: 1.125rem;
+                line-height: 1.75;
+            }
+    
+            body.mode-lansia h1 { font-size: 2.25rem !important; }
+            body.mode-lansia h2 { font-size: 1.875rem !important; }
+            body.mode-lansia h3 { font-size: 1.5rem !important; }
+            body.mode-lansia p, body.mode-lansia button, body.mode-lansia span { font-size: 1rem !important; }
+            body.mode-lansia .white-card {
+                border: 2px solid var(--deep-green);
+            }
         }
 
         /* HOLOGRAPHIC 3D GLASS FLIP CARD ENGINE FOR SASARAN LAYANAN */
@@ -255,6 +259,135 @@
         ::-webkit-scrollbar-track { background: #FAF7F0; }
         ::-webkit-scrollbar-thumb { background: #C5D1AA; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #7C9246; }
+
+        /* ==========================================================
+           [BARU] KALKULATOR KMS BALITA - TEMA ADAPTIF L / P
+           Palet disinkronkan dengan GO-Positif:
+           teal = Laki-laki, coral = Perempuan.
+           JS cukup menambah/menghapus class .theme-girls pada #kms-calc
+           ========================================================== */
+        #kms-calc { --kc-acc: #2A7B88; --kc-acc-dark: #164E63; --kc-acc-soft: #E0F2F1; --kc-acc-ring: #B4DADF; }
+        #kms-calc.theme-girls { --kc-acc: #E07A5F; --kc-acc-dark: #A94A31; --kc-acc-soft: #FCEADE; --kc-acc-ring: #F4C8B8; }
+
+        .kc-step { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 9px; font-size: .8rem; font-weight: 800; background: var(--kc-acc-soft); color: var(--kc-acc-dark); transition: background-color .25s, color .25s; }
+        .kc-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 8px; font-size: .72rem; font-weight: 700; background: var(--kc-acc-soft); color: var(--kc-acc-dark); border: 1px solid var(--kc-acc-ring); transition: all .25s; }
+        .kc-dot { width: 10px; height: 10px; border-radius: 9999px; flex-shrink: 0; background: var(--kc-acc); transition: background-color .25s; }
+        .kc-label { display: block; margin-bottom: 6px; font-size: .7rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--earth-brown); }
+        .kc-input { width: 100%; padding: .55rem .9rem; border-radius: 12px; border: 1px solid rgba(124,146,70,.30); background: var(--bg-base); color: var(--deep-green); font-weight: 700; outline: none; transition: border-color .2s, box-shadow .2s, background-color .2s; }
+        .kc-input:focus { background: #fff; border-color: var(--kc-acc); box-shadow: 0 0 0 3px var(--kc-acc-ring); }
+        .kc-choice { padding: .7rem; border-radius: 12px; border: 2px solid rgba(124,146,70,.22); background: #fff; color: var(--earth-brown); font-weight: 700; cursor: pointer; transition: all .2s; }
+        .kc-choice:hover { background: var(--bg-base); }
+        .kc-choice.is-active { border-color: var(--kc-acc); background: var(--kc-acc-soft); color: var(--kc-acc-dark); box-shadow: 0 2px 8px -2px var(--kc-acc-ring); }
+        .kc-nudge { padding: .6rem .7rem; border-radius: 12px; border: 1px solid rgba(124,146,70,.30); background: var(--bg-base); color: var(--earth-brown); font-size: .75rem; font-weight: 800; cursor: pointer; transition: background-color .2s; }
+        .kc-nudge:hover { background: #EBF2DF; }
+        .kc-link { color: var(--kc-acc-dark); font-size: .72rem; font-weight: 700; cursor: pointer; }
+        .kc-link:hover { text-decoration: underline; }
+        #kms-calc input[type="range"] { accent-color: var(--kc-acc); }
+        .kc-seg { display: inline-flex; gap: 2px; padding: 4px; border-radius: 12px; background: #EBF2DF; border: 1px solid rgba(124,146,70,.25); }
+        .kc-seg button { padding: .35rem .75rem; border-radius: 9px; font-size: .72rem; font-weight: 700; color: var(--earth-brown); cursor: pointer; transition: all .2s; }
+        .kc-seg button.is-active { background: #fff; color: var(--deep-green); box-shadow: 0 1px 4px rgba(30,70,32,.15); }
+        .kc-block { padding: 1rem; border-radius: 16px; border: 1px solid rgba(124,146,70,.20); background: rgba(250,247,240,.75); }
+        .kc-plot { position: relative; overflow: hidden; display: flex; align-items: center; background: #fff; border-radius: 12px; border: 1px solid rgba(124,146,70,.18); }
+        .kc-tip { position: absolute; z-index: 20; width: 13rem; padding: .7rem; border-radius: 12px; font-size: .72rem; color: #fff; background: rgba(22,46,24,.96); border: 1px solid rgba(124,146,70,.5); box-shadow: 0 10px 25px rgba(0,0,0,.25); pointer-events: none; }
+        .kc-toast { position: fixed; right: 1.25rem; bottom: 5.5rem; z-index: 60; display: flex; align-items: center; gap: .65rem; padding: .7rem 1rem; border-radius: 12px; background: var(--deep-green); color: #fff; font-size: .8rem; font-weight: 700; box-shadow: 0 10px 25px rgba(30,70,32,.35); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .3s, transform .3s; }
+        .kc-toast.is-show { opacity: 1; transform: none; }
+
+        /* ==========================================================
+           [BARU] LAPORAN CETAK RESMI GO-POSITIF (KMS Balita & BMI)
+           Gaya mengikuti laporan WEB ADMIN: kop 2 logo + 4 baris teks, garis ganda,
+           isi serif, tabel abu-abu, tanda tangan berkolom.
+           Kop (logo & teks) dapat diubah lewat modal #modal-cetak / objek KOP_LAPORAN.
+           Footer kiri : Printed by GO-POSITIF : [tanggal & jam cetak]
+           Footer kanan: Copyright by @KreasiCahNdeso
+           ========================================================== */
+        #print-report { display: none; }
+
+        @media print {
+            @page { size: A4 portrait; margin: 14mm 15mm 20mm 15mm; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            html, body { background: #fff !important; }
+            body { display: block !important; min-height: 0 !important; padding: 0 !important; overflow: visible !important; }
+            body::before { display: none !important; }
+            body > *:not(#print-report) { display: none !important; }
+            #print-report { display: block !important; color: #0f172a; font-family: 'Times New Roman', Georgia, serif; font-size: 10.5pt; line-height: 1.45; }
+
+            /* Kop surat (logo kiri & kanan, 4 baris teks, garis ganda) */
+            .pr-kop { position: relative; min-height: 17mm; margin-bottom: 12px; padding: 0 19mm 8px; text-align: center; border-bottom: 4px double #000; font-family: 'Quicksand', sans-serif; }
+            .pr-kop img { position: absolute; top: 0; width: 16mm; height: 16mm; object-fit: contain; }
+            .pr-kop .logo-l { left: 0; }
+            .pr-kop .logo-r { right: 0; }
+            .pr-kop .k1 { font-size: 9.5pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #1e293b; }
+            .pr-kop .k2 { font-size: 10.5pt; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+            .pr-kop .k3 { font-size: 12.5pt; font-weight: 900; text-transform: uppercase; }
+            .pr-kop .k4 { margin-top: 2px; font-size: 8pt; font-weight: 500; color: #475569; }
+
+            .pr-title { margin: 10px 0 2px; text-align: center; font-size: 12pt; font-weight: 900; text-transform: uppercase; text-decoration: underline; }
+            .pr-nomor { margin-bottom: 10px; text-align: center; font-size: 9.5pt; font-weight: 700; }
+            .pr-h { margin: 12px 0 5px; padding-bottom: 2px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9pt; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #94a3b8; break-after: avoid; }
+            .pr-kv { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; font-size: 10pt; }
+            .pr-kv div { display: flex; }
+            .pr-kv b { min-width: 30mm; font-weight: 600; color: #475569; }
+
+            .pr-table { width: 100%; border-collapse: collapse; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9pt; }
+            .pr-table th { padding: 4px 6px; text-align: left; font-size: 8.5pt; font-weight: 800; text-transform: uppercase; background: #f1f5f9 !important; border: 1px solid #94a3b8; }
+            .pr-table td { padding: 4px 6px; vertical-align: middle; border: 1px solid #94a3b8; }
+            .pr-table .c { text-align: center; }
+            .pr-table tr { break-inside: avoid; }
+
+            .pr-st { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 8.5pt; font-weight: 700; border: 1px solid; }
+            .pr-st.ok { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
+            .pr-st.warn { background: #FEF3C7; color: #92400E; border-color: #FCD34D; }
+            .pr-st.bad { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
+            .pr-st.info { background: #E0F2FE; color: #075985; border-color: #7DD3FC; }
+
+            .pr-box { padding: 6px 10px; border: 1px solid #94a3b8; border-radius: 4px; font-size: 10pt; break-inside: avoid; }
+            .pr-box + .pr-box { margin-top: 6px; }
+            .pr-box.warn { background: #FFFBEB !important; border-color: #FCD34D; }
+
+            .pr-chart { margin-bottom: 8px; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; break-inside: avoid; }
+            .pr-chart-title { display: flex; justify-content: space-between; margin-bottom: 3px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8.5pt; font-weight: 800; }
+            .pr-chart-row { display: grid; grid-template-columns: 2.1fr 1fr; gap: 6px; align-items: center; }
+            .pr-chart svg { display: block; width: 100%; height: auto; }
+
+            /* Tanda tangan berkolom (seperti laporan admin) */
+            .pr-ttd { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; text-align: center; font-size: 10pt; break-inside: avoid; }
+            .pr-ttd .sp { height: 16mm; }
+            .pr-ttd .nm { font-weight: 900; text-decoration: underline; }
+            .pr-disclaimer { margin-top: 10px; font-size: 8pt; font-style: italic; color: #475569; break-inside: avoid; }
+
+            /* Footer berulang di setiap halaman cetak */
+            .pr-footer { position: fixed; left: 0; right: 0; bottom: -14mm; display: flex; justify-content: space-between; padding-top: 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 7.5pt; font-weight: 500; color: #64748b; border-top: 1px solid #cbd5e1; }
+        }
+    
+        /* ===== POLISH: RESPONSIF HP / TABLET / LAPTOP / MONITOR BESAR ===== */
+        html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+        body { overflow-x: clip; min-height: 100dvh; padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+        body::before { width: 100%; height: 100%; inset: 0; }
+        img, svg, video, canvas, iframe { max-width: 100%; }
+        :focus-visible { outline: 3px solid var(--sun-yellow); outline-offset: 2px; }
+        input, select, textarea { font-size: 16px; }
+        button, select, .nav-tab { touch-action: manipulation; }
+        .kc-nudge, .kc-choice, .kc-input { min-height: 44px; }
+        .kc-res { padding: 1rem 1.1rem; border-radius: 14px; border: 1px solid; }
+        .kc-res-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; }
+        .kc-res-name { font-size: .85rem; font-weight: 800; line-height: 1.35; color: var(--earth-brown); }
+        .kc-res-z { font: 800 1.25rem/1.2 'Quicksand', sans-serif; color: var(--deep-green); white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .kc-res-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .6rem; }
+        .kc-res-pct { font-size: .75rem; color: rgba(90,59,33,.75); }
+        .kc-res-note { margin-top: .6rem; padding: .5rem .7rem; border-radius: 10px; border: 1px solid #fde68a; background: #fffbeb; color: #92400e; font-size: .75rem; line-height: 1.5; }
+        .kc-res-note.is-info { border-color: #bfe3ee; background: #E8F4F8; color: #164E63; }
+        .kc-empty { padding: 1.25rem; border-radius: 14px; border: 1px dashed rgba(124,146,70,.4); text-align: center; font-size: .85rem; color: var(--earth-brown); }
+        @media (max-width: 767px) {
+            .kc-plot { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            svg[id^="chartSvg_"] { min-width: 600px; }
+            .kc-seg { display: grid; width: 100%; }
+            .kc-toast { left: 1rem; right: 1rem; bottom: 6rem; }
+            #sticky-security-banner { bottom: calc(.75rem + env(safe-area-inset-bottom)); }
+        }
+        @media (min-width: 1536px) { html .max-w-7xl { max-width: 90rem; } }
+        @media (min-width: 1920px) { html { font-size: 112.5%; } }
+        @media (min-width: 2560px) { html { font-size: 125%; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
@@ -563,6 +696,9 @@
                 </div>
 
             </section>
+
+            <!-- ===== BAGIAN 1 DARI 4 : SELESAI - lanjutkan dengan BAGIAN 2 (tab Layanan, tab KMS & BMI) ===== -->
+            <!-- ===== BAGIAN 2 DARI 4 : MULAI (tab Layanan, tab KMS & BMI) ===== -->
             
             <!-- ================= TAB 2: LAYANAN POSYANDU SIKLUS HIDUP (HOLOGRAPHIC 3D GLASS FLIP CARDS) ================= -->
             <section id="content-layanan" class="hidden space-y-8">
@@ -820,10 +956,11 @@
 
                 </div>
             </section>
-            
+
             <!-- ================= TAB 3: KALKULATOR KMS & BMI INTERAKTIF ================= -->
             <section id="content-kms" class="hidden space-y-8">
-                
+
+                <!-- INFORMASI / DISCLAIMER HASIL ANALISIS POSYANDU & BIDAN DESA -->
                 <!-- INFORMASI / DISCLAIMER HASIL ANALISIS POSYANDU & BIDAN DESA -->
                 <div class="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-deep-green flex items-start space-x-3 shadow-sm">
                     <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold flex-shrink-0 text-sm mt-0.5">
@@ -837,6 +974,7 @@
                     </div>
                 </div>
 
+                <!-- LOCKED STATE VIEW UNTUK TAB KMS -->
                 <!-- LOCKED STATE VIEW UNTUK TAB KMS -->
                 <div id="kms-locked-view" class="white-card p-8 md:p-12 text-center space-y-5 max-w-2xl mx-auto border-2 border-dashed border-olive-green/40">
                     <div class="w-20 h-20 mx-auto rounded-3xl bg-soft-green text-deep-green flex items-center justify-center text-3xl font-bold shadow-sm">
@@ -862,138 +1000,208 @@
                         </span>
                         <h2 class="text-2xl md:text-3xl font-black text-deep-green">Kalkulator KMS Balita & BMI Dewasa</h2>
                         <p class="text-xs md:text-sm text-earth-brown font-medium">
-                            Analisis presisi Tumbuh Kembang Balita (Standar Permenkes No. 2/2020 & WHO) dan BMI Standar Kemenkes RI. Gunakan tanda koma (,) untuk desimal (misal: 11,5).
+                            Analisis Tumbuh Kembang Balita (Standar Permenkes No. 2/2020 & WHO) dan BMI Standar Kemenkes RI. Pada kalkulator BMI, gunakan tanda koma (,) untuk desimal (misal: 62,5).
                         </p>
                     </div>
 
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        
-                        <!-- KALKULATOR KMS BALITA -->
-                        <div class="white-card p-6 md:p-8 space-y-5 border-2 border-olive-green/20">
-                            <div class="flex items-center space-x-3 border-b border-olive-green/10 pb-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-soft-green text-deep-green flex items-center justify-center font-bold text-lg">
-                                    <i class="fa-solid fa-child text-olive-green"></i>
-                                </div>
+                    <!-- ===== KALKULATOR KMS BALITA (0 - 60 BULAN) - TEMA ADAPTIF L / P ===== -->
+                    <div id="kms-calc" class="space-y-6">
+
+                        <div id="toastBox" class="kc-toast"><i class="fa-solid fa-circle-check text-emerald-300"></i><span id="toastMessage">Pesan notifikasi</span></div>
+
+                        <div class="white-card p-5 md:p-6 border-2 border-olive-green/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-soft-green text-deep-green flex items-center justify-center text-lg"><i class="fa-solid fa-child text-olive-green"></i></div>
                                 <div>
-                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Kalkulator KMS Balita (0 - 60 Bulan)</h3>
-                                    <p class="text-[11px] text-earth-brown font-medium">Permenkes No. 2/2020 & Standar WHO Growth</p>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">Kalkulator KMS Balita (0 - 60 Bulan)</h3>
+                                    <p class="text-[11px] text-earth-brown font-medium">Evaluasi 3 indeks sekaligus: BB/U, PB/U atau TB/U, BB/PB atau BB/TB &middot; Permenkes No. 2/2020 & WHO</p>
                                 </div>
                             </div>
-
-                            <form onsubmit="hitungkms(event)" class="space-y-4 text-xs font-bold text-deep-green">
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block mb-1">Usia Balita (Bulan):</label>
-                                        <input type="number" id="kms-usia" min="0" max="60" placeholder="Contoh: 18" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
-                                    </div>
-                                    <div>
-                                        <label class="block mb-1">Jenis Kelamin:</label>
-                                        <select id="kms-jk" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none cursor-pointer focus:ring-2 focus:ring-olive-green">
-                                            <option value="L">Laki-Laki</option>
-                                            <option value="P">Perempuan</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block mb-1">Berat Badan (kg): <span class="text-[10px] text-sun-yellow font-bold">(Gunakan koma ,)</span></label>
-                                        <input type="text" inputmode="decimal" id="kms-bb" placeholder="Contoh: 11,5" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
-                                    </div>
-                                    <div>
-                                        <label class="block mb-1">Panjang/Tinggi (cm): <span class="text-[10px] text-sun-yellow font-bold">(Gunakan koma ,)</span></label>
-                                        <input type="text" inputmode="decimal" id="kms-tb" placeholder="Contoh: 82,0" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="w-full btn-primary py-3 font-bold flex items-center justify-center space-x-2">
-                                    <i class="fa-solid fa-calculator text-sun-yellow"></i>
-                                    <span>Hitung Z-Score & Status Tumbuh Kembang</span>
-                                </button>
-                            </form>
-
-                            <!-- HASIL ANALISIS KMS BALITA -->
-                            <div id="kms-result" class="hidden p-5 rounded-2xl bg-white border-2 border-olive-green/30 space-y-4 shadow-md">
-                                <div class="flex items-center justify-between border-b border-olive-green/10 pb-2">
-                                    <span class="text-xs font-black text-deep-green uppercase tracking-wide flex items-center gap-1.5">
-                                        <i class="fa-solid fa-chart-line text-olive-green"></i> Hasil Analisis KMS & Z-Score
-                                    </span>
-                                    <span id="kms-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
-                                        Normal
-                                    </span>
-                                </div>
-
-                                <div class="grid grid-cols-3 gap-2 text-center text-[11px]">
-                                    <div class="p-2.5 rounded-xl bg-base-cream border border-olive-green/15 space-y-0.5">
-                                        <span class="block text-[10px] text-earth-brown font-semibold">BB / U (Berat/Usia)</span>
-                                        <span id="z-bbu-val" class="font-black text-deep-green text-xs block">0.00 SD</span>
-                                        <span id="z-bbu-lbl" class="block text-[9px] font-bold text-emerald-700">BB Normal</span>
-                                    </div>
-                                    <div class="p-2.5 rounded-xl bg-base-cream border border-olive-green/15 space-y-0.5">
-                                        <span class="block text-[10px] text-earth-brown font-semibold">PB atau TB / U</span>
-                                        <span id="z-tbu-val" class="font-black text-deep-green text-xs block">0.00 SD</span>
-                                        <span id="z-tbu-lbl" class="block text-[9px] font-bold text-emerald-700">Normal</span>
-                                    </div>
-                                    <div class="p-2.5 rounded-xl bg-base-cream border border-olive-green/15 space-y-0.5">
-                                        <span class="block text-[10px] text-earth-brown font-semibold">BB / PB atau TB</span>
-                                        <span id="z-bbtb-val" class="font-black text-deep-green text-xs block">0.00 SD</span>
-                                        <span id="z-bbtb-lbl" class="block text-[9px] font-bold text-emerald-700">Gizi Baik</span>
-                                    </div>
-                                </div>
-
-                                <!-- PITA KMS VISUAL INTERAKTIF -->
-                                <div class="space-y-1.5 pt-1">
-                                    <div class="flex items-center justify-between text-[10px] font-bold text-earth-brown">
-                                        <span>Pita Grafik KMS (Indikator Skala Z-Score BB/TB):</span>
-                                        <span id="kms-pointer-label" class="font-black text-deep-green">0.00 SD</span>
-                                    </div>
-                                    <div class="relative w-full h-7 rounded-full overflow-hidden border border-slate-300 shadow-inner flex">
-                                        <div class="h-full bg-red-500 w-[16.6%]" title="<-3 SD (Gizi Buruk)"></div>
-                                        <div class="h-full bg-amber-400 w-[16.7%]" title="-3 s/d -2 SD (Gizi Kurang)"></div>
-                                        <div class="h-full bg-emerald-500 w-[33.4%]" title="-2 s/d +2 SD (Gizi Baik)"></div>
-                                        <div class="h-full bg-amber-400 w-[16.7%]" title="+2 s/d +3 SD (Berisiko Gizi Lebih)"></div>
-                                        <div class="h-full bg-red-500 w-[16.6%]" title=">+3 SD (Gizi Lebih)"></div>
-
-                                        <div id="kms-pointer" class="absolute top-0 bottom-0 w-1.5 bg-slate-900 border-x border-white shadow-md transform -translate-x-1/2 transition-all duration-500 ease-out" style="left: 50%;">
-                                            <div class="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-slate-900 absolute -top-1.5 -left-[2px]"></div>
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-between text-[9px] font-extrabold text-earth-brown px-1">
-                                        <span>-3 SD (Buruk)</span>
-                                        <span>-2 SD (Kurang)</span>
-                                        <span class="text-emerald-700">0 SD (Normal)</span>
-                                        <span>+2 SD (Risiko)</span>
-                                        <span>+3 SD (Lebih)</span>
-                                    </div>
-                                </div>
-
-                                <div class="space-y-2 text-xs leading-relaxed border-t border-olive-green/10 pt-3">
-                                    <div class="p-3 rounded-xl bg-soft-green/50 border border-olive-green/20 space-y-1">
-                                        <p class="font-extrabold text-deep-green flex items-center gap-1.5">
-                                            <i class="fa-solid fa-notes-medical text-olive-green"></i> Kesimpulan Status Tumbuh Kembang:
-                                        </p>
-                                        <p id="kms-status-text" class="text-xs font-extrabold text-deep-green">Tumbuh Kembang Normal Sesuai Usia.</p>
-                                        <p id="kms-desc-text" class="text-[11px] text-earth-brown font-medium">Panjang/tinggi badan dan berat badan balita berada pada rentang deviasi ideal sesuai standar WHO.</p>
-                                    </div>
-
-                                    <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5 text-[11px]">
-                                        <p class="font-extrabold text-amber-900 flex items-center gap-1">
-                                            <i class="fa-solid fa-drumstick-bite text-amber-700"></i> Rekomendasi Protein Hewani MPASI:
-                                        </p>
-                                        <p id="kms-protein-rec" class="text-amber-800 font-medium">
-                                            Berikan sekurang-kurangnya 1-2 porsi protein hewani kualitas tinggi setiap hari (Telur, hati ayam, daging sapi, ikan, atau susu).
-                                        </p>
-                                        <p class="font-extrabold text-red-800 flex items-center gap-1 pt-1.5 border-t border-amber-200/80">
-                                            <i class="fa-solid fa-user-nurse text-red-600"></i> Catatan Wajib Skrining Awal Bidan Desa:
-                                        </p>
-                                        <p id="kms-bidan-note" class="text-red-900 font-medium">
-                                            Lakukan penimbangan rutin setiap bulan di Posyandu ILP. Apabila terjadi kenaikan berat badan tidak memadai (weight faltering) 2 bulan berturut-turut, segera konsultasikan dengan Bidan Desa Gonoharjo.
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="resetDefault()" class="px-3.5 py-2 rounded-xl border border-olive-green/30 bg-white text-earth-brown text-xs font-bold hover:bg-soft-yellow transition inline-flex items-center gap-1.5"><i class="fa-solid fa-rotate-left text-olive-green"></i> Reset</button>
+                                <button type="button" onclick="cetakLaporan('kms')" class="btn-primary px-3.5 py-2 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-print text-sun-yellow"></i> Cetak Hasil</button>
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                            <!-- Panel kiri: input data anak -->
+                            <div class="lg:col-span-5 white-card p-5 md:p-6 space-y-4 border-2 border-olive-green/20">
+                                <div class="flex items-center justify-between pb-3 border-b border-olive-green/10">
+                                    <div class="flex items-center gap-2.5"><span id="stepBadge1" class="kc-step">1</span><h3 class="font-extrabold text-deep-green text-base">Data Antropometri Anak</h3></div>
+                                    <span class="text-[11px] font-semibold text-earth-brown/60">Otomatis 3 indeks</span>
+                                </div>
+
+                                <div>
+                                    <label for="childName" class="kc-label">Nama Anak (Opsional)</label>
+                                    <input type="text" id="childName" placeholder="Contoh: Budi Sujatno" oninput="calculateAll()" class="kc-input text-sm">
+                                </div>
+
+                                <div>
+                                    <span class="kc-label">Jenis Kelamin</span>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <button type="button" id="btnBoys" onclick="setGender('boys')" class="kc-choice is-active flex items-center justify-center gap-2 text-sm"><i class="fa-solid fa-mars"></i><span>Laki-laki</span></button>
+                                        <button type="button" id="btnGirls" onclick="setGender('girls')" class="kc-choice flex items-center justify-center gap-2 text-sm"><i class="fa-solid fa-venus"></i><span>Perempuan</span></button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label for="ageInput" class="kc-label !mb-0">Umur Anak (Bulan Penuh)</label>
+                                        <span id="ageYearsLabel" class="kc-pill">2 tahun 0 bulan</span>
+                                    </div>
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="relative flex-1">
+                                            <input type="number" id="ageInput" min="0" max="60" step="1" value="24" oninput="handleAgeChange(this.value)" class="kc-input pr-11 text-base">
+                                            <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-earth-brown/60">bln</span>
+                                        </div>
+                                        <select id="ageSelect" onchange="handleAgeChange(this.value)" aria-label="Pilih Umur Bulan" class="kc-input !w-auto !py-2.5 text-xs cursor-pointer"></select>
+                                    </div>
+                                    <div class="mt-2.5">
+                                        <input type="range" id="ageSlider" min="0" max="60" step="1" value="24" oninput="handleAgeChange(this.value)" class="w-full h-2 bg-soft-green rounded-lg appearance-none cursor-pointer">
+                                        <div class="flex justify-between text-[10px] font-semibold text-earth-brown/60 mt-1"><span>0 bln</span><span>12</span><span>24</span><span>36</span><span>48</span><span>60 bln</span></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="kc-label">Posisi Pengukuran Panjang / Tinggi</span>
+                                    <div class="grid grid-cols-2 gap-2.5">
+                                        <button type="button" id="btnRecumbent" onclick="setMeasureType('recumbent')" class="kc-choice text-left text-xs"><div class="font-extrabold">Terlentang (PB)</div><div class="text-[10px] opacity-75">Standar 0–24 Bulan</div></button>
+                                        <button type="button" id="btnStanding" onclick="setMeasureType('standing')" class="kc-choice is-active text-left text-xs"><div class="font-extrabold">Berdiri (TB)</div><div class="text-[10px] opacity-75">Standar 24–60 Bulan</div></button>
+                                    </div>
+                                    <p class="text-[11px] text-earth-brown/70 mt-1">*Otomatis menyesuaikan saat usia diubah (&lt; 24 bln terlentang, &ge; 24 bln berdiri). Jika cara ukur berbeda dari standar, nilai dikoreksi 0,7 cm sesuai aturan WHO.</p>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label for="heightInput" id="heightLabel" class="kc-label !mb-0">Tinggi Badan (cm)</label>
+                                        <button type="button" onclick="setMedianHeight()" class="kc-link">Isi Median (<span id="quickMedianHeightHint">87.1</span> cm)</button>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                    <button type="button" onclick="adjustHeight(-0.5)" class="kc-nudge">−0.5</button>
+                                    <div class="relative flex-1">
+                                        <input type="number" id="heightInput" min="45" max="125" step="any" inputmode="decimal" value="87.1" oninput="calculateAll()" class="kc-input pr-10 text-base">
+                                        <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-earth-brown/60">cm</span>
+                                    </div>
+                                    <button type="button" onclick="adjustHeight(0.5)" class="kc-nudge">+0.5</button>
+                                </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label for="weightInput" class="kc-label !mb-0">Berat Badan Aktual (kg)</label>
+                                        <button type="button" onclick="setMedianWeight()" class="kc-link">Isi Median (<span id="quickMedianWeightHint">12.2</span> kg)</button>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                    <button type="button" onclick="adjustWeight(-0.1)" class="kc-nudge">−0.1</button>
+                                    <div class="relative flex-1">
+                                        <input type="number" id="weightInput" min="1" max="45" step="any" inputmode="decimal" value="12.20" oninput="calculateAll()" class="kc-input pr-10 text-base">
+                                        <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-earth-brown/60">kg</span>
+                                    </div>
+                                    <button type="button" onclick="adjustWeight(0.1)" class="kc-nudge">+0.1</button>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel kanan: hasil 3 indeks -->
+                            <div class="lg:col-span-7 white-card p-5 md:p-6 border-2 border-olive-green/20">
+                                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-olive-green/10">
+                                    <div class="flex items-center gap-2.5">
+                                        <span id="stepBadge2" class="kc-step">2</span>
+                                        <div>
+                                            <h3 class="font-extrabold text-deep-green text-base">Hasil Evaluasi 3 Indeks Antropometri</h3>
+                                            <p id="subjectSummaryLabel" class="text-[11px] text-earth-brown font-medium">Subjek: Anak • Laki-laki • 24 Bulan • TB 87.1 cm • BB 12.20 kg</p>
+                                        </div>
+                                    </div>
+                                    <span id="themePillBadge" class="kc-pill">WHO LMS Exact</span>
+                                </div>
+                                <div id="threeResultsContainer" class="space-y-4"></div>
+                            </div>
+                        </div>
+
+                        <!-- Diagram kurva pertumbuhan & distribusi normal -->
+                        <div class="white-card p-4 md:p-6 border-2 border-olive-green/20">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 mb-5 border-b border-olive-green/10">
+                                <div class="flex items-center gap-2.5">
+                                    <span id="stepBadge3" class="kc-step">3</span>
+                                    <div>
+                                        <h3 class="font-extrabold text-deep-green text-base">Diagram Kurva Pertumbuhan & Distribusi Normal</h3>
+                                        <p class="text-[11px] text-earth-brown font-medium">Sentuh atau arahkan kursor pada grafik untuk melihat batas −3 SD hingga +3 SD WHO</p>
+                                    </div>
+                                </div>
+                                <div class="kc-seg self-start md:self-auto">
+                                    <button type="button" id="zoomFocusBtn" onclick="setZoomMode('focus')" class="is-active">Zoom Fokus (±6 Bln / ±10 cm)</button>
+                                    <button type="button" id="zoomFullBtn" onclick="setZoomMode('full')">Rentang Penuh (0–60 Bln)</button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-semibold text-earth-brown bg-base-cream px-3.5 py-2.5 rounded-xl border border-olive-green/15 mb-5">
+                                <span class="font-extrabold text-deep-green">Keterangan Garis:</span>
+                                <span class="inline-flex items-center gap-1.5"><span class="w-3.5 h-0.5 bg-rose-600 inline-block"></span> ±3 SD</span>
+                                <span class="inline-flex items-center gap-1.5"><span class="w-3.5 h-0.5 bg-orange-500 inline-block"></span> ±2 SD</span>
+                                <span class="inline-flex items-center gap-1.5"><span class="w-3.5 h-0.5 bg-amber-500 inline-block"></span> ±1 SD</span>
+                                <span class="inline-flex items-center gap-1.5"><span class="w-3.5 h-1 bg-emerald-600 inline-block rounded"></span> Median (0 SD)</span>
+                                <span class="inline-flex items-center gap-1.5"><span id="legendPinDot" class="kc-dot ring-2 ring-white"></span> Posisi Anak</span>
+                            </div>
+
+                            <div class="space-y-6">
+                        <div class="kc-block">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                <h3 class="text-sm font-extrabold text-deep-green flex items-center gap-2"><span id="dotTitleWFA" class="kc-dot"></span><span>1. Berat Badan menurut Umur (BB/U)</span></h3>
+                                <div class="flex items-center gap-2"><span class="kc-pill">0–60 Bulan</span><span id="chartPillWFA" class="kc-pill">Z: 0.00 SD</span></div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+                                <div class="lg:col-span-8 kc-plot">
+                                    <svg id="chartSvg_wfa" viewBox="0 0 820 430" class="w-full h-auto block select-none"></svg>
+                                    <div id="tooltip_wfa" class="hidden kc-tip"></div>
+                                </div>
+                                <div class="lg:col-span-4 kc-plot flex-col justify-between p-3">
+                                    <svg id="bellSvg_wfa" viewBox="0 0 420 280" class="w-full h-auto block select-none my-auto"></svg>
+                                    <p class="text-[11px] text-center text-earth-brown mt-2 pt-2 border-t border-olive-green/15 w-full">Distribusi Normal Z-Score <strong>BB/U</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kc-block">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                <h3 class="text-sm font-extrabold text-deep-green flex items-center gap-2"><span id="dotTitleLHFA" class="kc-dot"></span><span id="chartTitleLHFA">2. Tinggi Badan menurut Umur (TB/U)</span></h3>
+                                <div class="flex items-center gap-2"><span id="badgeTableLHFA" class="kc-pill">Tabel Penuh TB (0–60 Bln)</span><span id="chartPillLHFA" class="kc-pill">Z: 0.00 SD</span></div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+                                <div class="lg:col-span-8 kc-plot">
+                                    <svg id="chartSvg_lhfa" viewBox="0 0 820 430" class="w-full h-auto block select-none"></svg>
+                                    <div id="tooltip_lhfa" class="hidden kc-tip"></div>
+                                </div>
+                                <div class="lg:col-span-4 kc-plot flex-col justify-between p-3">
+                                    <svg id="bellSvg_lhfa" viewBox="0 0 420 280" class="w-full h-auto block select-none my-auto"></svg>
+                                    <p class="text-[11px] text-center text-earth-brown mt-2 pt-2 border-t border-olive-green/15 w-full">Distribusi Normal Z-Score <strong id="bellLabelLHFA">TB/U</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kc-block">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                <h3 class="text-sm font-extrabold text-deep-green flex items-center gap-2"><span id="dotTitleWFLH" class="kc-dot"></span><span id="chartTitleWFLH">3. Berat Badan menurut Tinggi Badan (BB/TB)</span></h3>
+                                <div class="flex items-center gap-2"><span id="badgeTableWFLH" class="kc-pill">Tabel Penuh BB/TB (65–120 cm)</span><span id="chartPillWFLH" class="kc-pill">Z: 0.00 SD</span></div>
+                            </div>
+                            <div id="wflhRangeWarning" class="hidden mb-3 px-3 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium"></div>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+                                <div class="lg:col-span-8 kc-plot">
+                                    <svg id="chartSvg_wflh" viewBox="0 0 820 430" class="w-full h-auto block select-none"></svg>
+                                    <div id="tooltip_wflh" class="hidden kc-tip"></div>
+                                </div>
+                                <div class="lg:col-span-4 kc-plot flex-col justify-between p-3">
+                                    <svg id="bellSvg_wflh" viewBox="0 0 420 280" class="w-full h-auto block select-none my-auto"></svg>
+                                    <p class="text-[11px] text-center text-earth-brown mt-2 pt-2 border-t border-olive-green/15 w-full">Distribusi Normal Z-Score <strong id="bellLabelWFLH">BB/TB</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center text-[11px] text-earth-brown/70 font-medium">Sumber data: WHO Child Growth Standards (0–60 bulan) & Permenkes RI No. 2 Tahun 2020 tentang Standar Antropometri Anak.</p>
+                    </div>
+
+                    <!-- ===== KALKULATOR BMI / IMT (tetap, ditambah tombol cetak) ===== -->
+                    <div class="max-w-3xl mx-auto w-full">
                         <!-- KALKULATOR BMI / IMT -->
                         <div class="white-card p-6 md:p-8 space-y-5 border-2 border-sun-yellow/40">
                             <div class="flex items-center space-x-3 border-b border-olive-green/10 pb-3.5">
@@ -1007,6 +1215,10 @@
                             </div>
 
                             <form onsubmit="hitungbmi(event)" class="space-y-4 text-xs font-bold text-deep-green">
+                                <div>
+                                    <label class="block mb-1">Nama (Opsional, untuk laporan cetak):</label>
+                                    <input type="text" id="bmi-nama" placeholder="Contoh: Siti Ratnah" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow">
+                                </div>
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
                                         <label class="block mb-1">Berat Badan (kg): <span class="text-[10px] text-earth-brown font-normal">(Gunakan koma ,)</span></label>
@@ -1030,9 +1242,9 @@
                                     <span class="text-xs font-black text-deep-green uppercase tracking-wide flex items-center gap-1.5">
                                         <i class="fa-solid fa-heart-pulse text-olive-green"></i> Hasil Analisis IMT & Risiko PTM
                                     </span>
-                                    <span id="bmi-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                    <div class="flex items-center gap-2"><span id="bmi-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
                                         Normal
-                                    </span>
+                                    </span><button type="button" onclick="cetakLaporan('bmi')" class="btn-primary px-2.5 py-1 text-[10px] font-bold inline-flex items-center gap-1"><i class="fa-solid fa-print text-sun-yellow"></i> Cetak Hasil</button></div>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-3 text-center">
@@ -1075,11 +1287,14 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
 
             </section>
+
+            <!-- ===== BAGIAN 2 DARI 4 : SELESAI - lanjutkan dengan BAGIAN 3 (tab Profil, Kontak, footer, modal, template cetak) ===== -->
+            <!-- ===== BAGIAN 3 DARI 4 : MULAI (tab Profil, tab Kontak, footer, modal, template cetak) ===== -->
             
             <!-- ================= TAB 4: PROFIL KELUARGA (LOCKED / UNLOCKED STATE) ================= -->
             <section id="content-profil" class="hidden space-y-8">
@@ -1658,8 +1873,110 @@
             </div>
         </footer>
 
+        <!-- ===== [BARU] TEMPLATE LAPORAN CETAK RESMI GO-POSITIF (hanya tampil saat cetak; diisi oleh cetakLaporan()) ===== -->
+        <div id="print-report" aria-hidden="true">
+            <div id="pr-kop" class="pr-kop"></div>
+            <h2 id="pr-title" class="pr-title"></h2>
+            <p id="pr-nomor" class="pr-nomor"></p>
+            <div id="pr-body"></div>
+            <div id="pr-ttd" class="pr-ttd"></div>
+            <p class="pr-disclaimer">Dokumen ini dihasilkan dari kalkulator skrining mandiri GO-POSITIF. Hasil bukan diagnosis medis dan wajib dikonfirmasi melalui pemeriksaan langsung oleh Bidan Desa atau petugas kesehatan Posyandu ILP.</p>
+            <div class="pr-footer">
+                <span>Printed by GO-POSITIF : <span id="pr-timestamp"></span></span>
+                <span>Copyright by @KreasiCahNdeso</span>
+            </div>
+        </div>
+
+        <!-- ===== [BARU] MODAL PENGATURAN LAPORAN CETAK (kop surat & penandatangan) ===== -->
+        <div id="modal-cetak" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="white-card p-5 md:p-6 max-w-lg w-full max-h-[92vh] overflow-y-auto bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30">
+                <div class="flex items-center justify-between border-b border-olive-green/20 pb-3">
+                    <div class="flex items-center space-x-2 text-deep-green">
+                        <i class="fa-solid fa-print text-xl text-olive-green"></i>
+                        <div>
+                            <h3 class="font-extrabold text-deep-green text-base leading-tight">Pengaturan Laporan Cetak</h3>
+                            <p class="text-[11px] text-earth-brown font-semibold">Laporan: <span id="cetak-jenis">KMS Balita</span></p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="closeModalCetak()" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-earth-brown hover:bg-soft-yellow font-bold">✕</button>
+                </div>
+
+                <form onsubmit="simpanDanCetak(event)" class="space-y-3 text-xs font-bold text-deep-green">
+                    <div>
+                        <label class="block mb-1">Baris 1 (Pemerintah Kabupaten):</label>
+                        <input type="text" id="cfg-kop-b1" placeholder="PEMERINTAH KABUPATEN KENDAL" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                    </div>
+                    <div>
+                        <label class="block mb-1">Baris 2 (Kecamatan & Desa):</label>
+                        <input type="text" id="cfg-kop-b2" placeholder="KECAMATAN LIMBANGAN - DESA GONOHARJO" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                    </div>
+                    <div>
+                        <label class="block mb-1">Baris 3 (Nama Posyandu):</label>
+                        <input type="text" id="cfg-kop-b3" placeholder="POSYANDU INTEGRASI LAYANAN PRIMER (ILP)" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                    </div>
+                    <div>
+                        <label class="block mb-1">Baris 4 (Alamat & Kontak):</label>
+                        <input type="text" id="cfg-kop-b4" placeholder="Sekretariat: ..." class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div class="p-2.5 rounded-xl bg-white border border-olive-green/20 space-y-1.5">
+                            <label class="block">Logo Kiri</label>
+                            <div class="flex items-center gap-2">
+                                <div class="w-11 h-11 rounded-lg bg-base-cream border border-olive-green/15 flex items-center justify-center overflow-hidden flex-shrink-0"><img id="cfg-prev-kiri" alt="" class="w-full h-full object-contain"></div>
+                                <input type="text" id="cfg-logo-kiri" placeholder="https://... atau unggah" class="w-full p-2 bg-base-cream rounded-lg border border-olive-green/20 text-[11px] focus:outline-none">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <label class="cursor-pointer px-2.5 py-1 rounded-lg bg-soft-green text-deep-green text-[10px] font-bold hover:bg-olive-green hover:text-white transition"><i class="fa-solid fa-file-arrow-up mr-1"></i>Unggah gambar
+                                    <input type="file" accept="image/*" class="hidden" onchange="bacaLogoFile('kiri', this)">
+                                </label>
+                                <button type="button" onclick="hapusLogo('kiri')" class="px-2.5 py-1 rounded-lg bg-white border border-olive-green/30 text-earth-brown text-[10px] font-bold hover:bg-soft-yellow transition">Kosongkan</button>
+                            </div>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-white border border-olive-green/20 space-y-1.5">
+                            <label class="block">Logo Kanan</label>
+                            <div class="flex items-center gap-2">
+                                <div class="w-11 h-11 rounded-lg bg-base-cream border border-olive-green/15 flex items-center justify-center overflow-hidden flex-shrink-0"><img id="cfg-prev-kanan" alt="" class="w-full h-full object-contain"></div>
+                                <input type="text" id="cfg-logo-kanan" placeholder="https://... atau unggah" class="w-full p-2 bg-base-cream rounded-lg border border-olive-green/20 text-[11px] focus:outline-none">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <label class="cursor-pointer px-2.5 py-1 rounded-lg bg-soft-green text-deep-green text-[10px] font-bold hover:bg-olive-green hover:text-white transition"><i class="fa-solid fa-file-arrow-up mr-1"></i>Unggah gambar
+                                    <input type="file" accept="image/*" class="hidden" onchange="bacaLogoFile('kanan', this)">
+                                </label>
+                                <button type="button" onclick="hapusLogo('kanan')" class="px-2.5 py-1 rounded-lg bg-white border border-olive-green/30 text-earth-brown text-[10px] font-bold hover:bg-soft-yellow transition">Kosongkan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div>
+                            <label class="block mb-1">Tempat Penandatanganan:</label>
+                            <input type="text" id="cfg-ttd-tempat" placeholder="Gonoharjo" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                        </div>
+                        <div>
+                            <label class="block mb-1">Nama Bidan Desa:</label>
+                            <input type="text" id="cfg-ttd-bidan" placeholder="Nama Bidan Desa" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                        </div>
+                    </div>
+
+                    <p class="text-[10px] text-earth-brown/80 font-semibold leading-relaxed"><i class="fa-solid fa-circle-info text-olive-green mr-1"></i>Pengaturan tersimpan di peramban ini dan dipakai lagi pada cetakan berikutnya. Footer laporan tetap: Printed by GO-POSITIF (tanggal & jam cetak) dan Copyright by @KreasiCahNdeso.</p>
+
+                    <div class="pt-1 flex flex-wrap justify-between gap-2">
+                        <button type="button" onclick="resetKopDefault()" class="px-3 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition"><i class="fa-solid fa-rotate-left mr-1 text-olive-green"></i>Kop Bawaan</button>
+                        <div class="flex gap-2">
+                            <button type="button" onclick="closeModalCetak()" class="px-4 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition">Batal</button>
+                            <button type="submit" class="btn-primary px-4 py-2 font-bold inline-flex items-center gap-1.5"><i class="fa-solid fa-print text-sun-yellow"></i>Simpan & Cetak</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== BAGIAN 3 DARI 4 : SELESAI - lanjutkan dengan BAGIAN 4 (seluruh JavaScript, diawali tag <script>) ===== -->
+        <!-- ===== BAGIAN 4 DARI 4 : MULAI (seluruh JavaScript) ===== -->
         <!-- JAVASCRIPT LOGIC & MODUL INTERAKSI UTUH -->
         <script>
+        
             let isUserLoggedIn = false;
             let currentKKNumber = "";
             let kehadiranChartInstance = null;
@@ -2083,87 +2400,6 @@
                 }
             }
 
-            function hitungkms(event) {
-                event.preventDefault();
-                const usia = parseInt(document.getElementById('kms-usia').value);
-                const jk = document.getElementById('kms-jk').value;
-
-                let rawBB = document.getElementById('kms-bb').value.replace(',', '.');
-                let rawTB = document.getElementById('kms-tb').value.replace(',', '.');
-
-                const bb = parseFloat(rawBB);
-                const tb = parseFloat(rawTB);
-
-                if (isNaN(usia) || isNaN(bb) || isNaN(tb)) {
-                    alert('⚠️ Silakan masukkan nilai Usia, Berat Badan, dan Tinggi Badan secara lengkap!');
-                    return;
-                }
-
-                let medianBB = jk === 'L' ? (3.3 + (usia * 0.38)) : (3.2 + (usia * 0.36));
-                let sdBB = jk === 'L' ? 1.15 : 1.10;
-                let zBbu = ((bb - medianBB) / sdBB).toFixed(2);
-
-                let medianTB = jk === 'L' ? (50 + (usia * 0.68)) : (49 + (usia * 0.66));
-                let sdTB = jk === 'L' ? 2.4 : 2.3;
-                let zTbu = ((tb - medianTB) / sdTB).toFixed(2);
-
-                let expectedBBForTB = (tb * 0.14) - (jk === 'L' ? 1.1 : 1.2);
-                let zBbtb = ((bb - expectedBBForTB) / 1.15).toFixed(2);
-
-                document.getElementById('z-bbu-val').innerText = (zBbu > 0 ? "+" : "") + zBbu + " SD";
-                document.getElementById('z-tbu-val').innerText = (zTbu > 0 ? "+" : "") + zTbu + " SD";
-                document.getElementById('z-bbtb-val').innerText = (zBbtb > 0 ? "+" : "") + zBbtb + " SD";
-
-                let bbuLabel = "BB Normal";
-                if (zBbu < -3) bbuLabel = "Sangat Kurang";
-                else if (zBbu < -2) bbuLabel = "BB Kurang";
-                else if (zBbu > 1) bbuLabel = "Risiko Lebih";
-                document.getElementById('z-bbu-lbl').innerText = bbuLabel;
-
-                let tbuLabel = "Tinggi Badan Normal";
-                if (zTbu < -3) tbuLabel = "Sangat Pendek (Stunting)";
-                else if (zTbu < -2) tbuLabel = "Pendek (Stunting)";
-                document.getElementById('z-tbu-lbl').innerText = tbuLabel;
-
-                let bbtbLabel = "Gizi Baik";
-                let statusBadgeText = "Normal";
-                let badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300";
-                let statusText = "Tumbuh Kembang Baik & Normal Sesuai Usia.";
-                let descText = "Panjang/tinggi badan dan berat badan balita berada pada rentang deviasi ideal grafik WHO & Kemenkes RI.";
-
-                if (zBbtb < -3) {
-                    bbtbLabel = "Gizi Buruk (Severely Wasted)";
-                    statusBadgeText = "Bahaya / Perlu Rujukan";
-                    badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-red-100 text-red-800 border border-red-300 animate-pulse";
-                    statusText = "Indikasi Gizi Buruk! Perlu Penanganan Segera.";
-                    descText = "Berat badan balita sangat rendah dibandingkan tinggi badannya. Segera bawa balita ke Bidan Desa Gonoharjo atau Puskesmas.";
-                } else if (zBbtb < -2) {
-                    bbtbLabel = "Gizi Kurang (Wasted)";
-                    statusBadgeText = "Perhatian Khusus";
-                    badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300";
-                    statusText = "Berisiko Gizi Kurang / Weight Faltering.";
-                    descText = "Kenaikan berat badan tidak sebanding dengan pertambahan tinggi. Tingkatkan asupan makanan padat gizi hewani.";
-                } else if (zBbtb > 3) {
-                    bbtbLabel = "Obesitas";
-                    statusBadgeText = "Gizi Lebih";
-                    badgeClass = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300";
-                    statusText = "Kelebihan Berat Badan (Obesitas).";
-                    descText = "Konsultasikan dengan Bidan Desa untuk pengaturan pola konsumsi gizi dan aktivitas fisik balita.";
-                }
-
-                document.getElementById('z-bbtb-lbl').innerText = bbtbLabel;
-                document.getElementById('kms-badge-status').innerText = statusBadgeText;
-                document.getElementById('kms-badge-status').className = badgeClass;
-                document.getElementById('kms-status-text').innerText = statusText;
-                document.getElementById('kms-desc-text').innerText = descText;
-
-                let clampZ = Math.max(-3, Math.min(3, parseFloat(zBbtb)));
-                let percentage = ((clampZ + 3) / 6) * 100;
-                document.getElementById('kms-pointer').style.left = percentage + "%";
-                document.getElementById('kms-pointer-label').innerText = (zBbtb > 0 ? "+" : "") + zBbtb + " SD";
-
-                document.getElementById('kms-result').classList.remove('hidden');
-            }
 
             function hitungbmi(event) {
                 event.preventDefault();
@@ -2344,6 +2580,921 @@
             window.addEventListener('DOMContentLoaded', () => {
                 initKehadiranChart();
             });
+
+            /* =====================================================================
+               [BARU] DATA STANDAR WHO
+               Ganti teks di bawah dengan objek data WHO. Kunci yang dibutuhkan:
+               lhfa_boys_0_2, lhfa_boys_2_5, lhfa_girls_0_2, lhfa_girls_2_5,
+               wfa_boys, wfa_girls, wfh_boys, wfh_girls, wfl_boys, wfl_girls
+               ===================================================================== */
+          const WHO_DB = {
+  "lhfa_boys_0_2": {
+    "0":[1.0,49.8842,0.03795,44.2,46.1,48.0,49.9,51.8,53.7,55.6],"1":[1.0,54.7244,0.03557,48.9,50.8,52.8,54.7,56.7,58.6,60.6],"2":[1.0,58.4249,0.03424,52.4,54.4,56.4,58.4,60.4,62.4,64.4],"3":[1.0,61.4292,0.03328,55.3,57.3,59.4,61.4,63.5,65.5,67.6],"4":[1.0,63.886,0.03257,57.6,59.7,61.8,63.9,66.0,68.0,70.1],"5":[1.0,65.9026,0.03204,59.6,61.7,63.8,65.9,68.0,70.1,72.2],"6":[1.0,67.6236,0.03165,61.2,63.3,65.5,67.6,69.8,71.9,74.0],"7":[1.0,69.1645,0.03139,62.7,64.8,67.0,69.2,71.3,73.5,75.7],"8":[1.0,70.5994,0.03124,64.0,66.2,68.4,70.6,72.8,75.0,77.2],"9":[1.0,71.9687,0.03117,65.2,67.5,69.7,72.0,74.2,76.5,78.7],"10":[1.0,73.2812,0.03118,66.4,68.7,71.0,73.3,75.6,77.9,80.1],"11":[1.0,74.5388,0.03125,67.6,69.9,72.2,74.5,76.9,79.2,81.5],"12":[1.0,75.7488,0.03137,68.6,71.0,73.4,75.7,78.1,80.5,82.9],"13":[1.0,76.9186,0.03154,69.6,72.1,74.5,76.9,79.3,81.8,84.2],"14":[1.0,78.0497,0.03174,70.6,73.1,75.6,78.0,80.5,83.0,85.5],"15":[1.0,79.1458,0.03197,71.6,74.1,76.6,79.1,81.7,84.2,86.7],"16":[1.0,80.2113,0.03222,72.5,75.0,77.6,80.2,82.8,85.4,88.0],"17":[1.0,81.2487,0.0325,73.3,76.0,78.6,81.2,83.9,86.5,89.2],"18":[1.0,82.2587,0.03279,74.2,76.9,79.6,82.3,85.0,87.7,90.4],"19":[1.0,83.2418,0.0331,75.0,77.7,80.5,83.2,86.0,88.8,91.5],"20":[1.0,84.1996,0.03342,75.8,78.6,81.4,84.2,87.0,89.8,92.6],"21":[1.0,85.1348,0.03376,76.5,79.4,82.3,85.1,88.0,90.9,93.8],"22":[1.0,86.0477,0.0341,77.2,80.2,83.1,86.0,89.0,91.9,94.9],"23":[1.0,86.941,0.03445,78.0,81.0,83.9,86.9,89.9,92.9,95.9],"24":[1.0,87.8161,0.03479,78.7,81.7,84.8,87.8,90.9,93.9,97.0]
+  },
+  "lhfa_boys_2_5": {
+    "24":[1.0,87.1161,0.03507,78.0,81.0,84.1,87.1,90.2,93.2,96.3],"25":[1.0,87.972,0.03542,78.6,81.7,84.9,88.0,91.1,94.2,97.3],"26":[1.0,88.8065,0.03576,79.3,82.5,85.6,88.8,92.0,95.2,98.3],"27":[1.0,89.6197,0.0361,79.9,83.1,86.4,89.6,92.9,96.1,99.3],"28":[1.0,90.412,0.03642,80.5,83.8,87.1,90.4,93.7,97.0,100.3],"29":[1.0,91.1828,0.03674,81.1,84.5,87.8,91.2,94.5,97.9,101.2],"30":[1.0,91.9327,0.03704,81.7,85.1,88.5,91.9,95.3,98.7,102.1],"31":[1.0,92.6631,0.03733,82.3,85.7,89.2,92.7,96.1,99.6,103.0],"32":[1.0,93.3753,0.03761,82.8,86.4,89.9,93.4,96.9,100.4,103.9],"33":[1.0,94.0711,0.03787,83.4,86.9,90.5,94.1,97.6,101.2,104.8],"34":[1.0,94.7532,0.03812,83.9,87.5,91.1,94.8,98.4,102.0,105.6],"35":[1.0,95.4236,0.03836,84.4,88.1,91.8,95.4,99.1,102.7,106.4],"36":[1.0,96.0835,0.03858,85.0,88.7,92.4,96.1,99.8,103.5,107.2],"37":[1.0,96.7337,0.03879,85.5,89.2,93.0,96.7,100.5,104.2,108.0],"38":[1.0,97.3749,0.039,86.0,89.8,93.6,97.4,101.2,105.0,108.8],"39":[1.0,98.0073,0.03919,86.5,90.3,94.2,98.0,101.8,105.7,109.5],"40":[1.0,98.631,0.03937,87.0,90.9,94.7,98.6,102.5,106.4,110.3],"41":[1.0,99.2459,0.03954,87.5,91.4,95.3,99.2,103.2,107.1,111.0],"42":[1.0,99.8515,0.03971,88.0,91.9,95.9,99.9,103.8,107.8,111.7],"43":[1.0,100.4485,0.03986,88.4,92.4,96.4,100.4,104.5,108.5,112.5],"44":[1.0,101.0374,0.04002,88.9,93.0,97.0,101.0,105.1,109.1,113.2],"45":[1.0,101.6186,0.04016,89.4,93.5,97.5,101.6,105.7,109.8,113.9],"46":[1.0,102.1933,0.04031,89.8,94.0,98.1,102.2,106.3,110.4,114.6],"47":[1.0,102.7625,0.04045,90.3,94.4,98.6,102.8,106.9,111.1,115.2],"48":[1.0,103.3273,0.04059,90.7,94.9,99.1,103.3,107.5,111.7,115.9],"49":[1.0,103.8886,0.04073,91.2,95.4,99.7,103.9,108.1,112.4,116.6],"50":[1.0,104.4473,0.04086,91.6,95.9,100.2,104.4,108.7,113.0,117.3],"51":[1.0,105.0041,0.041,92.1,96.4,100.7,105.0,109.3,113.6,117.9],"52":[1.0,105.5596,0.04113,92.5,96.9,101.2,105.6,109.9,114.2,118.6],"53":[1.0,106.1138,0.04126,93.0,97.4,101.7,106.1,110.5,114.9,119.2],"54":[1.0,106.6668,0.04139,93.4,97.8,102.3,106.7,111.1,115.5,119.9],"55":[1.0,107.2188,0.04152,93.9,98.3,102.8,107.2,111.7,116.1,120.6],"56":[1.0,107.7697,0.04165,94.3,98.8,103.3,107.8,112.3,116.7,121.2],"57":[1.0,108.3198,0.04177,94.7,99.3,103.8,108.3,112.8,117.4,121.9],"58":[1.0,108.8689,0.0419,95.2,99.7,104.3,108.9,113.4,118.0,122.6],"59":[1.0,109.417,0.04202,95.6,100.2,104.8,109.4,114.0,118.6,123.2],"60":[1.0,109.9638,0.04214,96.1,100.7,105.3,110.0,114.6,119.2,123.9]
+  },
+  "lhfa_girls_0_2": {
+    "0":[1.0,49.1477,0.0379,43.6,45.4,47.3,49.1,51.0,52.9,54.7],"1":[1.0,53.6872,0.0364,47.8,49.8,51.7,53.7,55.6,57.6,59.5],"2":[1.0,57.0673,0.03568,51.0,53.0,55.0,57.1,59.1,61.1,63.2],"3":[1.0,59.8029,0.0352,53.5,55.6,57.7,59.8,61.9,64.0,66.1],"4":[1.0,62.0899,0.03486,55.6,57.8,59.9,62.1,64.3,66.4,68.6],"5":[1.0,64.0301,0.03463,57.4,59.6,61.8,64.0,66.2,68.5,70.7],"6":[1.0,65.7311,0.03448,58.9,61.2,63.5,65.7,68.0,70.3,72.5],"7":[1.0,67.2873,0.03441,60.3,62.7,65.0,67.3,69.6,71.9,74.2],"8":[1.0,68.7498,0.0344,61.7,64.0,66.4,68.7,71.1,73.5,75.8],"9":[1.0,70.1435,0.03444,62.9,65.3,67.7,70.1,72.6,75.0,77.4],"10":[1.0,71.4818,0.03452,64.1,66.5,69.0,71.5,73.9,76.4,78.9],"11":[1.0,72.771,0.03464,65.2,67.7,70.3,72.8,75.3,77.8,80.3],"12":[1.0,74.015,0.03479,66.3,68.9,71.4,74.0,76.6,79.2,81.7],"13":[1.0,75.2176,0.03496,67.3,70.0,72.6,75.2,77.8,80.5,83.1],"14":[1.0,76.3817,0.03514,68.3,71.0,73.7,76.4,79.1,81.7,84.4],"15":[1.0,77.5099,0.03534,69.3,72.0,74.8,77.5,80.2,83.0,85.7],"16":[1.0,78.6055,0.03555,70.2,73.0,75.8,78.6,81.4,84.2,87.0],"17":[1.0,79.671,0.03576,71.1,74.0,76.8,79.7,82.5,85.4,88.2],"18":[1.0,80.7079,0.03598,72.0,74.9,77.8,80.7,83.6,86.5,89.4],"19":[1.0,81.7182,0.0362,72.8,75.8,78.8,81.7,84.7,87.6,90.6],"20":[1.0,82.7036,0.03643,73.7,76.7,79.7,82.7,85.7,88.7,91.7],"21":[1.0,83.6654,0.03666,74.5,77.5,80.6,83.7,86.7,89.8,92.9],"22":[1.0,84.604,0.03688,75.2,78.4,81.5,84.6,87.7,90.8,94.0],"23":[1.0,85.5202,0.03711,76.0,79.2,82.3,85.5,88.7,91.9,95.0],"24":[1.0,86.4153,0.03734,76.7,80.0,83.2,86.4,89.6,92.9,96.1]
+  },
+  "lhfa_girls_2_5": {
+    "24":[1.0,85.7153,0.03764,76.0,79.3,82.5,85.7,88.9,92.2,95.4],"25":[1.0,86.5904,0.03786,76.8,80.0,83.3,86.6,89.9,93.1,96.4],"26":[1.0,87.4462,0.03808,77.5,80.8,84.1,87.4,90.8,94.1,97.4],"27":[1.0,88.283,0.0383,78.1,81.5,84.9,88.3,91.7,95.0,98.4],"28":[1.0,89.1004,0.03851,78.8,82.2,85.7,89.1,92.5,96.0,99.4],"29":[1.0,89.8991,0.03872,79.5,82.9,86.4,89.9,93.4,96.9,100.3],"30":[1.0,90.6797,0.03893,80.1,83.6,87.1,90.7,94.2,97.7,101.3],"31":[1.0,91.443,0.03913,80.7,84.3,87.9,91.4,95.0,98.6,102.2],"32":[1.0,92.1906,0.03933,81.3,84.9,88.6,92.2,95.8,99.4,103.1],"33":[1.0,92.9239,0.03952,81.9,85.6,89.3,92.9,96.6,100.3,103.9],"34":[1.0,93.6444,0.03971,82.5,86.2,89.9,93.6,97.4,101.1,104.8],"35":[1.0,94.3533,0.03989,83.1,86.8,90.6,94.4,98.1,101.9,105.6],"36":[1.0,95.0515,0.04006,83.6,87.4,91.2,95.1,98.9,102.7,106.5],"37":[1.0,95.7399,0.04024,84.2,88.0,91.9,95.7,99.6,103.4,107.3],"38":[1.0,96.4187,0.04041,84.7,88.6,92.5,96.4,100.3,104.2,108.1],"39":[1.0,97.0885,0.04057,85.3,89.2,93.1,97.1,101.0,105.0,108.9],"40":[1.0,97.7493,0.04073,85.8,89.8,93.8,97.7,101.7,105.7,109.7],"41":[1.0,98.4015,0.04089,86.3,90.4,94.4,98.4,102.4,106.4,110.5],"42":[1.0,99.0448,0.04105,86.8,90.9,95.0,99.0,103.1,107.2,111.2],"43":[1.0,99.6795,0.0412,87.4,91.5,95.6,99.7,103.8,107.9,112.0],"44":[1.0,100.3058,0.04135,87.9,92.0,96.2,100.3,104.5,108.6,112.7],"45":[1.0,100.9238,0.0415,88.4,92.5,96.7,100.9,105.1,109.3,113.5],"46":[1.0,101.5337,0.04164,88.9,93.1,97.3,101.5,105.8,110.0,114.2],"47":[1.0,102.136,0.04179,89.3,93.6,97.9,102.1,106.4,110.7,114.9],"48":[1.0,102.7312,0.04193,89.8,94.1,98.4,102.7,107.0,111.3,115.7],"49":[1.0,103.3197,0.04206,90.3,94.6,99.0,103.3,107.7,112.0,116.4],"50":[1.0,103.9021,0.0422,90.7,95.1,99.5,103.9,108.3,112.7,117.1],"51":[1.0,104.4786,0.04233,91.2,95.6,100.1,104.5,108.9,113.3,117.7],"52":[1.0,105.0494,0.04246,91.7,96.1,100.6,105.0,109.5,114.0,118.4],"53":[1.0,105.6148,0.04259,92.1,96.6,101.1,105.6,110.1,114.6,119.1],"54":[1.0,106.1748,0.04272,92.6,97.1,101.6,106.2,110.7,115.2,119.8],"55":[1.0,106.7295,0.04285,93.0,97.6,102.2,106.7,111.3,115.9,120.4],"56":[1.0,107.2788,0.04298,93.4,98.1,102.7,107.3,111.9,116.5,121.1],"57":[1.0,107.8227,0.0431,93.9,98.5,103.2,107.8,112.5,117.1,121.8],"58":[1.0,108.3613,0.04322,94.3,99.0,103.7,108.4,113.0,117.7,122.4],"59":[1.0,108.8948,0.04334,94.7,99.5,104.2,108.9,113.6,118.3,123.1],"60":[1.0,109.4233,0.04347,95.2,99.9,104.7,109.4,114.2,118.9,123.7]
+  },
+  "wfa_boys": {
+    "0":[0.3487,3.3464,0.14602,2.1,2.5,2.9,3.3,3.9,4.4,5.0],"1":[0.2297,4.4709,0.13395,2.9,3.4,3.9,4.5,5.1,5.8,6.6],"2":[0.197,5.5675,0.12385,3.8,4.3,4.9,5.6,6.3,7.1,8.0],"3":[0.1738,6.3762,0.11727,4.4,5.0,5.7,6.4,7.2,8.0,9.0],"4":[0.1553,7.0023,0.11316,4.9,5.6,6.2,7.0,7.8,8.7,9.7],"5":[0.1395,7.5105,0.1108,5.3,6.0,6.7,7.5,8.4,9.3,10.4],"6":[0.1257,7.934,0.10958,5.7,6.4,7.1,7.9,8.8,9.8,10.9],"7":[0.1134,8.297,0.10902,5.9,6.7,7.4,8.3,9.2,10.3,11.4],"8":[0.1021,8.6151,0.10882,6.2,6.9,7.7,8.6,9.6,10.7,11.9],"9":[0.0917,8.9014,0.10881,6.4,7.1,8.0,8.9,9.9,11.0,12.3],"10":[0.082,9.1649,0.10891,6.6,7.4,8.2,9.2,10.2,11.4,12.7],"11":[0.073,9.4122,0.10906,6.8,7.6,8.4,9.4,10.5,11.7,13.0],"12":[0.0644,9.6479,0.10925,6.9,7.7,8.6,9.6,10.8,12.0,13.3],"13":[0.0563,9.8749,0.10949,7.1,7.9,8.8,9.9,11.0,12.3,13.7],"14":[0.0487,10.0953,0.10976,7.2,8.1,9.0,10.1,11.3,12.6,14.0],"15":[0.0413,10.3108,0.11007,7.4,8.3,9.2,10.3,11.5,12.8,14.3],"16":[0.0343,10.5228,0.11041,7.5,8.4,9.4,10.5,11.7,13.1,14.6],"17":[0.0275,10.7319,0.11079,7.7,8.6,9.6,10.7,12.0,13.4,14.9],"18":[0.0211,10.9385,0.11119,7.8,8.8,9.8,10.9,12.2,13.7,15.3],"19":[0.0148,11.143,0.11164,8.0,8.9,10.0,11.1,12.5,13.9,15.6],"20":[0.0087,11.3462,0.11211,8.1,9.1,10.1,11.3,12.7,14.2,15.9],"21":[0.0029,11.5486,0.11261,8.2,9.2,10.3,11.5,12.9,14.5,16.2],"22":[-0.0028,11.7504,0.11314,8.4,9.4,10.5,11.8,13.2,14.7,16.5],"23":[-0.0083,11.9514,0.11369,8.5,9.5,10.7,12.0,13.4,15.0,16.8],"24":[-0.0137,12.1515,0.11426,8.6,9.7,10.8,12.2,13.6,15.3,17.1],"25":[-0.0189,12.3502,0.11485,8.8,9.8,11.0,12.4,13.9,15.5,17.5],"26":[-0.024,12.5466,0.11544,8.9,10.0,11.2,12.5,14.1,15.8,17.8],"27":[-0.0289,12.7401,0.11604,9.0,10.1,11.3,12.7,14.3,16.1,18.1],"28":[-0.0337,12.9303,0.11664,9.1,10.2,11.5,12.9,14.5,16.3,18.4],"29":[-0.0385,13.1169,0.11723,9.2,10.4,11.7,13.1,14.8,16.6,18.7],"30":[-0.0431,13.3,0.11781,9.4,10.5,11.8,13.3,15.0,16.9,19.0],"31":[-0.0476,13.4798,0.11839,9.5,10.7,12.0,13.5,15.2,17.1,19.3],"32":[-0.052,13.6567,0.11896,9.6,10.8,12.1,13.7,15.4,17.4,19.6],"33":[-0.0564,13.8309,0.11953,9.7,10.9,12.3,13.8,15.6,17.6,19.9],"34":[-0.0606,14.0031,0.12008,9.8,11.0,12.4,14.0,15.8,17.8,20.2],"35":[-0.0648,14.1736,0.12062,9.9,11.2,12.6,14.2,16.0,18.1,20.4],"36":[-0.0689,14.3429,0.12116,10.0,11.3,12.7,14.3,16.2,18.3,20.7],"37":[-0.0729,14.5113,0.12168,10.1,11.4,12.9,14.5,16.4,18.6,21.0],"38":[-0.0769,14.6791,0.1222,10.2,11.5,13.0,14.7,16.6,18.8,21.3],"39":[-0.0808,14.8466,0.12271,10.3,11.6,13.1,14.8,16.8,19.0,21.6],"40":[-0.0846,15.014,0.12322,10.4,11.8,13.3,15.0,17.0,19.3,21.9],"41":[-0.0883,15.1813,0.12373,10.5,11.9,13.4,15.2,17.2,19.5,22.1],"42":[-0.092,15.3486,0.12425,10.6,12.0,13.6,15.3,17.4,19.7,22.4],"43":[-0.0957,15.5158,0.12478,10.7,12.1,13.7,15.5,17.6,20.0,22.7],"44":[-0.0993,15.6828,0.12531,10.8,12.2,13.8,15.7,17.8,20.2,23.0],"45":[-0.1028,15.8497,0.12586,10.9,12.4,14.0,15.8,18.0,20.5,23.3],"46":[-0.1063,16.0163,0.12643,11.0,12.5,14.1,16.0,18.2,20.7,23.6],"47":[-0.1097,16.1827,0.127,11.1,12.6,14.3,16.2,18.4,20.9,23.9],"48":[-0.1131,16.3489,0.12759,11.2,12.7,14.4,16.3,18.6,21.2,24.2],"49":[-0.1165,16.515,0.12819,11.3,12.8,14.5,16.5,18.8,21.4,24.5],"50":[-0.1198,16.6811,0.1288,11.4,12.9,14.7,16.7,19.0,21.7,24.8],"51":[-0.123,16.8471,0.12943,11.5,13.1,14.8,16.8,19.2,21.9,25.1],"52":[-0.1262,17.0132,0.13005,11.6,13.2,15.0,17.0,19.4,22.2,25.4],"53":[-0.1294,17.1792,0.13069,11.7,13.3,15.1,17.2,19.6,22.4,25.7],"54":[-0.1325,17.3452,0.13133,11.8,13.4,15.2,17.3,19.8,22.7,26.0],"55":[-0.1356,17.5111,0.13197,11.9,13.5,15.4,17.5,20.0,22.9,26.3],"56":[-0.1387,17.6768,0.13261,12.0,13.6,15.5,17.7,20.2,23.2,26.6],"57":[-0.1417,17.8422,0.13325,12.1,13.7,15.6,17.8,20.4,23.4,26.9],"58":[-0.1447,18.0073,0.13389,12.2,13.8,15.8,18.0,20.6,23.7,27.2],"59":[-0.1477,18.1722,0.13453,12.3,14.0,15.9,18.2,20.8,23.9,27.6],"60":[-0.1506,18.3366,0.13517,12.4,14.1,16.0,18.3,21.0,24.2,27.9]
+  },
+  "wfa_girls": {
+    "0":[0.3809,3.2322,0.14171,2.0,2.4,2.8,3.2,3.7,4.2,4.8],"1":[0.1714,4.1873,0.13724,2.7,3.2,3.6,4.2,4.8,5.5,6.2],"2":[0.0962,5.1282,0.13,3.4,3.9,4.5,5.1,5.8,6.6,7.5],"3":[0.0402,5.8458,0.12619,4.0,4.5,5.2,5.8,6.6,7.5,8.5],"4":[-0.005,6.4237,0.12402,4.4,5.0,5.7,6.4,7.3,8.2,9.3],"5":[-0.043,6.8985,0.12274,4.8,5.4,6.1,6.9,7.8,8.8,10.0],"6":[-0.0756,7.297,0.12204,5.1,5.7,6.5,7.3,8.2,9.3,10.6],"7":[-0.1039,7.6422,0.12178,5.3,6.0,6.8,7.6,8.6,9.8,11.1],"8":[-0.1288,7.9487,0.12181,5.6,6.3,7.0,7.9,9.0,10.2,11.6],"9":[-0.1507,8.2254,0.12199,5.8,6.5,7.3,8.2,9.3,10.5,12.0],"10":[-0.17,8.48,0.12223,5.9,6.7,7.5,8.5,9.6,10.9,12.4],"11":[-0.1872,8.7192,0.12247,6.1,6.9,7.7,8.7,9.9,11.2,12.8],"12":[-0.2024,8.9481,0.12268,6.3,7.0,7.9,8.9,10.1,11.5,13.1],"13":[-0.2158,9.1699,0.12283,6.4,7.2,8.1,9.2,10.4,11.8,13.5],"14":[-0.2278,9.387,0.12294,6.6,7.4,8.3,9.4,10.6,12.1,13.8],"15":[-0.2384,9.6008,0.12299,6.7,7.6,8.5,9.6,10.9,12.4,14.1],"16":[-0.2478,9.8124,0.12303,6.9,7.7,8.7,9.8,11.1,12.6,14.5],"17":[-0.2562,10.0226,0.12306,7.0,7.9,8.9,10.0,11.4,12.9,14.8],"18":[-0.2637,10.2315,0.12309,7.2,8.1,9.1,10.2,11.6,13.2,15.1],"19":[-0.2703,10.4393,0.12315,7.3,8.2,9.2,10.4,11.8,13.5,15.4],"20":[-0.2762,10.6464,0.12323,7.5,8.4,9.4,10.6,12.1,13.7,15.7],"21":[-0.2815,10.8534,0.12335,7.6,8.6,9.6,10.9,12.3,14.0,16.0],"22":[-0.2862,11.0608,0.1235,7.8,8.7,9.8,11.1,12.5,14.3,16.4],"23":[-0.2903,11.2688,0.12369,7.9,8.9,10.0,11.3,12.8,14.6,16.7],"24":[-0.2941,11.4775,0.1239,8.1,9.0,10.2,11.5,13.0,14.8,17.0],"25":[-0.2975,11.6864,0.12414,8.2,9.2,10.3,11.7,13.3,15.1,17.3],"26":[-0.3005,11.8947,0.12441,8.4,9.4,10.5,11.9,13.5,15.4,17.7],"27":[-0.3032,12.1015,0.12472,8.5,9.5,10.7,12.1,13.7,15.7,18.0],"28":[-0.3057,12.3059,0.12506,8.6,9.7,10.9,12.3,14.0,16.0,18.3],"29":[-0.308,12.5073,0.12545,8.8,9.8,11.1,12.5,14.2,16.2,18.7],"30":[-0.3101,12.7055,0.12587,8.9,10.0,11.2,12.7,14.4,16.5,19.0],"31":[-0.312,12.9006,0.12633,9.0,10.1,11.4,12.9,14.7,16.8,19.3],"32":[-0.3138,13.093,0.12683,9.1,10.3,11.6,13.1,14.9,17.1,19.6],"33":[-0.3155,13.2837,0.12737,9.3,10.4,11.7,13.3,15.1,17.3,20.0],"34":[-0.3171,13.4731,0.12794,9.4,10.5,11.9,13.5,15.4,17.6,20.3],"35":[-0.3186,13.6618,0.12855,9.5,10.7,12.0,13.7,15.6,17.9,20.6],"36":[-0.3201,13.8503,0.12919,9.6,10.8,12.2,13.9,15.8,18.1,20.9],"37":[-0.3216,14.0385,0.12988,9.7,10.9,12.4,14.0,16.0,18.4,21.3],"38":[-0.323,14.2265,0.13059,9.8,11.1,12.5,14.2,16.3,18.7,21.6],"39":[-0.3243,14.414,0.13135,9.9,11.2,12.7,14.4,16.5,19.0,22.0],"40":[-0.3257,14.601,0.13213,10.1,11.3,12.8,14.6,16.7,19.2,22.3],"41":[-0.327,14.7873,0.13293,10.2,11.5,13.0,14.8,16.9,19.5,22.7],"42":[-0.3283,14.9727,0.13376,10.3,11.6,13.1,15.0,17.2,19.8,23.0],"43":[-0.3296,15.1573,0.1346,10.4,11.7,13.3,15.2,17.4,20.1,23.4],"44":[-0.3309,15.341,0.13545,10.5,11.8,13.4,15.3,17.6,20.4,23.7],"45":[-0.3322,15.524,0.1363,10.6,12.0,13.6,15.5,17.8,20.7,24.1],"46":[-0.3335,15.7064,0.13716,10.7,12.1,13.7,15.7,18.1,20.9,24.5],"47":[-0.3348,15.8882,0.138,10.8,12.2,13.9,15.9,18.3,21.2,24.8],"48":[-0.3361,16.0697,0.13884,10.9,12.3,14.0,16.1,18.5,21.5,25.2],"49":[-0.3374,16.2511,0.13968,11.0,12.4,14.2,16.3,18.8,21.8,25.5],"50":[-0.3387,16.4322,0.14051,11.1,12.6,14.3,16.4,19.0,22.1,25.9],"51":[-0.34,16.6133,0.14132,11.2,12.7,14.5,16.6,19.2,22.4,26.3],"52":[-0.3414,16.7942,0.14213,11.3,12.8,14.6,16.8,19.4,22.6,26.6],"53":[-0.3427,16.9748,0.14293,11.4,12.9,14.8,17.0,19.7,22.9,27.0],"54":[-0.344,17.1551,0.14371,11.5,13.0,14.9,17.2,19.9,23.2,27.4],"55":[-0.3453,17.3347,0.14448,11.6,13.2,15.1,17.3,20.1,23.5,27.7],"56":[-0.3466,17.5136,0.14525,11.7,13.3,15.2,17.5,20.3,23.8,28.1],"57":[-0.3479,17.6916,0.146,11.8,13.4,15.3,17.7,20.6,24.1,28.5],"58":[-0.3492,17.8686,0.14675,11.9,13.5,15.5,17.9,20.8,24.4,28.8],"59":[-0.3505,18.0445,0.14748,12.0,13.6,15.6,18.0,21.0,24.6,29.2],"60":[-0.3518,18.2193,0.14821,12.1,13.7,15.8,18.2,21.2,24.9,29.5]
+  },
+  "wfh_boys": {
+    "65.0":[-0.3521,7.4327,0.08217,5.9,6.3,6.9,7.4,8.1,8.8,9.6],"65.5":[-0.3521,7.5504,0.08214,6.0,6.4,7.0,7.6,8.2,8.9,9.8],"66.0":[-0.3521,7.6673,0.08212,6.1,6.5,7.1,7.7,8.3,9.1,9.9],"66.5":[-0.3521,7.7834,0.08212,6.1,6.6,7.2,7.8,8.5,9.2,10.1],"67.0":[-0.3521,7.8986,0.08213,6.2,6.7,7.3,7.9,8.6,9.4,10.2],"67.5":[-0.3521,8.0132,0.08214,6.3,6.8,7.4,8.0,8.7,9.5,10.4],"68.0":[-0.3521,8.1272,0.08217,6.4,6.9,7.5,8.1,8.8,9.6,10.5],"68.5":[-0.3521,8.241,0.08221,6.5,7.0,7.6,8.2,9.0,9.8,10.7],"69.0":[-0.3521,8.3547,0.08226,6.6,7.1,7.7,8.4,9.1,9.9,10.8],"69.5":[-0.3521,8.468,0.08231,6.7,7.2,7.8,8.5,9.2,10.0,11.0],"70.0":[-0.3521,8.5808,0.08237,6.8,7.3,7.9,8.6,9.3,10.2,11.1],"70.5":[-0.3521,8.6927,0.08243,6.9,7.4,8.0,8.7,9.5,10.3,11.3],"71.0":[-0.3521,8.8036,0.0825,6.9,7.5,8.1,8.8,9.6,10.4,11.4],"71.5":[-0.3521,8.9135,0.08257,7.0,7.6,8.2,8.9,9.7,10.6,11.6],"72.0":[-0.3521,9.0221,0.08264,7.1,7.7,8.3,9.0,9.8,10.7,11.7],"72.5":[-0.3521,9.1292,0.08272,7.2,7.8,8.4,9.1,9.9,10.8,11.8],"73.0":[-0.3521,9.2347,0.08278,7.3,7.9,8.5,9.2,10.0,11.0,12.0],"73.5":[-0.3521,9.339,0.08285,7.4,7.9,8.6,9.3,10.2,11.1,12.1],"74.0":[-0.3521,9.442,0.08292,7.4,8.0,8.7,9.4,10.3,11.2,12.2],"74.5":[-0.3521,9.5438,0.08298,7.5,8.1,8.8,9.5,10.4,11.3,12.4],"75.0":[-0.3521,9.644,0.08303,7.6,8.2,8.9,9.6,10.5,11.4,12.5],"75.5":[-0.3521,9.7425,0.08308,7.7,8.3,9.0,9.7,10.6,11.6,12.6],"76.0":[-0.3521,9.8392,0.08312,7.7,8.4,9.1,9.8,10.7,11.7,12.8],"76.5":[-0.3521,9.9341,0.08315,7.8,8.5,9.2,9.9,10.8,11.8,12.9],"77.0":[-0.3521,10.0274,0.08317,7.9,8.5,9.2,10.0,10.9,11.9,13.0],"77.5":[-0.3521,10.1194,0.08318,8.0,8.6,9.3,10.1,11.0,12.0,13.1],"78.0":[-0.3521,10.2105,0.08317,8.0,8.7,9.4,10.2,11.1,12.1,13.3],"78.5":[-0.3521,10.3012,0.08315,8.1,8.8,9.5,10.3,11.2,12.2,13.4],"79.0":[-0.3521,10.3923,0.08311,8.2,8.8,9.6,10.4,11.3,12.3,13.5],"79.5":[-0.3521,10.4845,0.08305,8.3,8.9,9.7,10.5,11.4,12.4,13.6],"80.0":[-0.3521,10.5781,0.08298,8.3,9.0,9.7,10.6,11.5,12.6,13.7],"80.5":[-0.3521,10.6737,0.0829,8.4,9.1,9.8,10.7,11.6,12.7,13.8],"81.0":[-0.3521,10.7718,0.08279,8.5,9.2,9.9,10.8,11.7,12.8,14.0],"81.5":[-0.3521,10.8728,0.08268,8.6,9.3,10.0,10.9,11.8,12.9,14.1],"82.0":[-0.3521,10.9772,0.08255,8.7,9.3,10.1,11.0,11.9,13.0,14.2],"82.5":[-0.3521,11.0851,0.08241,8.7,9.4,10.2,11.1,12.1,13.1,14.4],"83.0":[-0.3521,11.1966,0.08225,8.8,9.5,10.3,11.2,12.2,13.3,14.5],"83.5":[-0.3521,11.3114,0.08209,8.9,9.6,10.4,11.3,12.3,13.4,14.6],"84.0":[-0.3521,11.429,0.08191,9.0,9.7,10.5,11.4,12.4,13.5,14.8],"84.5":[-0.3521,11.549,0.08174,9.1,9.9,10.7,11.5,12.5,13.7,14.9],"85.0":[-0.3521,11.6707,0.08156,9.2,10.0,10.8,11.7,12.7,13.8,15.1],"85.5":[-0.3521,11.7937,0.08138,9.3,10.1,10.9,11.8,12.8,13.9,15.2],"86.0":[-0.3521,11.9173,0.08121,9.4,10.2,11.0,11.9,12.9,14.1,15.4],"86.5":[-0.3521,12.0411,0.08105,9.5,10.3,11.1,12.0,13.1,14.2,15.5],"87.0":[-0.3521,12.1645,0.0809,9.6,10.4,11.2,12.2,13.2,14.4,15.7],"87.5":[-0.3521,12.2871,0.08076,9.7,10.5,11.3,12.3,13.3,14.5,15.8],"88.0":[-0.3521,12.4089,0.08064,9.8,10.6,11.5,12.4,13.5,14.7,16.0],"88.5":[-0.3521,12.5298,0.08054,9.9,10.7,11.6,12.5,13.6,14.8,16.1],"89.0":[-0.3521,12.6495,0.08045,10.0,10.8,11.7,12.6,13.7,14.9,16.3],"89.5":[-0.3521,12.7683,0.08038,10.1,10.9,11.8,12.8,13.9,15.1,16.4],"90.0":[-0.3521,12.8864,0.08032,10.2,11.0,11.9,12.9,14.0,15.2,16.6],"90.5":[-0.3521,13.0038,0.08028,10.3,11.1,12.0,13.0,14.1,15.3,16.7],"91.0":[-0.3521,13.1209,0.08025,10.4,11.2,12.1,13.1,14.2,15.5,16.9],"91.5":[-0.3521,13.2376,0.08024,10.5,11.3,12.2,13.2,14.4,15.6,17.0],"92.0":[-0.3521,13.3541,0.08025,10.6,11.4,12.3,13.4,14.5,15.8,17.2],"92.5":[-0.3521,13.4705,0.08027,10.7,11.5,12.4,13.5,14.6,15.9,17.3],"93.0":[-0.3521,13.587,0.08031,10.8,11.6,12.6,13.6,14.7,16.0,17.5],"93.5":[-0.3521,13.7041,0.08036,10.9,11.7,12.7,13.7,14.9,16.2,17.6],"94.0":[-0.3521,13.8217,0.08043,11.0,11.8,12.8,13.8,15.0,16.3,17.8],"94.5":[-0.3521,13.9403,0.08051,11.1,11.9,12.9,13.9,15.1,16.5,17.9],"95.0":[-0.3521,14.06,0.0806,11.1,12.0,13.0,14.1,15.3,16.6,18.1],"95.5":[-0.3521,14.1811,0.08071,11.2,12.1,13.1,14.2,15.4,16.7,18.3],"96.0":[-0.3521,14.3037,0.08083,11.3,12.2,13.2,14.3,15.5,16.9,18.4],"96.5":[-0.3521,14.4282,0.08097,11.4,12.3,13.3,14.4,15.7,17.0,18.6],"97.0":[-0.3521,14.5547,0.08112,11.5,12.4,13.4,14.6,15.8,17.2,18.8],"97.5":[-0.3521,14.6832,0.08129,11.6,12.5,13.6,14.7,15.9,17.4,18.9],"98.0":[-0.3521,14.814,0.08146,11.7,12.6,13.7,14.8,16.1,17.5,19.1],"98.5":[-0.3521,14.9468,0.08165,11.8,12.8,13.8,14.9,16.2,17.7,19.3],"99.0":[-0.3521,15.0818,0.08185,11.9,12.9,13.9,15.1,16.4,17.9,19.5],"99.5":[-0.3521,15.2187,0.08206,12.0,13.0,14.0,15.2,16.5,18.0,19.7],"100.0":[-0.3521,15.3576,0.08229,12.1,13.1,14.2,15.4,16.7,18.2,19.9],"100.5":[-0.3521,15.4985,0.08252,12.2,13.2,14.3,15.5,16.9,18.4,20.1],"101.0":[-0.3521,15.6412,0.08277,12.3,13.3,14.4,15.6,17.0,18.5,20.3],"101.5":[-0.3521,15.7857,0.08302,12.4,13.4,14.5,15.8,17.2,18.7,20.5],"102.0":[-0.3521,15.932,0.08328,12.5,13.6,14.7,15.9,17.3,18.9,20.7],"102.5":[-0.3521,16.0801,0.08354,12.6,13.7,14.8,16.1,17.5,19.1,20.9],"103.0":[-0.3521,16.2298,0.08381,12.8,13.8,14.9,16.2,17.7,19.3,21.1],"103.5":[-0.3521,16.3812,0.08408,12.9,13.9,15.1,16.4,17.8,19.5,21.3],"104.0":[-0.3521,16.5342,0.08436,13.0,14.0,15.2,16.5,18.0,19.7,21.6],"104.5":[-0.3521,16.6889,0.08464,13.1,14.2,15.4,16.7,18.2,19.9,21.8],"105.0":[-0.3521,16.8454,0.08493,13.2,14.3,15.5,16.8,18.4,20.1,22.0],"105.5":[-0.3521,17.0036,0.08521,13.3,14.4,15.6,17.0,18.5,20.3,22.2],"106.0":[-0.3521,17.1637,0.08551,13.4,14.5,15.8,17.2,18.7,20.5,22.5],"106.5":[-0.3521,17.3256,0.0858,13.5,14.7,15.9,17.3,18.9,20.7,22.7],"107.0":[-0.3521,17.4894,0.08611,13.7,14.8,16.1,17.5,19.1,20.9,22.9],"107.5":[-0.3521,17.655,0.08641,13.8,14.9,16.2,17.7,19.3,21.1,23.2],"108.0":[-0.3521,17.8226,0.08673,13.9,15.1,16.4,17.8,19.5,21.3,23.4],"108.5":[-0.3521,17.9924,0.08704,14.0,15.2,16.5,18.0,19.7,21.5,23.7],"109.0":[-0.3521,18.1645,0.08736,14.1,15.3,16.7,18.2,19.8,21.8,23.9],"109.5":[-0.3521,18.339,0.08768,14.3,15.5,16.8,18.3,20.0,22.0,24.2],"110.0":[-0.3521,18.5158,0.088,14.4,15.6,17.0,18.5,20.2,22.2,24.4],"110.5":[-0.3521,18.6948,0.08832,14.5,15.8,17.1,18.7,20.4,22.4,24.7],"111.0":[-0.3521,18.8759,0.08864,14.6,15.9,17.3,18.9,20.7,22.7,25.0],"111.5":[-0.3521,19.059,0.08896,14.8,16.0,17.5,19.1,20.9,22.9,25.2],"112.0":[-0.3521,19.2439,0.08928,14.9,16.2,17.6,19.2,21.1,23.1,25.5],"112.5":[-0.3521,19.4304,0.0896,15.0,16.3,17.8,19.4,21.3,23.4,25.8],"113.0":[-0.3521,19.6185,0.08991,15.2,16.5,18.0,19.6,21.5,23.6,26.0],"113.5":[-0.3521,19.8081,0.09022,15.3,16.6,18.1,19.8,21.7,23.9,26.3],"114.0":[-0.3521,19.999,0.09054,15.4,16.8,18.3,20.0,21.9,24.1,26.6],"114.5":[-0.3521,20.1912,0.09085,15.6,16.9,18.5,20.2,22.1,24.4,26.9],"115.0":[-0.3521,20.3846,0.09116,15.7,17.1,18.6,20.4,22.4,24.6,27.2],"115.5":[-0.3521,20.5789,0.09147,15.8,17.2,18.8,20.6,22.6,24.9,27.5],"116.0":[-0.3521,20.7741,0.09177,16.0,17.4,19.0,20.8,22.8,25.1,27.8],"116.5":[-0.3521,20.97,0.09208,16.1,17.5,19.2,21.0,23.0,25.4,28.0],"117.0":[-0.3521,21.1666,0.09239,16.2,17.7,19.3,21.2,23.3,25.6,28.3],"117.5":[-0.3521,21.3636,0.0927,16.4,17.9,19.5,21.4,23.5,25.9,28.6],"118.0":[-0.3521,21.5611,0.093,16.5,18.0,19.7,21.6,23.7,26.1,28.9],"118.5":[-0.3521,21.7588,0.09331,16.7,18.2,19.9,21.8,23.9,26.4,29.2],"119.0":[-0.3521,21.9568,0.09362,16.8,18.3,20.0,22.0,24.1,26.6,29.5],"119.5":[-0.3521,22.1549,0.09393,16.9,18.5,20.2,22.2,24.4,26.9,29.8],"120.0":[-0.3521,22.353,0.09424,17.1,18.6,20.4,22.4,24.6,27.2,30.1]
+  },
+  "wfh_girls": {
+    "65.0":[-0.3833,7.2402,0.09113,5.6,6.1,6.6,7.2,7.9,8.7,9.7],"65.5":[-0.3833,7.3523,0.09109,5.7,6.2,6.7,7.4,8.1,8.9,9.8],"66.0":[-0.3833,7.463,0.09104,5.8,6.3,6.8,7.5,8.2,9.0,10.0],"66.5":[-0.3833,7.5724,0.09099,5.8,6.4,6.9,7.6,8.3,9.1,10.1],"67.0":[-0.3833,7.6806,0.09094,5.9,6.4,7.0,7.7,8.4,9.3,10.2],"67.5":[-0.3833,7.7874,0.09088,6.0,6.5,7.1,7.8,8.5,9.4,10.4],"68.0":[-0.3833,7.893,0.09083,6.1,6.6,7.2,7.9,8.7,9.5,10.5],"68.5":[-0.3833,7.9976,0.09077,6.2,6.7,7.3,8.0,8.8,9.7,10.7],"69.0":[-0.3833,8.1012,0.09071,6.3,6.8,7.4,8.1,8.9,9.8,10.8],"69.5":[-0.3833,8.2039,0.09065,6.3,6.9,7.5,8.2,9.0,9.9,10.9],"70.0":[-0.3833,8.3058,0.09059,6.4,7.0,7.6,8.3,9.1,10.0,11.1],"70.5":[-0.3833,8.4071,0.09053,6.5,7.1,7.7,8.4,9.2,10.1,11.2],"71.0":[-0.3833,8.5078,0.09047,6.6,7.1,7.8,8.5,9.3,10.3,11.3],"71.5":[-0.3833,8.6078,0.09041,6.7,7.2,7.9,8.6,9.4,10.4,11.5],"72.0":[-0.3833,8.707,0.09035,6.7,7.3,8.0,8.7,9.5,10.5,11.6],"72.5":[-0.3833,8.8053,0.09028,6.8,7.4,8.1,8.8,9.7,10.6,11.7],"73.0":[-0.3833,8.9025,0.09022,6.9,7.5,8.1,8.9,9.8,10.7,11.8],"73.5":[-0.3833,8.9983,0.09016,7.0,7.6,8.2,9.0,9.9,10.8,12.0],"74.0":[-0.3833,9.0928,0.09009,7.0,7.6,8.3,9.1,10.0,11.0,12.1],"74.5":[-0.3833,9.1862,0.09003,7.1,7.7,8.4,9.2,10.1,11.1,12.2],"75.0":[-0.3833,9.2786,0.08996,7.2,7.8,8.5,9.3,10.2,11.2,12.3],"75.5":[-0.3833,9.3703,0.08989,7.2,7.9,8.6,9.4,10.3,11.3,12.5],"76.0":[-0.3833,9.4617,0.08983,7.3,8.0,8.7,9.5,10.4,11.4,12.6],"76.5":[-0.3833,9.5533,0.08976,7.4,8.0,8.7,9.6,10.5,11.5,12.7],"77.0":[-0.3833,9.6456,0.08969,7.5,8.1,8.8,9.6,10.6,11.6,12.8],"77.5":[-0.3833,9.739,0.08963,7.5,8.2,8.9,9.7,10.7,11.7,12.9],"78.0":[-0.3833,9.8338,0.08956,7.6,8.3,9.0,9.8,10.8,11.8,13.1],"78.5":[-0.3833,9.9303,0.0895,7.7,8.4,9.1,9.9,10.9,12.0,13.2],"79.0":[-0.3833,10.0289,0.08943,7.8,8.4,9.2,10.0,11.0,12.1,13.3],"79.5":[-0.3833,10.1298,0.08937,7.8,8.5,9.3,10.1,11.1,12.2,13.4],"80.0":[-0.3833,10.2332,0.08932,7.9,8.6,9.4,10.2,11.2,12.3,13.6],"80.5":[-0.3833,10.3393,0.08926,8.0,8.7,9.5,10.3,11.3,12.4,13.7],"81.0":[-0.3833,10.4477,0.08921,8.1,8.8,9.6,10.4,11.4,12.6,13.9],"81.5":[-0.3833,10.5586,0.08916,8.2,8.9,9.7,10.6,11.6,12.7,14.0],"82.0":[-0.3833,10.6719,0.08912,8.3,9.0,9.8,10.7,11.7,12.8,14.1],"82.5":[-0.3833,10.7874,0.08908,8.4,9.1,9.9,10.8,11.8,13.0,14.3],"83.0":[-0.3833,10.9051,0.08905,8.5,9.2,10.0,10.9,11.9,13.1,14.5],"83.5":[-0.3833,11.0248,0.08902,8.5,9.3,10.1,11.0,12.1,13.3,14.6],"84.0":[-0.3833,11.1462,0.08899,8.6,9.4,10.2,11.1,12.2,13.4,14.8],"84.5":[-0.3833,11.2691,0.08897,8.7,9.5,10.3,11.3,12.3,13.5,14.9],"85.0":[-0.3833,11.3934,0.08896,8.8,9.6,10.4,11.4,12.5,13.7,15.1],"85.5":[-0.3833,11.5186,0.08895,8.9,9.7,10.6,11.5,12.6,13.8,15.3],"86.0":[-0.3833,11.6444,0.08895,9.0,9.8,10.7,11.6,12.7,14.0,15.4],"86.5":[-0.3833,11.7705,0.08895,9.1,9.9,10.8,11.8,12.9,14.2,15.6],"87.0":[-0.3833,11.8965,0.08896,9.2,10.0,10.9,11.9,13.0,14.3,15.8],"87.5":[-0.3833,12.0223,0.08897,9.3,10.1,11.0,12.0,13.2,14.5,15.9],"88.0":[-0.3833,12.1478,0.08899,9.4,10.2,11.1,12.1,13.3,14.6,16.1],"88.5":[-0.3833,12.2729,0.08901,9.5,10.3,11.2,12.3,13.4,14.8,16.3],"89.0":[-0.3833,12.3976,0.08904,9.6,10.4,11.4,12.4,13.6,14.9,16.4],"89.5":[-0.3833,12.522,0.08907,9.7,10.5,11.5,12.5,13.7,15.1,16.6],"90.0":[-0.3833,12.6461,0.08911,9.8,10.6,11.6,12.6,13.8,15.2,16.8],"90.5":[-0.3833,12.77,0.08915,9.9,10.7,11.7,12.8,14.0,15.4,16.9],"91.0":[-0.3833,12.8939,0.0892,10.0,10.9,11.8,12.9,14.1,15.5,17.1],"91.5":[-0.3833,13.0177,0.08925,10.1,11.0,11.9,13.0,14.3,15.7,17.3],"92.0":[-0.3833,13.1415,0.08931,10.2,11.1,12.0,13.1,14.4,15.8,17.4],"92.5":[-0.3833,13.2654,0.08937,10.3,11.2,12.1,13.3,14.5,16.0,17.6],"93.0":[-0.3833,13.3896,0.08944,10.4,11.3,12.3,13.4,14.7,16.1,17.8],"93.5":[-0.3833,13.5142,0.08951,10.5,11.4,12.4,13.5,14.8,16.3,17.9],"94.0":[-0.3833,13.6393,0.08959,10.6,11.5,12.5,13.6,14.9,16.4,18.1],"94.5":[-0.3833,13.765,0.08967,10.7,11.6,12.6,13.8,15.1,16.6,18.3],"95.0":[-0.3833,13.8914,0.08975,10.8,11.7,12.7,13.9,15.2,16.7,18.5],"95.5":[-0.3833,14.0186,0.08984,10.8,11.8,12.8,14.0,15.4,16.9,18.6],"96.0":[-0.3833,14.1466,0.08994,10.9,11.9,12.9,14.1,15.5,17.0,18.8],"96.5":[-0.3833,14.2757,0.09004,11.0,12.0,13.1,14.3,15.6,17.2,19.0],"97.0":[-0.3833,14.4059,0.09015,11.1,12.1,13.2,14.4,15.8,17.4,19.2],"97.5":[-0.3833,14.5376,0.09026,11.2,12.2,13.3,14.5,15.9,17.5,19.3],"98.0":[-0.3833,14.671,0.09037,11.3,12.3,13.4,14.7,16.1,17.7,19.5],"98.5":[-0.3833,14.8062,0.09049,11.4,12.4,13.5,14.8,16.2,17.9,19.7],"99.0":[-0.3833,14.9434,0.09062,11.5,12.5,13.7,14.9,16.4,18.0,19.9],"99.5":[-0.3833,15.0828,0.09075,11.6,12.7,13.8,15.1,16.5,18.2,20.1],"100.0":[-0.3833,15.2246,0.09088,11.7,12.8,13.9,15.2,16.7,18.4,20.3],"100.5":[-0.3833,15.3687,0.09102,11.9,12.9,14.1,15.4,16.9,18.6,20.5],"101.0":[-0.3833,15.5154,0.09116,12.0,13.0,14.2,15.5,17.0,18.7,20.7],"101.5":[-0.3833,15.6646,0.09131,12.1,13.1,14.3,15.7,17.2,18.9,20.9],"102.0":[-0.3833,15.8164,0.09146,12.2,13.3,14.5,15.8,17.4,19.1,21.1],"102.5":[-0.3833,15.9707,0.09161,12.3,13.4,14.6,16.0,17.5,19.3,21.4],"103.0":[-0.3833,16.1276,0.09177,12.4,13.5,14.7,16.1,17.7,19.5,21.6],"103.5":[-0.3833,16.287,0.09193,12.5,13.6,14.9,16.3,17.9,19.7,21.8],"104.0":[-0.3833,16.4488,0.09209,12.6,13.8,15.0,16.4,18.1,19.9,22.0],"104.5":[-0.3833,16.6131,0.09226,12.8,13.9,15.2,16.6,18.2,20.1,22.3],"105.0":[-0.3833,16.78,0.09243,12.9,14.0,15.3,16.8,18.4,20.3,22.5],"105.5":[-0.3833,16.9496,0.09261,13.0,14.2,15.5,16.9,18.6,20.5,22.7],"106.0":[-0.3833,17.122,0.09278,13.1,14.3,15.6,17.1,18.8,20.8,23.0],"106.5":[-0.3833,17.2973,0.09296,13.3,14.5,15.8,17.3,19.0,21.0,23.2],"107.0":[-0.3833,17.4755,0.09315,13.4,14.6,15.9,17.5,19.2,21.2,23.5],"107.5":[-0.3833,17.6567,0.09333,13.5,14.7,16.1,17.7,19.4,21.4,23.7],"108.0":[-0.3833,17.8407,0.09352,13.7,14.9,16.3,17.8,19.6,21.7,24.0],"108.5":[-0.3833,18.0277,0.09371,13.8,15.0,16.4,18.0,19.8,21.9,24.3],"109.0":[-0.3833,18.2174,0.0939,13.9,15.2,16.6,18.2,20.0,22.1,24.5],"109.5":[-0.3833,18.4096,0.09409,14.1,15.4,16.8,18.4,20.3,22.4,24.8],"110.0":[-0.3833,18.6043,0.09428,14.2,15.5,17.0,18.6,20.5,22.6,25.1],"110.5":[-0.3833,18.8015,0.09448,14.4,15.7,17.1,18.8,20.7,22.9,25.4],"111.0":[-0.3833,19.0009,0.09467,14.5,15.8,17.3,19.0,20.9,23.1,25.7],"111.5":[-0.3833,19.2024,0.09487,14.7,16.0,17.5,19.2,21.2,23.4,26.0],"112.0":[-0.3833,19.406,0.09507,14.8,16.2,17.7,19.4,21.4,23.6,26.2],"112.5":[-0.3833,19.6116,0.09527,15.0,16.3,17.9,19.6,21.6,23.9,26.5],"113.0":[-0.3833,19.819,0.09546,15.1,16.5,18.0,19.8,21.8,24.2,26.8],"113.5":[-0.3833,20.028,0.09566,15.3,16.7,18.2,20.0,22.1,24.4,27.1],"114.0":[-0.3833,20.2385,0.09586,15.4,16.8,18.4,20.2,22.3,24.7,27.4],"114.5":[-0.3833,20.4502,0.09606,15.6,17.0,18.6,20.5,22.6,25.0,27.8],"115.0":[-0.3833,20.6629,0.09626,15.7,17.2,18.8,20.7,22.8,25.2,28.1],"115.5":[-0.3833,20.8766,0.09646,15.9,17.3,19.0,20.9,23.0,25.5,28.4],"116.0":[-0.3833,21.0909,0.09666,16.0,17.5,19.2,21.1,23.3,25.8,28.7],"116.5":[-0.3833,21.3059,0.09686,16.2,17.7,19.4,21.3,23.5,26.1,29.0],"117.0":[-0.3833,21.5213,0.09707,16.3,17.8,19.6,21.5,23.8,26.3,29.3],"117.5":[-0.3833,21.737,0.09727,16.5,18.0,19.8,21.7,24.0,26.6,29.6],"118.0":[-0.3833,21.9529,0.09747,16.6,18.2,19.9,22.0,24.2,26.9,29.9],"118.5":[-0.3833,22.169,0.09767,16.8,18.4,20.1,22.2,24.5,27.2,30.3],"119.0":[-0.3833,22.3851,0.09788,16.9,18.5,20.3,22.4,24.7,27.4,30.6],"119.5":[-0.3833,22.6012,0.09808,17.1,18.7,20.5,22.6,25.0,27.7,30.9],"120.0":[-0.3833,22.8173,0.09828,17.3,18.9,20.7,22.8,25.2,28.0,31.2]
+  },
+  "wfl_boys": {
+    "45.0":[-0.3521,2.441,0.09182,1.9,2.0,2.2,2.4,2.7,3.0,3.3],"45.5":[-0.3521,2.5244,0.09153,1.9,2.1,2.3,2.5,2.8,3.1,3.4],"46.0":[-0.3521,2.6077,0.09124,2.0,2.2,2.4,2.6,2.9,3.1,3.5],"46.5":[-0.3521,2.6913,0.09094,2.1,2.3,2.5,2.7,3.0,3.2,3.6],"47.0":[-0.3521,2.7755,0.09065,2.1,2.3,2.5,2.8,3.0,3.3,3.7],"47.5":[-0.3521,2.8609,0.09036,2.2,2.4,2.6,2.9,3.1,3.4,3.8],"48.0":[-0.3521,2.948,0.09007,2.3,2.5,2.7,2.9,3.2,3.6,3.9],"48.5":[-0.3521,3.0377,0.08977,2.3,2.6,2.8,3.0,3.3,3.7,4.0],"49.0":[-0.3521,3.1308,0.08948,2.4,2.6,2.9,3.1,3.4,3.8,4.2],"49.5":[-0.3521,3.2276,0.08919,2.5,2.7,3.0,3.2,3.5,3.9,4.3],"50.0":[-0.3521,3.3278,0.0889,2.6,2.8,3.0,3.3,3.6,4.0,4.4],"50.5":[-0.3521,3.4311,0.08861,2.7,2.9,3.1,3.4,3.8,4.1,4.5],"51.0":[-0.3521,3.5376,0.08831,2.7,3.0,3.2,3.5,3.9,4.2,4.7],"51.5":[-0.3521,3.6477,0.08801,2.8,3.1,3.3,3.6,4.0,4.4,4.8],"52.0":[-0.3521,3.762,0.08771,2.9,3.2,3.5,3.8,4.1,4.5,5.0],"52.5":[-0.3521,3.8814,0.08741,3.0,3.3,3.6,3.9,4.2,4.6,5.1],"53.0":[-0.3521,4.006,0.08711,3.1,3.4,3.7,4.0,4.4,4.8,5.3],"53.5":[-0.3521,4.1354,0.08681,3.2,3.5,3.8,4.1,4.5,4.9,5.4],"54.0":[-0.3521,4.2693,0.08651,3.3,3.6,3.9,4.3,4.7,5.1,5.6],"54.5":[-0.3521,4.4066,0.08621,3.4,3.7,4.0,4.4,4.8,5.3,5.8],"55.0":[-0.3521,4.5467,0.08592,3.6,3.8,4.2,4.5,5.0,5.4,6.0],"55.5":[-0.3521,4.6892,0.08563,3.7,4.0,4.3,4.7,5.1,5.6,6.1],"56.0":[-0.3521,4.8338,0.08535,3.8,4.1,4.4,4.8,5.3,5.8,6.3],"56.5":[-0.3521,4.9796,0.08507,3.9,4.2,4.6,5.0,5.4,5.9,6.5],"57.0":[-0.3521,5.1259,0.08481,4.0,4.3,4.7,5.1,5.6,6.1,6.7],"57.5":[-0.3521,5.2721,0.08455,4.1,4.5,4.9,5.3,5.7,6.3,6.9],"58.0":[-0.3521,5.418,0.0843,4.3,4.6,5.0,5.4,5.9,6.4,7.1],"58.5":[-0.3521,5.5632,0.08406,4.4,4.7,5.1,5.6,6.1,6.6,7.2],"59.0":[-0.3521,5.7074,0.08383,4.5,4.8,5.3,5.7,6.2,6.8,7.4],"59.5":[-0.3521,5.8501,0.08362,4.6,5.0,5.4,5.9,6.4,7.0,7.6],"60.0":[-0.3521,5.9907,0.08342,4.7,5.1,5.5,6.0,6.5,7.1,7.8],"60.5":[-0.3521,6.1284,0.08324,4.8,5.2,5.6,6.1,6.7,7.3,8.0],"61.0":[-0.3521,6.2632,0.08308,4.9,5.3,5.8,6.3,6.8,7.4,8.1],"61.5":[-0.3521,6.3954,0.08292,5.0,5.4,5.9,6.4,7.0,7.6,8.3],"62.0":[-0.3521,6.5251,0.08279,5.1,5.6,6.0,6.5,7.1,7.7,8.5],"62.5":[-0.3521,6.6527,0.08266,5.2,5.7,6.1,6.7,7.2,7.9,8.6],"63.0":[-0.3521,6.7786,0.08255,5.3,5.8,6.2,6.8,7.4,8.0,8.8],"63.5":[-0.3521,6.9028,0.08245,5.4,5.9,6.4,6.9,7.5,8.2,8.9],"64.0":[-0.3521,7.0255,0.08236,5.5,6.0,6.5,7.0,7.6,8.3,9.1],"64.5":[-0.3521,7.1467,0.08229,5.6,6.1,6.6,7.1,7.8,8.5,9.3],"65.0":[-0.3521,7.2666,0.08223,5.7,6.2,6.7,7.3,7.9,8.6,9.4],"65.5":[-0.3521,7.3854,0.08218,5.8,6.3,6.8,7.4,8.0,8.7,9.6],"66.0":[-0.3521,7.5034,0.08215,5.9,6.4,6.9,7.5,8.2,8.9,9.7],"66.5":[-0.3521,7.6206,0.08213,6.0,6.5,7.0,7.6,8.3,9.0,9.9],"67.0":[-0.3521,7.737,0.08212,6.1,6.6,7.1,7.7,8.4,9.2,10.0],"67.5":[-0.3521,7.8526,0.08212,6.2,6.7,7.2,7.9,8.5,9.3,10.2],"68.0":[-0.3521,7.9674,0.08214,6.3,6.8,7.3,8.0,8.7,9.4,10.3],"68.5":[-0.3521,8.0816,0.08216,6.4,6.9,7.5,8.1,8.8,9.6,10.5],"69.0":[-0.3521,8.1955,0.08219,6.5,7.0,7.6,8.2,8.9,9.7,10.6],"69.5":[-0.3521,8.3092,0.08224,6.6,7.1,7.7,8.3,9.0,9.8,10.8],"70.0":[-0.3521,8.4227,0.08229,6.6,7.2,7.8,8.4,9.2,10.0,10.9],"70.5":[-0.3521,8.5358,0.08235,6.7,7.3,7.9,8.5,9.3,10.1,11.1],"71.0":[-0.3521,8.648,0.08241,6.8,7.4,8.0,8.6,9.4,10.2,11.2],"71.5":[-0.3521,8.7594,0.08248,6.9,7.5,8.1,8.8,9.5,10.4,11.3],"72.0":[-0.3521,8.8697,0.08254,7.0,7.6,8.2,8.9,9.6,10.5,11.5],"72.5":[-0.3521,8.9788,0.08262,7.1,7.6,8.3,9.0,9.8,10.6,11.6],"73.0":[-0.3521,9.0865,0.08269,7.2,7.7,8.4,9.1,9.9,10.8,11.8],"73.5":[-0.3521,9.1927,0.08276,7.2,7.8,8.5,9.2,10.0,10.9,11.9],"74.0":[-0.3521,9.2974,0.08283,7.3,7.9,8.6,9.3,10.1,11.0,12.1],"74.5":[-0.3521,9.401,0.08289,7.4,8.0,8.7,9.4,10.2,11.2,12.2],"75.0":[-0.3521,9.5032,0.08295,7.5,8.1,8.8,9.5,10.3,11.3,12.3],"75.5":[-0.3521,9.6041,0.08301,7.6,8.2,8.8,9.6,10.4,11.4,12.5],"76.0":[-0.3521,9.7033,0.08307,7.6,8.3,8.9,9.7,10.6,11.5,12.6],"76.5":[-0.3521,9.8007,0.08311,7.7,8.3,9.0,9.8,10.7,11.6,12.7],"77.0":[-0.3521,9.8963,0.08314,7.8,8.4,9.1,9.9,10.8,11.7,12.8],"77.5":[-0.3521,9.9902,0.08317,7.9,8.5,9.2,10.0,10.9,11.9,13.0],"78.0":[-0.3521,10.0827,0.08318,7.9,8.6,9.3,10.1,11.0,12.0,13.1],"78.5":[-0.3521,10.1741,0.08318,8.0,8.7,9.4,10.2,11.1,12.1,13.2],"79.0":[-0.3521,10.2649,0.08316,8.1,8.7,9.5,10.3,11.2,12.2,13.3],"79.5":[-0.3521,10.3558,0.08313,8.2,8.8,9.5,10.4,11.3,12.3,13.4],"80.0":[-0.3521,10.4475,0.08308,8.2,8.9,9.6,10.4,11.4,12.4,13.6],"80.5":[-0.3521,10.5405,0.08301,8.3,9.0,9.7,10.5,11.5,12.5,13.7],"81.0":[-0.3521,10.6352,0.08293,8.4,9.1,9.8,10.6,11.6,12.6,13.8],"81.5":[-0.3521,10.7322,0.08284,8.5,9.1,9.9,10.7,11.7,12.7,13.9],"82.0":[-0.3521,10.8321,0.08273,8.5,9.2,10.0,10.8,11.8,12.8,14.0],"82.5":[-0.3521,10.935,0.0826,8.6,9.3,10.1,10.9,11.9,13.0,14.2],"83.0":[-0.3521,11.0415,0.08246,8.7,9.4,10.2,11.0,12.0,13.1,14.3],"83.5":[-0.3521,11.1516,0.08231,8.8,9.5,10.3,11.2,12.1,13.2,14.4],"84.0":[-0.3521,11.2651,0.08215,8.9,9.6,10.4,11.3,12.2,13.3,14.6],"84.5":[-0.3521,11.3817,0.08198,9.0,9.7,10.5,11.4,12.4,13.5,14.7],"85.0":[-0.3521,11.5007,0.08181,9.1,9.8,10.6,11.5,12.5,13.6,14.9],"85.5":[-0.3521,11.6218,0.08163,9.2,9.9,10.7,11.6,12.6,13.7,15.0],"86.0":[-0.3521,11.7444,0.08145,9.3,10.0,10.8,11.7,12.8,13.9,15.2],"86.5":[-0.3521,11.8678,0.08128,9.4,10.1,11.0,11.9,12.9,14.0,15.3],"87.0":[-0.3521,11.9916,0.08111,9.5,10.2,11.1,12.0,13.0,14.2,15.5],"87.5":[-0.3521,12.1152,0.08096,9.6,10.4,11.2,12.1,13.2,14.3,15.6],"88.0":[-0.3521,12.2382,0.08082,9.7,10.5,11.3,12.2,13.3,14.5,15.8],"88.5":[-0.3521,12.3603,0.08069,9.8,10.6,11.4,12.4,13.4,14.6,15.9],"89.0":[-0.3521,12.4815,0.08058,9.9,10.7,11.5,12.5,13.5,14.7,16.1],"89.5":[-0.3521,12.6017,0.08048,10.0,10.8,11.6,12.6,13.7,14.9,16.2],"90.0":[-0.3521,12.7209,0.08041,10.1,10.9,11.8,12.7,13.8,15.0,16.4],"90.5":[-0.3521,12.8392,0.08034,10.2,11.0,11.9,12.8,13.9,15.1,16.5],"91.0":[-0.3521,12.9569,0.0803,10.3,11.1,12.0,13.0,14.1,15.3,16.7],"91.5":[-0.3521,13.0742,0.08026,10.4,11.2,12.1,13.1,14.2,15.4,16.8],"92.0":[-0.3521,13.191,0.08025,10.5,11.3,12.2,13.2,14.3,15.6,17.0],"92.5":[-0.3521,13.3075,0.08025,10.6,11.4,12.3,13.3,14.4,15.7,17.1],"93.0":[-0.3521,13.4239,0.08026,10.7,11.5,12.4,13.4,14.6,15.8,17.3],"93.5":[-0.3521,13.5404,0.08029,10.7,11.6,12.5,13.5,14.7,16.0,17.4],"94.0":[-0.3521,13.6572,0.08034,10.8,11.7,12.6,13.7,14.8,16.1,17.6],"94.5":[-0.3521,13.7746,0.0804,10.9,11.8,12.7,13.8,14.9,16.3,17.7],"95.0":[-0.3521,13.8928,0.08047,11.0,11.9,12.8,13.9,15.1,16.4,17.9],"95.5":[-0.3521,14.012,0.08056,11.1,12.0,12.9,14.0,15.2,16.5,18.0],"96.0":[-0.3521,14.1325,0.08067,11.2,12.1,13.1,14.1,15.3,16.7,18.2],"96.5":[-0.3521,14.2544,0.08078,11.3,12.2,13.2,14.3,15.5,16.8,18.4],"97.0":[-0.3521,14.3782,0.08092,11.4,12.3,13.3,14.4,15.6,17.0,18.5],"97.5":[-0.3521,14.5038,0.08106,11.5,12.4,13.4,14.5,15.7,17.1,18.7],"98.0":[-0.3521,14.6316,0.08122,11.6,12.5,13.5,14.6,15.9,17.3,18.9],"98.5":[-0.3521,14.7614,0.08139,11.7,12.6,13.6,14.8,16.0,17.5,19.1],"99.0":[-0.3521,14.8934,0.08157,11.8,12.7,13.7,14.9,16.2,17.6,19.2],"99.5":[-0.3521,15.0275,0.08177,11.9,12.8,13.9,15.0,16.3,17.8,19.4],"100.0":[-0.3521,15.1637,0.08198,12.0,12.9,14.0,15.2,16.5,18.0,19.6],"100.5":[-0.3521,15.3018,0.0822,12.1,13.0,14.1,15.3,16.6,18.1,19.8],"101.0":[-0.3521,15.4419,0.08243,12.2,13.2,14.2,15.4,16.8,18.3,20.0],"101.5":[-0.3521,15.5838,0.08267,12.3,13.3,14.4,15.6,16.9,18.5,20.2],"102.0":[-0.3521,15.7276,0.08292,12.4,13.4,14.5,15.7,17.1,18.7,20.4],"102.5":[-0.3521,15.8732,0.08317,12.5,13.5,14.6,15.9,17.3,18.8,20.6],"103.0":[-0.3521,16.0206,0.08343,12.6,13.6,14.8,16.0,17.4,19.0,20.8],"103.5":[-0.3521,16.1697,0.0837,12.7,13.7,14.9,16.2,17.6,19.2,21.0],"104.0":[-0.3521,16.3204,0.08397,12.8,13.9,15.0,16.3,17.8,19.4,21.2],"104.5":[-0.3521,16.4728,0.08425,12.9,14.0,15.2,16.5,17.9,19.6,21.5],"105.0":[-0.3521,16.6268,0.08453,13.0,14.1,15.3,16.6,18.1,19.8,21.7],"105.5":[-0.3521,16.7826,0.08481,13.2,14.2,15.4,16.8,18.3,20.0,21.9],"106.0":[-0.3521,16.9401,0.0851,13.3,14.4,15.6,16.9,18.5,20.2,22.1],"106.5":[-0.3521,17.0995,0.08539,13.4,14.5,15.7,17.1,18.6,20.4,22.4],"107.0":[-0.3521,17.2607,0.08568,13.5,14.6,15.9,17.3,18.8,20.6,22.6],"107.5":[-0.3521,17.4237,0.08599,13.6,14.7,16.0,17.4,19.0,20.8,22.8],"108.0":[-0.3521,17.5885,0.08629,13.7,14.9,16.2,17.6,19.2,21.0,23.1],"108.5":[-0.3521,17.7553,0.0866,13.8,15.0,16.3,17.8,19.4,21.2,23.3],"109.0":[-0.3521,17.9242,0.08691,14.0,15.1,16.5,17.9,19.6,21.4,23.6],"109.5":[-0.3521,18.0954,0.08723,14.1,15.3,16.6,18.1,19.8,21.7,23.8],"110.0":[-0.3521,18.2689,0.08755,14.2,15.4,16.8,18.3,20.0,21.9,24.1]
+  },
+  "wfl_girls": {
+    "45.0":[-0.3833,2.4607,0.09029,1.9,2.1,2.3,2.5,2.7,3.0,3.3],"45.5":[-0.3833,2.5457,0.09033,2.0,2.1,2.3,2.5,2.8,3.1,3.4],"46.0":[-0.3833,2.6306,0.09037,2.0,2.2,2.4,2.6,2.9,3.2,3.5],"46.5":[-0.3833,2.7155,0.0904,2.1,2.3,2.5,2.7,3.0,3.3,3.6],"47.0":[-0.3833,2.8007,0.09044,2.2,2.4,2.6,2.8,3.1,3.4,3.7],"47.5":[-0.3833,2.8867,0.09048,2.2,2.4,2.6,2.9,3.2,3.5,3.8],"48.0":[-0.3833,2.9741,0.09052,2.3,2.5,2.7,3.0,3.3,3.6,4.0],"48.5":[-0.3833,3.0636,0.09056,2.4,2.6,2.8,3.1,3.4,3.7,4.1],"49.0":[-0.3833,3.156,0.0906,2.4,2.6,2.9,3.2,3.5,3.8,4.2],"49.5":[-0.3833,3.252,0.09064,2.5,2.7,3.0,3.3,3.6,3.9,4.3],"50.0":[-0.3833,3.3518,0.09068,2.6,2.8,3.1,3.4,3.7,4.0,4.5],"50.5":[-0.3833,3.4557,0.09072,2.7,2.9,3.2,3.5,3.8,4.2,4.6],"51.0":[-0.3833,3.5636,0.09076,2.8,3.0,3.3,3.6,3.9,4.3,4.8],"51.5":[-0.3833,3.6754,0.0908,2.8,3.1,3.4,3.7,4.0,4.4,4.9],"52.0":[-0.3833,3.7911,0.09085,2.9,3.2,3.5,3.8,4.2,4.6,5.1],"52.5":[-0.3833,3.9105,0.09089,3.0,3.3,3.6,3.9,4.3,4.7,5.2],"53.0":[-0.3833,4.0332,0.09093,3.1,3.4,3.7,4.0,4.4,4.9,5.4],"53.5":[-0.3833,4.1591,0.09098,3.2,3.5,3.8,4.2,4.6,5.0,5.5],"54.0":[-0.3833,4.2875,0.09102,3.3,3.6,3.9,4.3,4.7,5.2,5.7],"54.5":[-0.3833,4.4179,0.09106,3.4,3.7,4.0,4.4,4.8,5.3,5.9],"55.0":[-0.3833,4.5498,0.0911,3.5,3.8,4.2,4.5,5.0,5.5,6.1],"55.5":[-0.3833,4.6827,0.09114,3.6,3.9,4.3,4.7,5.1,5.7,6.3],"56.0":[-0.3833,4.8162,0.09118,3.7,4.0,4.4,4.8,5.3,5.8,6.4],"56.5":[-0.3833,4.95,0.09121,3.8,4.1,4.5,5.0,5.4,6.0,6.6],"57.0":[-0.3833,5.0837,0.09125,3.9,4.3,4.6,5.1,5.6,6.1,6.8],"57.5":[-0.3833,5.2173,0.09128,4.0,4.4,4.8,5.2,5.7,6.3,7.0],"58.0":[-0.3833,5.3507,0.0913,4.1,4.5,4.9,5.4,5.9,6.5,7.1],"58.5":[-0.3833,5.4834,0.09132,4.2,4.6,5.0,5.5,6.0,6.6,7.3],"59.0":[-0.3833,5.6151,0.09134,4.3,4.7,5.1,5.6,6.2,6.8,7.5],"59.5":[-0.3833,5.7454,0.09135,4.4,4.8,5.3,5.7,6.3,6.9,7.7],"60.0":[-0.3833,5.8742,0.09136,4.5,4.9,5.4,5.9,6.4,7.1,7.8],"60.5":[-0.3833,6.0014,0.09137,4.6,5.0,5.5,6.0,6.6,7.3,8.0],"61.0":[-0.3833,6.127,0.09137,4.7,5.1,5.6,6.1,6.7,7.4,8.2],"61.5":[-0.3833,6.2511,0.09136,4.8,5.2,5.7,6.3,6.9,7.6,8.4],"62.0":[-0.3833,6.3738,0.09135,4.9,5.3,5.8,6.4,7.0,7.7,8.5],"62.5":[-0.3833,6.4948,0.09133,5.0,5.4,5.9,6.5,7.1,7.8,8.7],"63.0":[-0.3833,6.6144,0.09131,5.1,5.5,6.0,6.6,7.3,8.0,8.8],"63.5":[-0.3833,6.7328,0.09129,5.2,5.6,6.2,6.7,7.4,8.1,9.0],"64.0":[-0.3833,6.8501,0.09126,5.3,5.7,6.3,6.9,7.5,8.3,9.1],"64.5":[-0.3833,6.9662,0.09123,5.4,5.8,6.4,7.0,7.6,8.4,9.3],"65.0":[-0.3833,7.0812,0.09119,5.5,5.9,6.5,7.1,7.8,8.6,9.5],"65.5":[-0.3833,7.195,0.09115,5.5,6.0,6.6,7.2,7.9,8.7,9.6],"66.0":[-0.3833,7.3076,0.0911,5.6,6.1,6.7,7.3,8.0,8.8,9.8],"66.5":[-0.3833,7.4189,0.09106,5.7,6.2,6.8,7.4,8.1,9.0,9.9],"67.0":[-0.3833,7.5288,0.09101,5.8,6.3,6.9,7.5,8.3,9.1,10.0],"67.5":[-0.3833,7.6375,0.09096,5.9,6.4,7.0,7.6,8.4,9.2,10.2],"68.0":[-0.3833,7.7448,0.0909,6.0,6.5,7.1,7.7,8.5,9.4,10.3],"68.5":[-0.3833,7.8509,0.09085,6.1,6.6,7.2,7.9,8.6,9.5,10.5],"69.0":[-0.3833,7.9559,0.09079,6.1,6.7,7.3,8.0,8.7,9.6,10.6],"69.5":[-0.3833,8.0599,0.09074,6.2,6.8,7.4,8.1,8.8,9.7,10.7],"70.0":[-0.3833,8.163,0.09068,6.3,6.9,7.5,8.2,9.0,9.9,10.9],"70.5":[-0.3833,8.2651,0.09062,6.4,6.9,7.6,8.3,9.1,10.0,11.0],"71.0":[-0.3833,8.3666,0.09056,6.5,7.0,7.7,8.4,9.2,10.1,11.1],"71.5":[-0.3833,8.4676,0.0905,6.5,7.1,7.7,8.5,9.3,10.2,11.3],"72.0":[-0.3833,8.5679,0.09043,6.6,7.2,7.8,8.6,9.4,10.3,11.4],"72.5":[-0.3833,8.6674,0.09037,6.7,7.3,7.9,8.7,9.5,10.5,11.5],"73.0":[-0.3833,8.7661,0.09031,6.8,7.4,8.0,8.8,9.6,10.6,11.7],"73.5":[-0.3833,8.8638,0.09025,6.9,7.4,8.1,8.9,9.7,10.7,11.8],"74.0":[-0.3833,8.9601,0.09018,6.9,7.5,8.2,9.0,9.8,10.8,11.9],"74.5":[-0.3833,9.0552,0.09012,7.0,7.6,8.3,9.1,9.9,10.9,12.0],"75.0":[-0.3833,9.149,0.09005,7.1,7.7,8.4,9.1,10.0,11.0,12.2],"75.5":[-0.3833,9.2418,0.08999,7.1,7.8,8.5,9.2,10.1,11.1,12.3],"76.0":[-0.3833,9.3337,0.08992,7.2,7.8,8.5,9.3,10.2,11.2,12.4],"76.5":[-0.3833,9.4252,0.08985,7.3,7.9,8.6,9.4,10.3,11.4,12.5],"77.0":[-0.3833,9.5166,0.08979,7.4,8.0,8.7,9.5,10.4,11.5,12.6],"77.5":[-0.3833,9.6086,0.08972,7.4,8.1,8.8,9.6,10.5,11.6,12.8],"78.0":[-0.3833,9.7015,0.08965,7.5,8.2,8.9,9.7,10.6,11.7,12.9],"78.5":[-0.3833,9.7957,0.08959,7.6,8.2,9.0,9.8,10.7,11.8,13.0],"79.0":[-0.3833,9.8915,0.08952,7.7,8.3,9.1,9.9,10.8,11.9,13.1],"79.5":[-0.3833,9.9892,0.08946,7.7,8.4,9.1,10.0,10.9,12.0,13.3],"80.0":[-0.3833,10.0891,0.0894,7.8,8.5,9.2,10.1,11.0,12.1,13.4],"80.5":[-0.3833,10.1916,0.08934,7.9,8.6,9.3,10.2,11.2,12.3,13.5],"81.0":[-0.3833,10.2965,0.08928,8.0,8.7,9.4,10.3,11.3,12.4,13.7],"81.5":[-0.3833,10.4041,0.08923,8.1,8.8,9.5,10.4,11.4,12.5,13.8],"82.0":[-0.3833,10.514,0.08918,8.1,8.8,9.6,10.5,11.5,12.6,13.9],"82.5":[-0.3833,10.6263,0.08914,8.2,8.9,9.7,10.6,11.6,12.8,14.1],"83.0":[-0.3833,10.741,0.0891,8.3,9.0,9.8,10.7,11.8,12.9,14.2],"83.5":[-0.3833,10.8578,0.08906,8.4,9.1,9.9,10.9,11.9,13.1,14.4],"84.0":[-0.3833,10.9767,0.08903,8.5,9.2,10.1,11.0,12.0,13.2,14.5],"84.5":[-0.3833,11.0974,0.089,8.6,9.3,10.2,11.1,12.1,13.3,14.7],"85.0":[-0.3833,11.2198,0.08898,8.7,9.4,10.3,11.2,12.3,13.5,14.9],"85.5":[-0.3833,11.3435,0.08897,8.8,9.5,10.4,11.3,12.4,13.6,15.0],"86.0":[-0.3833,11.4684,0.08895,8.9,9.7,10.5,11.5,12.6,13.8,15.2],"86.5":[-0.3833,11.594,0.08895,9.0,9.8,10.6,11.6,12.7,13.9,15.4],"87.0":[-0.3833,11.7201,0.08895,9.1,9.9,10.7,11.7,12.8,14.1,15.5],"87.5":[-0.3833,11.8461,0.08895,9.2,10.0,10.9,11.8,13.0,14.2,15.7],"88.0":[-0.3833,11.972,0.08896,9.3,10.1,11.0,12.0,13.1,14.4,15.9],"88.5":[-0.3833,12.0976,0.08898,9.4,10.2,11.1,12.1,13.2,14.5,16.0],"89.0":[-0.3833,12.2229,0.089,9.5,10.3,11.2,12.2,13.4,14.7,16.2],"89.5":[-0.3833,12.3477,0.08903,9.6,10.4,11.3,12.3,13.5,14.8,16.4],"90.0":[-0.3833,12.4723,0.08906,9.7,10.5,11.4,12.5,13.7,15.0,16.5],"90.5":[-0.3833,12.5965,0.08909,9.8,10.6,11.5,12.6,13.8,15.1,16.7],"91.0":[-0.3833,12.7205,0.08913,9.9,10.7,11.7,12.7,13.9,15.3,16.9],"91.5":[-0.3833,12.8443,0.08918,10.0,10.8,11.8,12.8,14.1,15.5,17.0],"92.0":[-0.3833,12.9681,0.08923,10.1,10.9,11.9,13.0,14.2,15.6,17.2],"92.5":[-0.3833,13.092,0.08928,10.1,11.0,12.0,13.1,14.3,15.8,17.4],"93.0":[-0.3833,13.2158,0.08934,10.2,11.1,12.1,13.2,14.5,15.9,17.5],"93.5":[-0.3833,13.3399,0.08941,10.3,11.2,12.2,13.3,14.6,16.1,17.7],"94.0":[-0.3833,13.4643,0.08948,10.4,11.3,12.3,13.5,14.7,16.2,17.9],"94.5":[-0.3833,13.5892,0.08955,10.5,11.4,12.4,13.6,14.9,16.4,18.0],"95.0":[-0.3833,13.7146,0.08963,10.6,11.5,12.6,13.7,15.0,16.5,18.2],"95.5":[-0.3833,13.8408,0.08972,10.7,11.6,12.7,13.8,15.2,16.7,18.4],"96.0":[-0.3833,13.9676,0.08981,10.8,11.7,12.8,14.0,15.3,16.8,18.6],"96.5":[-0.3833,14.0953,0.0899,10.9,11.8,12.9,14.1,15.4,17.0,18.7],"97.0":[-0.3833,14.2239,0.09,11.0,12.0,13.0,14.2,15.6,17.1,18.9],"97.5":[-0.3833,14.3537,0.0901,11.1,12.1,13.1,14.4,15.7,17.3,19.1],"98.0":[-0.3833,14.4848,0.09021,11.2,12.2,13.3,14.5,15.9,17.5,19.3],"98.5":[-0.3833,14.6174,0.09033,11.3,12.3,13.4,14.6,16.0,17.6,19.5],"99.0":[-0.3833,14.7519,0.09044,11.4,12.4,13.5,14.8,16.2,17.8,19.6],"99.5":[-0.3833,14.8882,0.09057,11.5,12.5,13.6,14.9,16.3,18.0,19.8],"100.0":[-0.3833,15.0267,0.09069,11.6,12.6,13.7,15.0,16.5,18.1,20.0],"100.5":[-0.3833,15.1676,0.09083,11.7,12.7,13.9,15.2,16.6,18.3,20.2],"101.0":[-0.3833,15.3108,0.09096,11.8,12.8,14.0,15.3,16.8,18.5,20.4],"101.5":[-0.3833,15.4564,0.0911,11.9,13.0,14.1,15.5,17.0,18.7,20.6],"102.0":[-0.3833,15.6046,0.09125,12.0,13.1,14.3,15.6,17.1,18.9,20.8],"102.5":[-0.3833,15.7553,0.09139,12.1,13.2,14.4,15.8,17.3,19.0,21.0],"103.0":[-0.3833,15.9087,0.09155,12.3,13.3,14.5,15.9,17.5,19.2,21.3],"103.5":[-0.3833,16.0645,0.0917,12.4,13.5,14.7,16.1,17.6,19.4,21.5],"104.0":[-0.3833,16.2229,0.09186,12.5,13.6,14.8,16.2,17.8,19.6,21.7],"104.5":[-0.3833,16.3837,0.09203,12.6,13.7,15.0,16.4,18.0,19.8,21.9],"105.0":[-0.3833,16.547,0.09219,12.7,13.8,15.1,16.5,18.2,20.0,22.2],"105.5":[-0.3833,16.7129,0.09236,12.8,14.0,15.3,16.7,18.4,20.2,22.4],"106.0":[-0.3833,16.8814,0.09254,13.0,14.1,15.4,16.9,18.5,20.5,22.6],"106.5":[-0.3833,17.0527,0.09271,13.1,14.3,15.6,17.1,18.7,20.7,22.9],"107.0":[-0.3833,17.2269,0.09289,13.2,14.4,15.7,17.2,18.9,20.9,23.1],"107.5":[-0.3833,17.4039,0.09307,13.3,14.5,15.9,17.4,19.1,21.1,23.4],"108.0":[-0.3833,17.5839,0.09326,13.5,14.7,16.0,17.6,19.3,21.3,23.6],"108.5":[-0.3833,17.7668,0.09344,13.6,14.8,16.2,17.8,19.5,21.6,23.9],"109.0":[-0.3833,17.9526,0.09363,13.7,15.0,16.4,18.0,19.7,21.8,24.2],"109.5":[-0.3833,18.1412,0.09382,13.9,15.1,16.5,18.1,20.0,22.0,24.4],"110.0":[-0.3833,18.3324,0.09401,14.0,15.3,16.7,18.3,20.2,22.3,24.7]
+  }
+};
+
+
+            function whoReady() { return WHO_DB !== null && typeof WHO_DB === 'object' && Object.keys(WHO_DB).length > 0; }
+
+            function tampilkanPeringatanWHO() {
+                document.getElementById('threeResultsContainer').innerHTML =
+                    '<div class="p-4 rounded-xl border border-amber-300 bg-amber-50 text-amber-900 text-xs font-semibold leading-relaxed"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Data standar WHO belum diisi. Ganti teks pada <code>const WHO_DB = "silahkan isi data disini";</code> dengan objek data WHO agar Z-Score dan grafik dapat dihitung.</div>';
+                ['wfa', 'lhfa', 'wflh'].forEach(k => { document.getElementById('chartSvg_' + k).innerHTML = ''; document.getElementById('bellSvg_' + k).innerHTML = ''; });
+                window.lastKMS = null;
+            }
+
+            /* ===== [PORTING] Mesin kalkulator KMS dari kalkulator_fix.html ===== */
+        // State Aplikasi
+        const state = {
+          gender: 'boys',          // 'boys' | 'girls'
+          age: 24,                 // 0 - 60 bulan
+          measureType: 'standing', // jenis indeks mengikuti umur: <24 bln 'recumbent' (PB), >=24 bln 'standing' (TB)
+          position: 'standing',    // cara ukur yang dipakai petugas (menentukan koreksi 0,7 cm)
+          height: 87.1,            // cm (Panjang / Tinggi Badan)
+          weight: 12.2,            // kg (Berat Badan)
+          zoomMode: 'focus',       // 'focus' | 'full'
+        };
+
+        // =========================================================================
+        // 2. PEMBANGUN TABEL PENUH 0-60 BULAN SESUAI CARA UKUR (PB vs TB)
+        // =========================================================================
+        function getFullLHFATable(gender, measureType) {
+          const t02 = WHO_DB[`lhfa_${gender}_0_2`];
+          const t25 = WHO_DB[`lhfa_${gender}_2_5`];
+          if (!t02 || !t25) return null;
+
+          const merged = {};
+          if (measureType === 'recumbent') {
+            // Cara ukur Terlentang (PB):
+            // 0 - 24 bln menggunakan data PB asli (0_2)
+            for (let m = 0; m <= 24; m++) {
+              if (t02[m]) merged[m] = [...t02[m]];
+            }
+            // 25 - 60 bln menggunakan data TB (2_5) yang dikonversi ke PB (+0.7 cm standar WHO)
+            for (let m = 25; m <= 60; m++) {
+              if (t25[m]) {
+                const p = t25[m];
+                const M_pb = +(p[1] + 0.7).toFixed(4);
+                merged[m] = [
+                  p[0], M_pb, p[2],
+                  +(p[3] + 0.7).toFixed(1),
+                  +(p[4] + 0.7).toFixed(1),
+                  +(p[5] + 0.7).toFixed(1),
+                  +(p[6] + 0.7).toFixed(1),
+                  +(p[7] + 0.7).toFixed(1),
+                  +(p[8] + 0.7).toFixed(1),
+                  +(p[9] + 0.7).toFixed(1)
+                ];
+              }
+            }
+          } else {
+            // Cara ukur Berdiri (TB):
+            // 0 - 23 bln menggunakan data PB (0_2) yang dikonversi ke TB (-0.7 cm standar WHO)
+            for (let m = 0; m <= 23; m++) {
+              if (t02[m]) {
+                const p = t02[m];
+                const M_tb = +(p[1] - 0.7).toFixed(4);
+                merged[m] = [
+                  p[0], M_tb, p[2],
+                  +(p[3] - 0.7).toFixed(1),
+                  +(p[4] - 0.7).toFixed(1),
+                  +(p[5] - 0.7).toFixed(1),
+                  +(p[6] - 0.7).toFixed(1),
+                  +(p[7] - 0.7).toFixed(1),
+                  +(p[8] - 0.7).toFixed(1),
+                  +(p[9] - 0.7).toFixed(1)
+                ];
+              }
+            }
+            // 24 - 60 bln menggunakan data TB asli (2_5)
+            for (let m = 24; m <= 60; m++) {
+              if (t25[m]) merged[m] = [...t25[m]];
+            }
+          }
+          return merged;
+        }
+
+        // =========================================================================
+        // 3. FUNGSI MATEMATIKA & RUMUS LMS WHO
+        // =========================================================================
+        function computeWHOZScore(val, params) {
+          if (!params || params.length < 3 || isNaN(val) || val <= 0) {
+            return { z: 0, isRestricted: false, valid: false };
+          }
+          const [L, M, S, sd3neg, sd2neg, sd1neg, sd0, sd1, sd2, sd3] = params;
+
+          let rawZ;
+          if (Math.abs(L) < 1e-7) {
+            rawZ = Math.log(val / M) / S;
+          } else {
+            rawZ = (Math.pow(val / M, L) - 1) / (L * S);
+          }
+
+          let finalZ = rawZ;
+          let isRestricted = false;
+
+          if (rawZ > 3) {
+            isRestricted = true;
+            const sd3pos = M * Math.pow(1 + L * S * 3, 1 / L);
+            const sd2pos = M * Math.pow(1 + L * S * 2, 1 / L);
+            finalZ = 3 + (val - sd3pos) / (sd3pos - sd2pos);
+          } else if (rawZ < -3) {
+            isRestricted = true;
+            const sd3negCalc = M * Math.pow(1 + L * S * (-3), 1 / L);
+            const sd2negCalc = M * Math.pow(1 + L * S * (-2), 1 / L);
+            finalZ = -3 + (val - sd3negCalc) / (sd2negCalc - sd3negCalc);
+          }
+
+          return { z: finalZ, isRestricted, rawZ, sd0, sd1, sd2, sd3, sd1neg, sd2neg, sd3neg, valid: true };
+        }
+
+        function normalCDF(z) {
+          if (z < -8) return 0;
+          if (z > 8) return 1;
+          const sign = z < 0 ? -1 : 1;
+          const x = Math.abs(z) / Math.SQRT2;
+          const t = 1 / (1 + 0.3275911 * x);
+          const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
+          const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+          return 0.5 * (1 + sign * erf);
+        }
+
+        function getInterpolatedParams(table, keyVal) {
+          if (!table || isNaN(keyVal)) return null;
+          const keys = Object.keys(table).map(Number).sort((a, b) => a - b);
+          const minK = keys[0];
+          const maxK = keys[keys.length - 1];
+
+          // Clamp jika di luar rentang tabel agar tidak null
+          const clampedVal = Math.max(minK, Math.min(maxK, keyVal));
+          const exactKey = clampedVal.toFixed(1);
+          if (table[exactKey]) return { params: table[exactKey], outOfRange: keyVal < minK || keyVal > maxK, minK, maxK };
+
+          const lower = (Math.floor(clampedVal * 2) / 2).toFixed(1);
+          const upper = (Math.ceil(clampedVal * 2) / 2).toFixed(1);
+
+          if (!table[lower] || !table[upper]) return null;
+          if (lower === upper) return { params: table[lower], outOfRange: keyVal < minK || keyVal > maxK, minK, maxK };
+
+          const ratio = (clampedVal - parseFloat(lower)) / 0.5;
+          const interp = table[lower].map((v, i) => v + ratio * (table[upper][i] - v));
+          return { params: interp, outOfRange: keyVal < minK || keyVal > maxK, minK, maxK };
+        }
+
+        function interpretStatus(indicator, z) {
+          if (indicator === 'wfa') {
+            if (z < -3) return { label: 'Berat badan sangat kurang (Severely underweight)', badge: 'bg-rose-600 text-white', border: 'border-rose-200 bg-rose-50/80' };
+            if (z < -2) return { label: 'Berat badan kurang (Underweight)', badge: 'bg-orange-500 text-white', border: 'border-orange-200 bg-orange-50/80' };
+            if (z <= 1) return { label: 'Berat badan normal', badge: 'bg-emerald-600 text-white', border: 'border-emerald-200 bg-emerald-50/80' };
+            return { label: 'Risiko berat badan lebih', badge: 'bg-amber-500 text-slate-950', border: 'border-amber-200 bg-amber-50/80' };
+          } else if (indicator === 'lhfa') {
+            if (z < -3) return { label: 'Sangat pendek (Severely stunted)', badge: 'bg-rose-600 text-white', border: 'border-rose-200 bg-rose-50/80' };
+            if (z < -2) return { label: 'Pendek (Stunted)', badge: 'bg-orange-500 text-white', border: 'border-orange-200 bg-orange-50/80' };
+            if (z <= 3) return { label: 'Normal (Tinggi badan normal)', badge: 'bg-emerald-600 text-white', border: 'border-emerald-200 bg-emerald-50/80' };
+            return { label: 'Tinggi', badge: 'bg-sky-600 text-white', border: 'border-sky-200 bg-sky-50/80' };
+          } else {
+            if (z < -3) return { label: 'Gizi buruk (Severely wasted)', badge: 'bg-rose-600 text-white', border: 'border-rose-200 bg-rose-50/80' };
+            if (z < -2) return { label: 'Gizi kurang (Wasted)', badge: 'bg-orange-500 text-white', border: 'border-orange-200 bg-orange-50/80' };
+            if (z <= 1) return { label: 'Gizi baik (Normal)', badge: 'bg-emerald-600 text-white', border: 'border-emerald-200 bg-emerald-50/80' };
+            if (z <= 2) return { label: 'Berisiko gizi lebih (Possible risk of overweight)', badge: 'bg-amber-500 text-slate-950', border: 'border-amber-200 bg-amber-50/80' };
+            if (z <= 3) return { label: 'Gizi lebih (Overweight)', badge: 'bg-orange-500 text-white', border: 'border-orange-200 bg-orange-50/80' };
+            return { label: 'Obesitas (Obese)', badge: 'bg-rose-700 text-white', border: 'border-rose-200 bg-rose-50/80' };
+          }
+        }
+
+        function formatYM(months) {
+          return `${Math.floor(months / 12)} tahun ${months % 12} bulan`;
+        }
+
+
+        // =========================================================================
+        // 4. HANDLERS & STATE UPDATERS
+        // =========================================================================
+
+        window.handleAgeChange = function(val) {
+          let parsed = parseInt(val, 10);
+          if (isNaN(parsed)) parsed = 0;
+          parsed = Math.max(0, Math.min(60, parsed));
+          state.age = parsed;
+
+          document.getElementById('ageInput').value = parsed;
+          document.getElementById('ageSelect').value = parsed;
+          document.getElementById('ageSlider').value = parsed;
+          document.getElementById('ageYearsLabel').textContent = formatYM(parsed);
+
+          if (parsed < 24) setMeasureType('recumbent', false);
+          else setMeasureType('standing', false);
+
+          calculateAll();
+        };
+
+
+        window.adjustHeight = function(delta) {
+          let cur = parseFloat(document.getElementById('heightInput').value) || 75;
+          let next = Math.max(45, Math.min(125, +(cur + delta).toFixed(1)));
+          document.getElementById('heightInput').value = next;
+          calculateAll();
+        };
+
+        window.adjustWeight = function(delta) {
+          let cur = parseFloat(document.getElementById('weightInput').value) || 10;
+          let next = Math.max(1, Math.min(45, +(cur + delta).toFixed(2)));
+          document.getElementById('weightInput').value = next;
+          calculateAll();
+        };
+
+        window.setMedianHeight = function() {
+          const fullLHFA = getFullLHFATable(state.gender, state.position);
+          if (fullLHFA && fullLHFA[state.age]) {
+            const median = fullLHFA[state.age][6];
+            document.getElementById('heightInput').value = median.toFixed(1);
+            calculateAll();
+            showToast(`${state.position === 'recumbent' ? 'PB' : 'TB'} diset ke median usia ${state.age} bln (${median} cm)`);
+          }
+        };
+
+        window.setMedianWeight = function() {
+          const dataset = WHO_DB[`wfa_${state.gender}`];
+          if (dataset && dataset[state.age]) {
+            const median = dataset[state.age][6];
+            document.getElementById('weightInput').value = median.toFixed(2);
+            calculateAll();
+            showToast(`BB diset ke median usia ${state.age} bln (${median} kg)`);
+          }
+        };
+
+
+
+        // =========================================================================
+        // 5. PIPELINE UTAMA PENGHITUNGAN & RENDER 3 INDEKS SEKALIGUS
+        // =========================================================================
+        const STATUS_NA = { label: 'Tidak dapat dihitung', badge: 'bg-slate-500 text-white', border: 'border-slate-200 bg-slate-50/80' };
+        const NA_RES = { z: NaN, rawZ: NaN, valid: false };
+        const WHO_FLAG = { wfa: [-6, 5], lhfa: [-6, 6], wflh: [-5, 5] };
+        const FLAG_TXT = 'Nilai di luar batas kewajaran biologis WHO. Periksa kembali umur, penimbangan, dan pengukuran.';
+        const zr2 = v => Math.round(v * 100) / 100;
+        const zTxt = r => r.valid ? `${zr2(r.z) >= 0 ? '+' : '−'}${Math.abs(r.z).toFixed(2)} SD` : '—';
+        const pTxt = r => r.valid ? `${(normalCDF(r.rawZ) * 100).toFixed(1)}%` : '—';
+        const stOf = (r, ind) => r.valid ? interpretStatus(ind, zr2(r.z)) : STATUS_NA;
+        const isFlag = (r, ind) => r.valid && (r.z < WHO_FLAG[ind][0] || r.z > WHO_FLAG[ind][1]);
+
+        function kartuHasil(no, label, res, st, catatan) {
+          return `<div class="kc-res ${st.border}">
+            <div class="kc-res-head"><span class="kc-res-name">${no}. ${label}</span><span class="kc-res-z">${zTxt(res)}</span></div>
+            <div class="kc-res-foot"><span class="inline-flex px-3 py-1 rounded-lg text-xs font-bold ${st.badge}">${st.label}</span><span class="kc-res-pct">Persentil: ${pTxt(res)}</span></div>
+            ${catatan ? `<p class="kc-res-note">${catatan}</p>` : ''}
+          </div>`;
+        }
+
+        function calculateAll() {
+          if (!whoReady()) { tampilkanPeringatanWHO(); return; }
+
+          const num = id => parseFloat(String(document.getElementById(id).value).replace(',', '.'));
+          const rawH = num('heightInput'), rawW = num('weightInput');
+          const container = document.getElementById('threeResultsContainer');
+          if (!(rawH > 0) || !(rawW > 0)) {
+            container.innerHTML = '<div class="kc-empty">Isi panjang/tinggi badan dan berat badan untuk melihat hasil evaluasi.</div>';
+            ['wfa', 'lhfa', 'wflh'].forEach(k => { document.getElementById('chartSvg_' + k).innerHTML = ''; document.getElementById('bellSvg_' + k).innerHTML = ''; });
+            window.lastKMS = null;
+            return;
+          }
+          state.height = rawH; state.weight = rawW;
+
+          // ATURAN WHO: tabel mengikuti UMUR (<24 bln = panjang/PB, >=24 bln = tinggi/TB).
+          // Cara ukur hanya memicu koreksi: <24 bln diukur berdiri +0,7 cm; >=24 bln diukur terlentang -0,7 cm.
+          state.measureType = state.age < 24 ? 'recumbent' : 'standing';
+          const isRec = state.measureType === 'recumbent';
+          const adj = (isRec && state.position === 'standing') ? 0.7 : (!isRec && state.position === 'recumbent') ? -0.7 : 0;
+          const hAdj = Math.round((state.height + adj) * 10) / 10;
+          const genderTxt = state.gender === 'boys' ? 'Laki-laki' : 'Perempuan';
+          const childName = document.getElementById('childName').value.trim() || 'Anak';
+
+          // Hint median mengikuti cara ukur yang dipilih
+          const posTable = getFullLHFATable(state.gender, state.position);
+          const wfaTable = WHO_DB[`wfa_${state.gender}`];
+          if (posTable && posTable[state.age]) document.getElementById('quickMedianHeightHint').textContent = posTable[state.age][6].toFixed(1);
+          if (wfaTable && wfaTable[state.age]) document.getElementById('quickMedianWeightHint').textContent = wfaTable[state.age][6].toFixed(1);
+
+          document.getElementById('subjectSummaryLabel').textContent =
+            `Subjek: ${childName} • ${genderTxt} • ${state.age} Bln • ${state.position === 'recumbent' ? 'PB' : 'TB'} ${state.height.toFixed(1)} cm • BB ${state.weight.toFixed(2)} kg`;
+
+          // 1. BB/U
+          const wfaRes = wfaTable?.[state.age] ? computeWHOZScore(state.weight, wfaTable[state.age]) : NA_RES;
+          const wfaStatus = stOf(wfaRes, 'wfa');
+
+          // 2. PB/U atau TB/U (tabel asli sesuai umur, nilai ukur sudah dikoreksi)
+          const fullLHFATable = getFullLHFATable(state.gender, state.measureType);
+          const lhfaRes = fullLHFATable?.[state.age] ? computeWHOZScore(hAdj, fullLHFATable[state.age]) : NA_RES;
+          const lhfaStatus = stOf(lhfaRes, 'lhfa');
+          const lhLabel = isRec ? 'Panjang Badan menurut Umur (PB/U)' : 'Tinggi Badan menurut Umur (TB/U)';
+
+          // 3. BB/PB (<24 bln, 45-110 cm) atau BB/TB (>=24 bln, 65-120 cm). Di luar rentang: WHO tidak menghitung Z-Score.
+          const wflhTable = WHO_DB[`${isRec ? 'wfl' : 'wfh'}_${state.gender}`];
+          const wflhInterp = getInterpolatedParams(wflhTable, hAdj);
+          const wflhOk = !!(wflhInterp && !wflhInterp.outOfRange);
+          const wflhRes = wflhOk ? computeWHOZScore(state.weight, wflhInterp.params) : NA_RES;
+          const wflhStatus = stOf(wflhRes, 'wflh');
+          const wflhLabel = isRec ? 'Berat Badan menurut Panjang Badan (BB/PB)' : 'Berat Badan menurut Tinggi Badan (BB/TB)';
+          window.lastKMS = { wfa: wfaRes, wfaS: wfaStatus, lhfa: lhfaRes, lhfaS: lhfaStatus, lhLabel, wflh: wflhRes, wflhS: wflhStatus, wflhLabel };
+
+          const rangeTxt = `${isRec ? 'PB' : 'TB'} ${hAdj.toFixed(1)} cm di luar rentang tabel WHO ${isRec ? 'BB/PB (45–110 cm)' : 'BB/TB (65–120 cm)'}. Z-Score tidak dapat dihitung.`;
+          const warnBox = document.getElementById('wflhRangeWarning');
+          warnBox.textContent = rangeTxt;
+          warnBox.classList.toggle('hidden', wflhOk);
+
+          const adjInfo = adj === 0 ? '' : `<p class="kc-res-note is-info">Koreksi cara ukur WHO ${adj > 0 ? '+0,7' : '−0,7'} cm: ${state.height.toFixed(1)} → ${hAdj.toFixed(1)} cm (dihitung sebagai ${isRec ? 'panjang' : 'tinggi'} badan).</p>`;
+          container.innerHTML =
+            kartuHasil(1, 'Berat Badan menurut Umur (BB/U)', wfaRes, wfaStatus, isFlag(wfaRes, 'wfa') ? FLAG_TXT : '') +
+            kartuHasil(2, lhLabel, lhfaRes, lhfaStatus, isFlag(lhfaRes, 'lhfa') ? FLAG_TXT : '') +
+            kartuHasil(3, wflhLabel, wflhRes, wflhStatus, !wflhOk ? rangeTxt : isFlag(wflhRes, 'wflh') ? FLAG_TXT : '') + adjInfo;
+
+          // Update Label Judul Diagram, Badge Tabel & Pill Z-Score
+          const themeBadge = 'kc-pill';
+
+          document.getElementById('chartTitleLHFA').textContent = `2. ${lhLabel}`;
+          document.getElementById('badgeTableLHFA').className = themeBadge;
+          document.getElementById('badgeTableLHFA').textContent = isRec ? 'Tabel Penuh PB (0–60 Bln)' : 'Tabel Penuh TB (0–60 Bln)';
+          document.getElementById('bellLabelLHFA').textContent = isRec ? 'PB/U' : 'TB/U';
+
+          document.getElementById('chartTitleWFLH').textContent = `3. ${wflhLabel}`;
+          document.getElementById('badgeTableWFLH').className = themeBadge;
+          document.getElementById('badgeTableWFLH').textContent = isRec ? 'Tabel Penuh BB/PB (45–110 cm)' : 'Tabel Penuh BB/TB (65–120 cm)';
+          document.getElementById('bellLabelWFLH').textContent = isRec ? 'BB/PB' : 'BB/TB';
+
+          document.getElementById('chartPillWFA').textContent = `Z: ${zTxt(wfaRes)}`;
+          document.getElementById('chartPillLHFA').textContent = `Z: ${zTxt(lhfaRes)}`;
+          document.getElementById('chartPillWFLH').textContent = `Z: ${zTxt(wflhRes)}`;
+
+          // RENDER SVG DIAGRAM KURVA & BELL CURVE UNTUK KETIGA INDEKS
+          const wflhMinLimit = isRec ? 45 : 65;
+          const wflhMaxLimit = isRec ? 110 : 120;
+
+          renderSingleChart('wfa', wfaTable, state.age, state.weight, 0, 60, wfaRes.z);
+          renderSingleChart('lhfa', fullLHFATable, state.age, hAdj, 0, 60, lhfaRes.z);
+          renderSingleChart('wflh', wflhTable, hAdj, state.weight, wflhMinLimit, wflhMaxLimit, wflhRes.z);
+        }
+
+        // =========================================================================
+        // 6. RENDER SVG GRAFIK KURVA PERTUMBUHAN & DISTRIBUSI NORMAL
+        // =========================================================================
+        function renderSingleChart(indKey, tableObj, childX, childY, minLimit, maxLimit, precomputedZ) {
+          if (!tableObj) return;
+          const isBoys = state.gender === 'boys';
+          const isRec = state.measureType === 'recumbent';
+          const pinColor = isBoys ? '#2A7B88' : '#E07A5F';
+          const pinRing = isBoys ? '#B4DADF' : '#F4C8B8';
+
+          // Clamp childX agar tetap di dalam batas tabel saat menghitung zoom & koordinat
+          const safeChildX = Math.max(minLimit, Math.min(maxLimit, childX));
+
+          let minX = minLimit, maxX = maxLimit;
+          if (state.zoomMode === 'focus' && indKey !== 'wflh') {
+            minX = Math.max(minLimit, safeChildX - 6);
+            maxX = Math.min(maxLimit, safeChildX + 6);
+            // Pastikan rentang zoom selalu memiliki lebar 12 bulan (misal di usia 0 atau 60)
+            if (maxX - minX < 12) {
+              if (minX === minLimit) maxX = Math.min(maxLimit, minLimit + 12);
+              else if (maxX === maxLimit) minX = Math.max(minLimit, maxLimit - 12);
+            }
+          } else if (state.zoomMode === 'focus' && indKey === 'wflh') {
+            minX = Math.max(minLimit, Math.floor(safeChildX - 10));
+            maxX = Math.min(maxLimit, Math.ceil(safeChildX + 10));
+            if (maxX - minX < 20) {
+              if (minX === minLimit) maxX = Math.min(maxLimit, minLimit + 20);
+              else if (maxX === maxLimit) minX = Math.max(minLimit, maxLimit - 20);
+            }
+          }
+
+          const rawKeys = Object.keys(tableObj)
+            .map(raw => ({ raw, num: parseFloat(raw) }))
+            .sort((a, b) => a.num - b.num);
+
+          const visibleKeys = rawKeys.filter(item => item.num >= minX - 1e-6 && item.num <= maxX + 1e-6);
+          if (visibleKeys.length < 2) return;
+
+          const rows = visibleKeys.map(item => ({ rawKey: item.raw, x: item.num, params: tableObj[item.raw] }));
+          let minY = Math.floor(Math.min(...rows.map(r => r.params[3]), childY) - 1);
+          let maxY = Math.ceil(Math.max(...rows.map(r => r.params[9]), childY) + 1);
+          minY = Math.max(0, minY);
+
+          const W = 820, H = 430, pad = { top: 24, right: 48, bottom: 48, left: 56 };
+          const plotW = W - pad.left - pad.right;
+          const plotH = H - pad.top - pad.bottom;
+
+          const xScale = (x) => pad.left + ((x - minX) / Math.max(1, maxX - minX)) * plotW;
+          const yScale = (y) => pad.top + plotH - ((y - minY) / Math.max(1, maxY - minY)) * plotH;
+
+          const linePath = (idx) => rows.map((r, i) => `${i === 0 ? 'M' : 'L'} ${xScale(r.x).toFixed(1)} ${yScale(r.params[idx]).toFixed(1)}`).join(' ');
+          const areaPath = (idxUp, idxBot) => {
+            const topPts = rows.map(r => `${xScale(r.x).toFixed(1)},${yScale(r.params[idxUp]).toFixed(1)}`);
+            const botPts = [...rows].reverse().map(r => `${xScale(r.x).toFixed(1)},${yScale(r.params[idxBot]).toFixed(1)}`);
+            return `M ${topPts.join(' L ')} L ${botPts.join(' L ')} Z`;
+          };
+
+          // Grid Lines & Axis Ticks
+          let gridSvg = '';
+          const yRange = maxY - minY;
+          const yStep = yRange > 45 ? 10 : (yRange > 22 ? 5 : (yRange > 12 ? 2 : 1));
+          const firstYTick = Math.ceil(minY / yStep) * yStep;
+          for (let y = firstYTick; y <= maxY; y += yStep) {
+            const py = yScale(y).toFixed(1);
+            gridSvg += `
+              <line x1="${pad.left}" y1="${py}" x2="${W - pad.right}" y2="${py}" stroke="#e2e8f0" stroke-width="1" />
+              <text x="${pad.left - 8}" y="${parseFloat(py) + 4}" text-anchor="end" font-size="11" fill="#64748b" font-weight="600">${y}</text>
+            `;
+          }
+
+          const xRange = maxX - minX;
+          const xStep = xRange > 35 ? 5 : (xRange > 14 ? 2 : 1);
+          const firstXTick = Math.ceil(minX / xStep) * xStep;
+          for (let x = firstXTick; x <= maxX; x += xStep) {
+            const px = xScale(x).toFixed(1);
+            gridSvg += `
+              <line x1="${px}" y1="${pad.top}" x2="${px}" y2="${H - pad.bottom}" stroke="#f1f5f9" stroke-width="1" />
+              <text x="${px}" y="${H - pad.bottom + 18}" text-anchor="middle" font-size="11" fill="#64748b" font-weight="600">${x}</text>
+            `;
+          }
+
+          // Shading Zones
+          const bandsSvg = `
+            <path d="${areaPath(9,8)}" fill="#fee2e2" opacity="0.45" />
+            <path d="${areaPath(8,7)}" fill="#ffedd5" opacity="0.55" />
+            <path d="${areaPath(7,5)}" fill="#d1fae5" opacity="0.55" />
+            <path d="${areaPath(5,4)}" fill="#fef3c7" opacity="0.50" />
+            <path d="${areaPath(4,3)}" fill="#fee2e2" opacity="0.45" />
+          `;
+
+          // Reference SD Curves
+          const curvesSvg = `
+            <path d="${linePath(9)}" fill="none" stroke="#e11d48" stroke-width="1.8" stroke-dasharray="5,3" />
+            <path d="${linePath(8)}" fill="none" stroke="#f97316" stroke-width="1.8" />
+            <path d="${linePath(7)}" fill="none" stroke="#d97706" stroke-width="1.4" stroke-dasharray="3,3" />
+            <path d="${linePath(6)}" fill="none" stroke="#059669" stroke-width="2.8" />
+            <path d="${linePath(5)}" fill="none" stroke="#d97706" stroke-width="1.4" stroke-dasharray="3,3" />
+            <path d="${linePath(4)}" fill="none" stroke="#f97316" stroke-width="1.8" />
+            <path d="${linePath(3)}" fill="none" stroke="#e11d48" stroke-width="1.8" stroke-dasharray="5,3" />
+          `;
+
+          // Right-end SD Labels
+          const lastRow = rows[rows.length - 1];
+          const lx = W - pad.right + 5;
+          const endLabelsSvg = `
+            <text x="${lx}" y="${yScale(lastRow.params[9]) + 3}" font-size="10" font-weight="700" fill="#be123c">+3</text>
+            <text x="${lx}" y="${yScale(lastRow.params[8]) + 3}" font-size="10" font-weight="700" fill="#c2410c">+2</text>
+            <text x="${lx}" y="${yScale(lastRow.params[7]) + 3}" font-size="10" font-weight="700" fill="#b45309">+1</text>
+            <text x="${lx}" y="${yScale(lastRow.params[6]) + 4}" font-size="11" font-weight="800" fill="#047857">0 SD</text>
+            <text x="${lx}" y="${yScale(lastRow.params[5]) + 3}" font-size="10" font-weight="700" fill="#b45309">−1</text>
+            <text x="${lx}" y="${yScale(lastRow.params[4]) + 3}" font-size="10" font-weight="700" fill="#c2410c">−2</text>
+            <text x="${lx}" y="${yScale(lastRow.params[3]) + 3}" font-size="10" font-weight="700" fill="#be123c">−3</text>
+          `;
+
+          // Child Marker & Crosshair
+          const cx = xScale(safeChildX);
+          const cy = yScale(childY);
+          const unitLabel = indKey === 'lhfa' ? 'cm' : 'kg';
+          const xUnitLabel = indKey === 'wflh' ? 'cm' : 'bln';
+          const displayX = indKey === 'wflh' ? childX.toFixed(1) : childX;
+
+          const boxW = 128;
+          const boxX = cx > W - pad.right - boxW - 14 ? cx - boxW - 12 : cx + 12;
+          const boxY = cy < pad.top + 36 ? cy + 10 : cy - 32;
+
+          const childMarkerSvg = `
+            <line x1="${cx}" y1="${pad.top}" x2="${cx}" y2="${H - pad.bottom}" stroke="${pinColor}" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.75" />
+            <line x1="${pad.left}" y1="${cy}" x2="${W - pad.right}" y2="${cy}" stroke="${pinColor}" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.75" />
+            <circle cx="${cx}" cy="${cy}" r="12" fill="${pinRing}" opacity="0.75" />
+            <circle cx="${cx}" cy="${cy}" r="6.5" fill="${pinColor}" stroke="#ffffff" stroke-width="2.5" />
+            <g transform="translate(${boxX}, ${boxY})">
+              <rect x="0" y="0" width="${boxW}" height="26" rx="7" fill="#1E4620" opacity="0.93" />
+              <text x="${boxW / 2}" y="16.5" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">
+                ${displayX} ${xUnitLabel} • ${childY.toFixed(1)} ${unitLabel}
+              </text>
+            </g>
+          `;
+
+          // Hover Interaction Zones
+          const sliceWidth = plotW / Math.max(1, rows.length);
+          let hoverZonesSvg = '';
+          rows.forEach(r => {
+            const sx = xScale(r.x) - sliceWidth / 2;
+            hoverZonesSvg += `
+              <rect x="${Math.max(pad.left, sx)}" y="${pad.top}" width="${sliceWidth}" height="${plotH}"
+                fill="transparent" class="cursor-crosshair"
+                onmouseenter="showSingleTooltip(evt, '${indKey}', '${r.rawKey}')"
+                onmousemove="showSingleTooltip(evt, '${indKey}', '${r.rawKey}')"
+                onmouseleave="hideSingleTooltip('${indKey}')" />
+            `;
+          });
+
+          const xAxisTitle = indKey === 'wflh'
+            ? (isRec ? 'Panjang Badan (cm)' : 'Tinggi Badan (cm)')
+            : 'Umur Anak (Bulan)';
+          const yAxisTitle = indKey === 'lhfa'
+            ? (isRec ? 'Panjang Badan (cm)' : 'Tinggi Badan (cm)')
+            : 'Berat Badan (kg)';
+
+          const axisTitlesSvg = `
+            <text x="${pad.left + plotW / 2}" y="${H - 10}" text-anchor="middle" font-size="12" font-weight="700" fill="#5A3B21">${xAxisTitle}</text>
+            <text x="16" y="${pad.top + plotH / 2}" text-anchor="middle" font-size="12" font-weight="700" fill="#5A3B21" transform="rotate(-90, 16, ${pad.top + plotH / 2})">${yAxisTitle}</text>
+            <rect x="${pad.left}" y="${pad.top}" width="${plotW}" height="${plotH}" fill="none" stroke="#cbd5e1" stroke-width="1.2" />
+          `;
+
+          document.getElementById(`chartSvg_${indKey}`).innerHTML =
+            gridSvg + bandsSvg + curvesSvg + endLabelsSvg + axisTitlesSvg + (Number.isFinite(precomputedZ) ? childMarkerSvg : '') + hoverZonesSvg;
+
+          renderBellCurve(`bellSvg_${indKey}`, precomputedZ, isBoys, indKey);
+        }
+
+        function showSingleTooltip(evt, indKey, rawKey) {
+          const tooltip = document.getElementById(`tooltip_${indKey}`);
+          if (!tooltip) return;
+
+          const isRec = state.measureType === 'recumbent';
+          let tableObj = null;
+          if (indKey === 'wfa') tableObj = WHO_DB[`wfa_${state.gender}`];
+          else if (indKey === 'lhfa') tableObj = getFullLHFATable(state.gender, state.measureType);
+          else if (indKey === 'wflh') tableObj = WHO_DB[`${isRec ? 'wfl' : 'wfh'}_${state.gender}`];
+
+          if (!tableObj || !tableObj[rawKey]) return;
+          const p = tableObj[rawKey];
+          const [L, M, S, sd3neg, sd2neg, sd1neg, sd0, sd1, sd2, sd3] = p;
+
+          const unit = indKey === 'lhfa' ? 'cm' : 'kg';
+          const xTitle = indKey === 'wflh'
+            ? `${isRec ? 'Panjang Badan' : 'Tinggi Badan'}: ${rawKey} cm`
+            : `Usia: ${rawKey} Bulan`;
+
+          tooltip.innerHTML = `
+            <div class="font-bold text-amber-200 border-b border-white/20 pb-1 mb-1.5 flex justify-between">
+              <span>${xTitle}</span>
+            </div>
+            <div class="space-y-1 font-mono text-[11px]">
+              <div class="flex justify-between text-rose-300"><span>+3 SD:</span><span>${sd3.toFixed(1)} ${unit}</span></div>
+              <div class="flex justify-between text-orange-300"><span>+2 SD:</span><span>${sd2.toFixed(1)} ${unit}</span></div>
+              <div class="flex justify-between text-amber-300"><span>+1 SD:</span><span>${sd1.toFixed(1)} ${unit}</span></div>
+              <div class="flex justify-between text-emerald-300 font-bold"><span>Median (0):</span><span>${sd0.toFixed(1)} ${unit}</span></div>
+              <div class="flex justify-between text-amber-300"><span>−1 SD:</span><span>${sd1neg.toFixed(1)} ${unit}</span></div>
+              <div class="flex justify-between text-orange-300"><span>−2 SD:</span><span>${sd2neg.toFixed(1)} ${unit}</span></div>
+              <div class="flex justify-between text-rose-300"><span>−3 SD:</span><span>${sd3neg.toFixed(1)} ${unit}</span></div>
+            </div>
+          `;
+
+          tooltip.classList.remove('hidden');
+          const container = tooltip.parentElement;
+          const rect = container.getBoundingClientRect();
+          const sx = container.scrollLeft;
+          let left = evt.clientX - rect.left + sx + 14;
+          let top = evt.clientY - rect.top - 20;
+          if (left + 215 > rect.width + sx) left = evt.clientX - rect.left + sx - 220;
+          if (top < 8) top = 8;
+          tooltip.style.left = `${left}px`;
+          tooltip.style.top = `${top}px`;
+        }
+
+        function hideSingleTooltip(indKey) {
+          const tooltip = document.getElementById(`tooltip_${indKey}`);
+          if (tooltip) tooltip.classList.add('hidden');
+        }
+
+        function renderBellCurve(svgId, zVal, isBoys, indKey = 'wfa') {
+          const svg = document.getElementById(svgId);
+          if (!svg) return;
+          const pinColor = isBoys ? '#2A7B88' : '#E07A5F';
+          const W = 420, H = 280, pad = { top: 34, right: 20, bottom: 40, left: 20 };
+          const plotW = W - pad.left - pad.right;
+          const plotH = H - pad.top - pad.bottom;
+
+          const minZ = -4, maxZ = 4;
+          const xScale = (z) => pad.left + ((z - minZ) / (maxZ - minZ)) * plotW;
+          const pdf = (z) => Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+          const maxPdf = pdf(0);
+          const yScale = (val) => pad.top + plotH - (val / maxPdf) * (plotH - 12);
+
+          function buildZoneArea(zStart, zEnd, fillColor) {
+            const steps = 40;
+            const dz = (zEnd - zStart) / steps;
+            let pts = [`${xScale(zStart).toFixed(1)},${(pad.top + plotH).toFixed(1)}`];
+            for (let i = 0; i <= steps; i++) {
+              const z = zStart + i * dz;
+              pts.push(`${xScale(z).toFixed(1)},${yScale(pdf(z)).toFixed(1)}`);
+            }
+            pts.push(`${xScale(zEnd).toFixed(1)},${(pad.top + plotH).toFixed(1)}`);
+            return `<polygon points="${pts.join(' ')}" fill="${fillColor}" opacity="0.78" />`;
+          }
+
+          // Zona warna disesuaikan dengan Permenkes No. 2/2020 untuk tiap indeks
+          let zonesSvg = '';
+          if (indKey === 'lhfa') {
+            zonesSvg =
+              buildZoneArea(-4, -3, '#f43f5e') +
+              buildZoneArea(-3, -2, '#fb923c') +
+              buildZoneArea(-2, 3, '#10b981') +
+              buildZoneArea(3, 4, '#0284c7');
+          } else if (indKey === 'wflh') {
+            zonesSvg =
+              buildZoneArea(-4, -3, '#f43f5e') +
+              buildZoneArea(-3, -2, '#fb923c') +
+              buildZoneArea(-2, 1, '#10b981') +
+              buildZoneArea(1, 2, '#fbbf24') +
+              buildZoneArea(2, 3, '#fb923c') +
+              buildZoneArea(3, 4, '#e11d48');
+          } else {
+            zonesSvg =
+              buildZoneArea(-4, -3, '#f43f5e') +
+              buildZoneArea(-3, -2, '#fb923c') +
+              buildZoneArea(-2, 1, '#10b981') +
+              buildZoneArea(1, 4, '#fbbf24');
+          }
+
+          let curvePts = [];
+          for (let i = 0; i <= 120; i++) {
+            const z = minZ + (i / 120) * (maxZ - minZ);
+            curvePts.push(`${i === 0 ? 'M' : 'L'} ${xScale(z).toFixed(1)} ${yScale(pdf(z)).toFixed(1)}`);
+          }
+          const curveLineSvg = `<path d="${curvePts.join(' ')}" fill="none" stroke="#1E4620" stroke-width="2" />`;
+
+          let ticksSvg = '';
+          for (let z = -3; z <= 3; z++) {
+            const tx = xScale(z).toFixed(1);
+            const topY = yScale(pdf(z)).toFixed(1);
+            ticksSvg += `
+              <line x1="${tx}" y1="${topY}" x2="${tx}" y2="${pad.top + plotH}" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="3,2" />
+              <text x="${tx}" y="${pad.top + plotH + 17}" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">
+                ${z > 0 ? '+' + z : z}
+              </text>
+            `;
+          }
+
+          const clampedZ = Math.max(-3.85, Math.min(3.85, zVal));
+          const markerX = xScale(clampedZ);
+          const markerY = yScale(pdf(clampedZ));
+          const zLabel = (zVal >= 0 ? '+' : '−') + Math.abs(zVal).toFixed(2) + ' SD';
+
+          const markerSvg = `
+            <line x1="${markerX}" y1="18" x2="${markerX}" y2="${pad.top + plotH}" stroke="#1E4620" stroke-width="2.2" />
+            <circle cx="${markerX}" cy="${markerY}" r="6" fill="${pinColor}" stroke="#ffffff" stroke-width="2" />
+            <rect x="${Math.max(8, Math.min(W - 96, markerX - 44))}" y="2" width="88" height="20" rx="6" fill="#1E4620" />
+            <text x="${Math.max(52, Math.min(W - 52, markerX))}" y="15.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#ffffff">
+              Z: ${zLabel}
+            </text>
+            <line x1="${pad.left}" y1="${pad.top + plotH}" x2="${W - pad.right}" y2="${pad.top + plotH}" stroke="#94a3b8" stroke-width="1.5" />
+            <text x="${W / 2}" y="${H - 5}" text-anchor="middle" font-size="11" font-weight="600" fill="#64748b">
+              Simpangan Baku (Z-Score)
+            </text>
+          `;
+
+          svg.innerHTML = zonesSvg + curveLineSvg + ticksSvg + (Number.isFinite(zVal) ? markerSvg : '');
+        }
+
+
+            /* ===== [BARU] Handler tema L / P (tema warna dikendalikan CSS lewat class .theme-girls) ===== */
+            function setActive(id, on) { document.getElementById(id).classList.toggle('is-active', !!on); }
+
+            function showToast(msg) {
+                const b = document.getElementById('toastBox');
+                document.getElementById('toastMessage').textContent = msg;
+                b.classList.add('is-show');
+                clearTimeout(window._t);
+                window._t = setTimeout(() => b.classList.remove('is-show'), 2800);
+            }
+
+            window.setGender = function (g) {
+                state.gender = g;
+                document.getElementById('kms-calc').classList.toggle('theme-girls', g === 'girls');
+                setActive('btnBoys', g === 'boys');
+                setActive('btnGirls', g === 'girls');
+                setMeasureType(state.position, false);
+                calculateAll();
+            };
+
+            window.setMeasureType = function (type, recompute = true) {
+                state.position = type;
+                const rec = type === 'recumbent';
+                setActive('btnRecumbent', rec);
+                setActive('btnStanding', !rec);
+                document.getElementById('heightLabel').textContent = rec ? 'Panjang Badan (PB) cm' : 'Tinggi Badan (TB) cm';
+                if (recompute) calculateAll();
+            };
+
+            window.setZoomMode = function (mode) {
+                state.zoomMode = mode;
+                setActive('zoomFocusBtn', mode === 'focus');
+                setActive('zoomFullBtn', mode === 'full');
+                calculateAll();
+            };
+
+            window.resetDefault = function () {
+                state.age = 24; state.measureType = 'standing'; state.position = 'standing'; state.height = 87.1; state.weight = 12.2;
+                document.getElementById('childName').value = '';
+                ['ageInput', 'ageSelect', 'ageSlider'].forEach(id => document.getElementById(id).value = 24);
+                document.getElementById('ageYearsLabel').textContent = formatYM(24);
+                document.getElementById('heightInput').value = '87.1';
+                document.getElementById('weightInput').value = '12.20';
+                state.zoomMode = 'focus'; setActive('zoomFocusBtn', true); setActive('zoomFullBtn', false);
+                setGender('boys');
+            };
+
+            /* =====================================================================
+               [BARU] KOP SURAT & LAPORAN CETAK RESMI GO-POSITIF
+               Ubah kop bawaan di objek KOP_LAPORAN_DEFAULT (teks & URL logo),
+               atau lewat modal "Pengaturan Laporan Cetak" saat menekan tombol Cetak.
+               ===================================================================== */
+            const KOP_LAPORAN_DEFAULT = {
+                b1: 'PEMERINTAH KABUPATEN KENDAL',
+                b2: 'KECAMATAN LIMBANGAN - DESA GONOHARJO',
+                b3: 'POSYANDU INTEGRASI LAYANAN PRIMER (ILP)',
+                b4: 'Sekretariat: Jl. Raya Gonoharjo No. 12, Limbangan, Kendal. Email: posyandu.gonoharjo@gmail.com',
+                logoKiri: 'https://lh3.googleusercontent.com/d/1Pu9EO5ArNXsAwCYr7mRLfeVc0OV3L5_w',
+                logoKanan: 'https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv',
+                tempat: 'Gonoharjo',
+                bidan: ''
+            };
+            const KOP_KEY = 'gp_kop_laporan_v1';
+            let KOP_LAPORAN = Object.assign({}, KOP_LAPORAN_DEFAULT);
+            try { const s = JSON.parse(localStorage.getItem(KOP_KEY) || 'null'); if (s) Object.assign(KOP_LAPORAN, s); } catch (e) { }
+            let jenisCetak = 'kms';
+
+            const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+            function cetakWaktu() {
+                const n = new Date(), p = v => String(v).padStart(2, '0');
+                const tgl = `${n.getDate()} ${BULAN[n.getMonth()]} ${n.getFullYear()}`;
+                return { tgl, stamp: `${tgl}, ${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())} WIB`,
+                         kode: `${n.getFullYear()}${p(n.getMonth() + 1)}${p(n.getDate())}-${p(n.getHours())}${p(n.getMinutes())}${p(n.getSeconds())}` };
+            }
+            function isiStamp() { const e = document.getElementById('pr-timestamp'); if (e) e.textContent = cetakWaktu().stamp; }
+
+            function setLogoField(side, v) {
+                document.getElementById('cfg-logo-' + side).value = v;
+                const p = document.getElementById('cfg-prev-' + side);
+                v ? p.setAttribute('src', v) : p.removeAttribute('src');
+            }
+            function isiFormKop(k) {
+                [1, 2, 3, 4].forEach(i => document.getElementById('cfg-kop-b' + i).value = k['b' + i] || '');
+                setLogoField('kiri', k.logoKiri || ''); setLogoField('kanan', k.logoKanan || '');
+                document.getElementById('cfg-ttd-tempat').value = k.tempat || '';
+                document.getElementById('cfg-ttd-bidan').value = k.bidan || '';
+            }
+            function resetKopDefault() { isiFormKop(KOP_LAPORAN_DEFAULT); }
+            function hapusLogo(side) { setLogoField(side, ''); }
+
+            function bacaLogoFile(side, input) {
+                const f = input.files && input.files[0];
+                if (!f) return;
+                const r = new FileReader();
+                r.onload = e => {
+                    const im = new Image();
+                    im.onload = () => {
+                        const k = Math.min(1, 320 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+                        c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+                        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+                        setLogoField(side, c.toDataURL('image/png'));
+                    };
+                    im.src = e.target.result;
+                };
+                r.readAsDataURL(f);
+                input.value = '';
+            }
+
+            function cetakLaporan(type) {
+                if (type === 'kms') {
+                    if (!whoReady() || !window.lastKMS) { showToast('Data WHO belum diisi, hasil KMS belum bisa dicetak.'); return; }
+                } else if (document.getElementById('bmi-result').classList.contains('hidden')) {
+                    alert('⚠️ Hitung IMT terlebih dahulu sebelum mencetak.'); return;
+                }
+                jenisCetak = type;
+                document.getElementById('cetak-jenis').textContent = type === 'kms' ? 'KMS Balita' : 'BMI / IMT';
+                isiFormKop(KOP_LAPORAN);
+                document.getElementById('modal-cetak').classList.remove('hidden');
+            }
+            function closeModalCetak() { document.getElementById('modal-cetak').classList.add('hidden'); }
+
+            function simpanDanCetak(e) {
+                e.preventDefault();
+                const v = id => document.getElementById(id).value.trim();
+                KOP_LAPORAN = { b1: v('cfg-kop-b1'), b2: v('cfg-kop-b2'), b3: v('cfg-kop-b3'), b4: v('cfg-kop-b4'),
+                    logoKiri: v('cfg-logo-kiri'), logoKanan: v('cfg-logo-kanan'), tempat: v('cfg-ttd-tempat'), bidan: v('cfg-ttd-bidan') };
+                try { localStorage.setItem(KOP_KEY, JSON.stringify(KOP_LAPORAN)); } catch (err) { showToast('Pengaturan kop tidak dapat disimpan di peramban ini.'); }
+                closeModalCetak();
+                bangunLaporan(jenisCetak);
+                const imgs = [...document.querySelectorAll('#pr-kop img')];
+                Promise.all(imgs.map(im => im.complete ? 1 : new Promise(r => { im.onload = im.onerror = r; setTimeout(r, 2500); })))
+                    .then(() => { isiStamp(); window.print(); });
+            }
+
+            function bangunKop() {
+                const k = KOP_LAPORAN, img = (c, u) => u ? `<img class="${c}" src="${esc(u)}" alt="">` : '';
+                return img('logo-l', k.logoKiri) + img('logo-r', k.logoKanan) +
+                    [['k1', k.b1], ['k2', k.b2], ['k3', k.b3], ['k4', k.b4]].map(([c, t]) => t ? `<div class="${c}">${esc(t)}</div>` : '').join('');
+            }
+
+            const kv = (l, v) => `<div><b>${l} :</b><span>${esc(v)}</span></div>`;
+            const sg = z => Number.isFinite(z) ? (zr2(z) >= 0 ? '+' : '−') + Math.abs(z).toFixed(2) + ' SD' : '—';
+            const kelasSt = b => /rose/.test(b) ? 'bad' : /orange|amber/.test(b) ? 'warn' : /sky/.test(b) ? 'info' : 'ok';
+            function salinSvg(id) {
+                const s = document.getElementById(id);
+                return `<svg viewBox="${s.getAttribute('viewBox')}" xmlns="http://www.w3.org/2000/svg">${s.innerHTML.replace(/<rect[^>]*cursor-crosshair[^>]*><\/rect>/g, '')}</svg>`;
+            }
+
+            function isiKMS(w) {
+                const d = window.lastKMS, rec = state.measureType === 'recumbent';
+                const nm = document.getElementById('childName').value.trim() || '-';
+                const idx = [[ 'Berat Badan menurut Umur (BB/U)', d.wfa, d.wfaS ], [ d.lhLabel, d.lhfa, d.lhfaS ], [ d.wflhLabel, d.wflh, d.wflhS ]];
+                const rows = idx.map((r, i) => `<tr><td class="c">${i + 1}</td><td>${esc(r[0])}</td><td class="c"><b>${sg(r[1].z)}</b></td><td class="c">${r[1].valid ? (normalCDF(r[1].rawZ) * 100).toFixed(1) + '%' : '—'}</td><td><span class="pr-st ${kelasSt(r[2].badge)}">${esc(r[2].label)}</span></td></tr>`).join('');
+                const lvl = Math.max(...idx.map(r => ({ bad: 2, warn: 1 }[kelasSt(r[2].badge)] || 0)));
+                const kes = [ 'Seluruh indikator berada dalam rentang normal menurut standar WHO. Pertahankan pola asuh dan pemberian gizi seimbang.',
+                              'Terdapat indikator yang perlu perhatian. Tingkatkan asupan gizi seimbang dan pantau pertumbuhan secara rutin di Posyandu.',
+                              'Terdapat indikator pada kategori berisiko tinggi. Segera konsultasikan ke Bidan Desa Gonoharjo atau Puskesmas untuk pemeriksaan lanjutan.' ][lvl];
+                const grafik = [['wfa', 'BB/U'], ['lhfa', rec ? 'PB/U' : 'TB/U'], ['wflh', rec ? 'BB/PB' : 'BB/TB']].map(([k, t], i) =>
+                    `<div class="pr-chart"><div class="pr-chart-title"><span>Kurva ${t}</span><span>Z-Score: ${sg([d.wfa, d.lhfa, d.wflh][i].z)}</span></div><div class="pr-chart-row">${salinSvg('chartSvg_' + k)}${salinSvg('bellSvg_' + k)}</div></div>`).join('');
+                return `<div class="pr-h">I. Data Anak</div><div class="pr-kv">
+                    ${kv('Nama Anak', nm)}${kv('Jenis Kelamin', state.gender === 'boys' ? 'Laki-laki' : 'Perempuan')}
+                    ${kv('Umur', state.age + ' bulan (' + formatYM(state.age) + ')')}${kv('Cara Ukur', rec ? 'Terlentang (PB)' : 'Berdiri (TB)')}
+                    ${kv(rec ? 'Panjang Badan' : 'Tinggi Badan', state.height.toFixed(1) + ' cm')}${kv('Berat Badan', state.weight.toFixed(2) + ' kg')}
+                    ${kv('Tanggal Cetak', w.tgl)}${kv('Standar Acuan', 'WHO & Permenkes No. 2/2020')}</div>
+                    <div class="pr-h">II. Hasil Analisis Z-Score</div>
+                    <table class="pr-table"><thead><tr><th class="c" style="width:8mm">No</th><th>Indeks</th><th class="c">Z-Score</th><th class="c">Persentil</th><th>Status Gizi</th></tr></thead><tbody>${rows}</tbody></table>
+                    <div class="pr-h">III. Kesimpulan & Anjuran</div>
+                    <div class="pr-box ${lvl ? 'warn' : ''}"><b>Kesimpulan:</b> ${kes}</div>
+                    <div class="pr-box"><b>Protein hewani MPASI:</b> berikan sekurang-kurangnya 1-2 porsi protein hewani setiap hari (telur, hati ayam, daging, ikan, atau susu).</div>
+                    <div class="pr-box"><b>Catatan Bidan Desa:</b> lakukan penimbangan rutin setiap bulan di Posyandu ILP. Bila kenaikan berat badan tidak memadai 2 bulan berturut-turut, segera konsultasikan dengan Bidan Desa Gonoharjo.</div>
+                    <div class="pr-h">IV. Diagram Kurva Pertumbuhan</div>${grafik}`;
+            }
+
+            function isiBMI(w) {
+                const g = id => document.getElementById(id).innerText.trim(), val = id => document.getElementById(id).value.trim();
+                const bc = document.getElementById('bmi-badge-status').className;
+                const sc = /red/.test(bc) ? 'bad' : /amber/.test(bc) ? 'warn' : /sky/.test(bc) ? 'info' : 'ok';
+                return `<div class="pr-h">I. Data Pemeriksaan</div><div class="pr-kv">
+                    ${kv('Nama', val('bmi-nama') || '-')}${kv('Tanggal Cetak', w.tgl)}
+                    ${kv('Berat Badan', val('bmi-bb') + ' kg')}${kv('Tinggi Badan', val('bmi-tb') + ' cm')}</div>
+                    <div class="pr-h">II. Hasil Analisis IMT</div>
+                    <table class="pr-table"><thead><tr><th>Parameter</th><th>Hasil</th></tr></thead><tbody>
+                    <tr><td>Skor IMT</td><td><b>${esc(g('bmi-val-score'))}</b> kg/m²</td></tr>
+                    <tr><td>Kategori (Kemenkes RI)</td><td><span class="pr-st ${sc}">${esc(g('bmi-kategori-kemenkes').replace('Kategori: ', ''))}</span></td></tr>
+                    <tr><td>Rentang Berat Badan Ideal</td><td>${esc(g('bmi-ideal-range'))}</td></tr></tbody></table>
+                    <div class="pr-h">III. Risiko & Anjuran</div>
+                    <div class="pr-box ${sc === 'ok' ? '' : 'warn'}"><b>Potensi Risiko PTM:</b> ${esc(g('bmi-ptm-risk'))}</div>
+                    <div class="pr-box"><b>Isi Piringku:</b> ${esc(g('bmi-piringku-text'))}</div>
+                    <div class="pr-box"><b>Batas konsumsi harian G4G1L5 (Kemenkes):</b> Gula maksimal 4 sendok makan (50 g), Garam maksimal 1 sendok teh (2.000 mg natrium), Lemak maksimal 5 sendok makan minyak (67 g).</div>`;
+            }
+
+            function bangunLaporan(type) {
+                const w = cetakWaktu(), k = KOP_LAPORAN;
+                document.getElementById('pr-kop').innerHTML = bangunKop();
+                document.getElementById('pr-title').textContent = type === 'kms' ? 'Laporan Hasil Analisis KMS Balita' : 'Laporan Hasil Analisis BMI / IMT';
+                document.getElementById('pr-nomor').textContent = `Nomor: GP/${type.toUpperCase()}/${w.kode}`;
+                document.getElementById('pr-body').innerHTML = type === 'kms' ? isiKMS(w) : isiBMI(w);
+                document.getElementById('pr-ttd').innerHTML =
+                    `<div><p>&nbsp;</p><p><b>Orang Tua / Wali</b></p><div class="sp"></div><p>( ........................................ )</p></div>` +
+                    `<div><p>${esc(k.tempat || 'Gonoharjo')}, ${w.tgl}</p><p><b>Bidan Desa Gonoharjo</b></p><div class="sp"></div>${k.bidan ? `<p class="nm">${esc(k.bidan)}</p>` : '<p>( ........................................ )</p>'}</div>`;
+                isiStamp();
+            }
+
+            window.addEventListener('beforeprint', isiStamp);
+            window.addEventListener('DOMContentLoaded', () => {
+                const sel = document.getElementById('ageSelect');
+                for (let i = 0; i <= 60; i++) {
+                    const o = document.createElement('option');
+                    o.value = i; o.textContent = `${i} bln (${Math.floor(i / 12)} th ${i % 12} bln)`;
+                    if (i === 24) o.selected = true;
+                    sel.appendChild(o);
+                }
+                ['kiri', 'kanan'].forEach(s => document.getElementById('cfg-logo-' + s).addEventListener('input', e => {
+                    const p = document.getElementById('cfg-prev-' + s);
+                    e.target.value ? p.setAttribute('src', e.target.value) : p.removeAttribute('src');
+                }));
+                setGender('boys');
+            });
+
         </script>
     </body>
     </html>
