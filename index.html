@@ -300,63 +300,67 @@
            Footer kiri : Printed by GO-POSITIF : [tanggal & jam cetak]
            Footer kanan: Copyright by @KreasiCahNdeso
            ========================================================== */
-        #print-report { display: none; }
+        #print-report { display: none; color: #0f172a; font-family: 'Times New Roman', Georgia, serif; font-size: 10.5pt; line-height: 1.45; background: #fff; --pm-b: 20mm; }
+        #print-report.pr-capture { display: block; box-sizing: border-box; }
+        #print-report .pr-footer { display: none; }
+        #print-report .pr-wrap { width: 100%; border-collapse: collapse; }
+        #print-report .pr-wrap td { padding: 0; vertical-align: top; }
+        #print-report .pr-fsp { height: 0; }
+        #print-report .pr-ttd .ket { font-size: 9pt; color: #475569; }
+        #print-report .pr-ttd p { margin: 0; }
+        /* Kop surat (logo kiri & kanan, 4 baris teks, garis ganda) */
+        #print-report .pr-kop { position: relative; min-height: 17mm; margin-bottom: 12px; padding: 0 19mm 8px; text-align: center; border-bottom: 4px double #000; font-family: 'Quicksand', sans-serif; }
+        #print-report .pr-kop img { position: absolute; top: 0; width: 16mm; height: 16mm; object-fit: contain; }
+        #print-report .pr-kop .logo-l { left: 0; }
+        #print-report .pr-kop .logo-r { right: 0; }
+        #print-report .pr-kop .k1 { font-size: 9.5pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #1e293b; }
+        #print-report .pr-kop .k2 { font-size: 10.5pt; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+        #print-report .pr-kop .k3 { font-size: 12.5pt; font-weight: 900; text-transform: uppercase; }
+        #print-report .pr-kop .k4 { margin-top: 2px; font-size: 8pt; font-weight: 500; color: #475569; }
 
+        #print-report .pr-title { margin: 10px 0 2px; text-align: center; font-size: 12pt; font-weight: 900; text-transform: uppercase; text-decoration: underline; }
+        #print-report .pr-nomor { margin-bottom: 10px; text-align: center; font-size: 9.5pt; font-weight: 700; }
+        #print-report .pr-h { margin: 12px 0 5px; padding-bottom: 2px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9pt; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #94a3b8; break-after: avoid; }
+        #print-report .pr-kv { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; font-size: 10pt; }
+        #print-report .pr-kv div { display: flex; }
+        #print-report .pr-kv b { min-width: 30mm; font-weight: 600; color: #475569; }
+
+        #print-report .pr-table { width: 100%; border-collapse: collapse; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9pt; }
+        #print-report .pr-table th { padding: 4px 6px; text-align: left; font-size: 8.5pt; font-weight: 800; text-transform: uppercase; background: #f1f5f9 !important; border: 1px solid #94a3b8; }
+        #print-report .pr-table td { padding: 4px 6px; vertical-align: middle; border: 1px solid #94a3b8; }
+        #print-report .pr-table .c { text-align: center; }
+        #print-report .pr-table tr { break-inside: avoid; }
+
+        #print-report .pr-st { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 8.5pt; font-weight: 700; border: 1px solid; }
+        #print-report .pr-st.ok { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
+        #print-report .pr-st.warn { background: #FEF3C7; color: #92400E; border-color: #FCD34D; }
+        #print-report .pr-st.bad { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
+        #print-report .pr-st.info { background: #E0F2FE; color: #075985; border-color: #7DD3FC; }
+
+        #print-report .pr-box { padding: 6px 10px; border: 1px solid #94a3b8; border-radius: 4px; font-size: 10pt; break-inside: avoid; }
+        #print-report .pr-box + .pr-box { margin-top: 6px; }
+        #print-report .pr-box.warn { background: #FFFBEB !important; border-color: #FCD34D; }
+
+        #print-report .pr-chart { margin-bottom: 8px; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; break-inside: avoid; }
+        #print-report .pr-chart-title { display: flex; justify-content: space-between; margin-bottom: 3px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8.5pt; font-weight: 800; }
+        #print-report .pr-chart-row { display: grid; grid-template-columns: 2.1fr 1fr; gap: 6px; align-items: center; }
+        #print-report .pr-chart svg { display: block; width: 100%; height: auto; }
+
+        /* Tanda tangan berkolom (seperti laporan admin) */
+        #print-report .pr-ttd { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; text-align: center; font-size: 10pt; break-inside: avoid; }
+        #print-report .pr-ttd .sp { height: 16mm; }
+        #print-report .pr-ttd .nm { font-weight: 900; text-decoration: underline; }
+        #print-report .pr-disclaimer { margin-top: 10px; font-size: 8pt; font-style: italic; color: #475569; break-inside: avoid; }
         @media print {
-            @page { size: A4 portrait; margin: 14mm 15mm 20mm 15mm; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             html, body { background: #fff !important; }
             body { display: block !important; min-height: 0 !important; padding: 0 !important; overflow: visible !important; }
             body::before { display: none !important; }
             body > *:not(#print-report) { display: none !important; }
-            #print-report { display: block !important; color: #0f172a; font-family: 'Times New Roman', Georgia, serif; font-size: 10.5pt; line-height: 1.45; }
-
-            /* Kop surat (logo kiri & kanan, 4 baris teks, garis ganda) */
-            .pr-kop { position: relative; min-height: 17mm; margin-bottom: 12px; padding: 0 19mm 8px; text-align: center; border-bottom: 4px double #000; font-family: 'Quicksand', sans-serif; }
-            .pr-kop img { position: absolute; top: 0; width: 16mm; height: 16mm; object-fit: contain; }
-            .pr-kop .logo-l { left: 0; }
-            .pr-kop .logo-r { right: 0; }
-            .pr-kop .k1 { font-size: 9.5pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #1e293b; }
-            .pr-kop .k2 { font-size: 10.5pt; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
-            .pr-kop .k3 { font-size: 12.5pt; font-weight: 900; text-transform: uppercase; }
-            .pr-kop .k4 { margin-top: 2px; font-size: 8pt; font-weight: 500; color: #475569; }
-
-            .pr-title { margin: 10px 0 2px; text-align: center; font-size: 12pt; font-weight: 900; text-transform: uppercase; text-decoration: underline; }
-            .pr-nomor { margin-bottom: 10px; text-align: center; font-size: 9.5pt; font-weight: 700; }
-            .pr-h { margin: 12px 0 5px; padding-bottom: 2px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9pt; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #94a3b8; break-after: avoid; }
-            .pr-kv { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; font-size: 10pt; }
-            .pr-kv div { display: flex; }
-            .pr-kv b { min-width: 30mm; font-weight: 600; color: #475569; }
-
-            .pr-table { width: 100%; border-collapse: collapse; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9pt; }
-            .pr-table th { padding: 4px 6px; text-align: left; font-size: 8.5pt; font-weight: 800; text-transform: uppercase; background: #f1f5f9 !important; border: 1px solid #94a3b8; }
-            .pr-table td { padding: 4px 6px; vertical-align: middle; border: 1px solid #94a3b8; }
-            .pr-table .c { text-align: center; }
-            .pr-table tr { break-inside: avoid; }
-
-            .pr-st { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 8.5pt; font-weight: 700; border: 1px solid; }
-            .pr-st.ok { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
-            .pr-st.warn { background: #FEF3C7; color: #92400E; border-color: #FCD34D; }
-            .pr-st.bad { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
-            .pr-st.info { background: #E0F2FE; color: #075985; border-color: #7DD3FC; }
-
-            .pr-box { padding: 6px 10px; border: 1px solid #94a3b8; border-radius: 4px; font-size: 10pt; break-inside: avoid; }
-            .pr-box + .pr-box { margin-top: 6px; }
-            .pr-box.warn { background: #FFFBEB !important; border-color: #FCD34D; }
-
-            .pr-chart { margin-bottom: 8px; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 4px; break-inside: avoid; }
-            .pr-chart-title { display: flex; justify-content: space-between; margin-bottom: 3px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8.5pt; font-weight: 800; }
-            .pr-chart-row { display: grid; grid-template-columns: 2.1fr 1fr; gap: 6px; align-items: center; }
-            .pr-chart svg { display: block; width: 100%; height: auto; }
-
-            /* Tanda tangan berkolom (seperti laporan admin) */
-            .pr-ttd { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; text-align: center; font-size: 10pt; break-inside: avoid; }
-            .pr-ttd .sp { height: 16mm; }
-            .pr-ttd .nm { font-weight: 900; text-decoration: underline; }
-            .pr-disclaimer { margin-top: 10px; font-size: 8pt; font-style: italic; color: #475569; break-inside: avoid; }
-
-            /* Footer berulang di setiap halaman cetak */
-            .pr-footer { position: fixed; left: 0; right: 0; bottom: -14mm; display: flex; justify-content: space-between; padding-top: 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 7.5pt; font-weight: 500; color: #64748b; border-top: 1px solid #cbd5e1; }
+            #print-report { display: block !important; }
+            #print-report .pr-fsp { height: 9mm; }
+            /* Footer berulang di setiap halaman (KMS maupun BMI), diletakkan di dalam margin bawah */
+            #print-report .pr-footer { display: flex !important; position: fixed; left: 0; right: 0; bottom: 0; justify-content: space-between; padding-top: 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 7.5pt; font-weight: 500; color: #64748b; border-top: 1px solid #cbd5e1; background: #fff; }
         }
     
         /* ===== POLISH: RESPONSIF HP / TABLET / LAPTOP / MONITOR BESAR ===== */
@@ -1000,7 +1004,7 @@
                         </span>
                         <h2 class="text-2xl md:text-3xl font-black text-deep-green">Kalkulator KMS Balita & BMI Dewasa</h2>
                         <p class="text-xs md:text-sm text-earth-brown font-medium">
-                            Analisis Tumbuh Kembang Balita (Standar Permenkes No. 2/2020 & WHO) dan BMI Standar Kemenkes RI. Pada kalkulator BMI, gunakan tanda koma (,) untuk desimal (misal: 62,5).
+                            Analisis Tumbuh Kembang Balita (Standar Permenkes No. 2/2020 & WHO) dan IMT Dewasa (Kemenkes RI atau WHO Asia-Pasifik). Pada kalkulator BMI, gunakan tanda koma (,) untuk desimal (misal: 62,5).
                         </p>
                     </div>
 
@@ -1019,7 +1023,7 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <button type="button" onclick="resetDefault()" class="px-3.5 py-2 rounded-xl border border-olive-green/30 bg-white text-earth-brown text-xs font-bold hover:bg-soft-yellow transition inline-flex items-center gap-1.5"><i class="fa-solid fa-rotate-left text-olive-green"></i> Reset</button>
-                                <button type="button" onclick="cetakLaporan('kms')" class="btn-primary px-3.5 py-2 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-print text-sun-yellow"></i> Cetak Hasil</button>
+                                <button type="button" onclick="cetakLaporan('kms')" class="btn-primary px-3.5 py-2 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-print text-sun-yellow"></i> Cetak / Ekspor</button>
                             </div>
                         </div>
 
@@ -1209,12 +1213,26 @@
                                     <i class="fa-solid fa-weight-scale text-sun-yellow"></i>
                                 </div>
                                 <div>
-                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Kalkulator BMI / IMT (Remaja & Dewasa)</h3>
-                                    <p class="text-[11px] text-earth-brown font-medium">Standar Kemenkes RI & WHO Asia-Pacific</p>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Kalkulator IMT Dewasa (≥ 19 tahun)</h3>
+                                    <p class="text-[11px] text-earth-brown font-medium">Pilih standar acuan: Kemenkes RI atau WHO Asia-Pasifik</p>
                                 </div>
                             </div>
 
-                            <form onsubmit="hitungbmi(event)" class="space-y-4 text-xs font-bold text-deep-green">
+                            <form onsubmit="hitungbmi(event)" class="space-y-4 text-xs font-bold text-deep-green" novalidate>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block mb-1" for="bmi-std">Standar Acuan:</label>
+                                        <select id="bmi-std" onchange="gantiStdBmi()" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow">
+                                            <option value="kemenkes">Kemenkes RI (Nasional)</option>
+                                            <option value="wpac">WHO Asia-Pasifik</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-1" for="bmi-umur">Umur (tahun): <span class="text-[10px] text-earth-brown font-normal">(minimal 19)</span></label>
+                                        <input type="text" inputmode="numeric" id="bmi-umur" maxlength="3" placeholder="Contoh: 35" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow">
+                                    </div>
+                                </div>
+                                <p id="bmi-std-info" class="text-[11px] leading-relaxed font-semibold text-earth-brown bg-soft-yellow/50 border border-sun-yellow/40 rounded-xl px-3 py-2"></p>
                                 <div>
                                     <label class="block mb-1">Nama (Opsional, untuk laporan cetak):</label>
                                     <input type="text" id="bmi-nama" placeholder="Contoh: Siti Ratnah" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow">
@@ -1236,6 +1254,7 @@
                                 </button>
                             </form>
 
+                            <div id="bmi-warn" role="alert" class="hidden p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold leading-relaxed"></div>
                             <!-- HASIL ANALISIS BMI -->
                             <div id="bmi-result" class="hidden p-5 rounded-2xl bg-white border-2 border-sun-yellow/40 space-y-4 shadow-md">
                                 <div class="flex items-center justify-between border-b border-olive-green/10 pb-2">
@@ -1244,18 +1263,19 @@
                                     </span>
                                     <div class="flex items-center gap-2"><span id="bmi-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
                                         Normal
-                                    </span><button type="button" onclick="cetakLaporan('bmi')" class="btn-primary px-2.5 py-1 text-[10px] font-bold inline-flex items-center gap-1"><i class="fa-solid fa-print text-sun-yellow"></i> Cetak Hasil</button></div>
+                                    </span><button type="button" onclick="cetakLaporan('bmi')" class="btn-primary px-2.5 py-1 text-[10px] font-bold inline-flex items-center gap-1"><i class="fa-solid fa-print text-sun-yellow"></i> Cetak / Ekspor</button></div>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-3 text-center">
                                     <div class="p-3 rounded-xl bg-soft-yellow/50 border border-sun-yellow/40">
                                         <span class="block text-[10px] text-earth-brown font-bold">Skor IMT Saya</span>
-                                        <span id="bmi-val-score" class="text-xl font-black text-deep-green">22.9</span>
+                                        <span id="bmi-val-score" class="text-xl font-black text-deep-green">22,9</span>
                                         <span id="bmi-kategori-kemenkes" class="block text-[10px] font-extrabold text-earth-brown mt-0.5">Kategori: Normal</span>
+                                        <span id="bmi-std-label" class="block text-[9px] font-semibold text-earth-brown/70">Standar: Kemenkes RI</span>
                                     </div>
                                     <div class="p-3 rounded-xl bg-soft-green/50 border border-olive-green/20">
                                         <span class="block text-[10px] text-earth-brown font-bold">Rentang BB Ideal Anda</span>
-                                        <span id="bmi-ideal-range" class="text-sm font-black text-olive-green mt-1 block">50.4 - 68.1 kg</span>
+                                        <span id="bmi-ideal-range" class="text-sm font-black text-olive-green mt-1 block">50,4 – 68,1 kg</span>
                                         <span class="block text-[9px] font-semibold text-earth-brown">Rekomendasi Berat Badan Sehat</span>
                                     </div>
                                 </div>
@@ -1875,12 +1895,14 @@
 
         <!-- ===== [BARU] TEMPLATE LAPORAN CETAK RESMI GO-POSITIF (hanya tampil saat cetak; diisi oleh cetakLaporan()) ===== -->
         <div id="print-report" aria-hidden="true">
+            <table class="pr-wrap"><tbody><tr><td>
             <div id="pr-kop" class="pr-kop"></div>
             <h2 id="pr-title" class="pr-title"></h2>
             <p id="pr-nomor" class="pr-nomor"></p>
             <div id="pr-body"></div>
             <div id="pr-ttd" class="pr-ttd"></div>
             <p class="pr-disclaimer">Dokumen ini dihasilkan dari kalkulator skrining mandiri GO-POSITIF. Hasil bukan diagnosis medis dan wajib dikonfirmasi melalui pemeriksaan langsung oleh Bidan Desa atau petugas kesehatan Posyandu ILP.</p>
+            </td></tr></tbody><tfoot><tr><td><div class="pr-fsp"></div></td></tr></tfoot></table>
             <div class="pr-footer">
                 <span>Printed by GO-POSITIF : <span id="pr-timestamp"></span></span>
                 <span>Copyright by @KreasiCahNdeso</span>
@@ -1889,7 +1911,7 @@
 
         <!-- ===== [BARU] MODAL PENGATURAN LAPORAN CETAK (kop surat & penandatangan) ===== -->
         <div id="modal-cetak" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
-            <div class="white-card p-5 md:p-6 max-w-lg w-full max-h-[92vh] overflow-y-auto bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30">
+            <div class="white-card p-5 md:p-6 max-w-2xl w-full max-h-[92dvh] overflow-y-auto bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30">
                 <div class="flex items-center justify-between border-b border-olive-green/20 pb-3">
                     <div class="flex items-center space-x-2 text-deep-green">
                         <i class="fa-solid fa-print text-xl text-olive-green"></i>
@@ -1948,14 +1970,27 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-1">
+                    <div class="space-y-2 pt-1">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-extrabold">Tanda Tangan &amp; Keterangan (<span id="cfg-ttd-jenis">KMS</span>)</span>
+                            <button type="button" onclick="ttdAdd()" class="px-2.5 py-1 rounded-lg bg-soft-green text-deep-green text-[11px] font-bold hover:bg-olive-green hover:text-white transition"><i class="fa-solid fa-plus mr-1"></i>Tambah</button>
+                        </div>
                         <div>
                             <label class="block mb-1">Tempat Penandatanganan:</label>
                             <input type="text" id="cfg-ttd-tempat" placeholder="Gonoharjo" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
                         </div>
-                        <div>
-                            <label class="block mb-1">Nama Bidan Desa:</label>
-                            <input type="text" id="cfg-ttd-bidan" placeholder="Nama Bidan Desa" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
+                        <div id="cfg-ttd-list" class="space-y-2"></div>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-white border border-olive-green/20 space-y-2">
+                        <span class="font-extrabold block">Kertas &amp; Margin</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <div><label class="block mb-1">Ukuran</label><select id="cfg-paper" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"><option value="A4">A4 (210×297 mm)</option><option value="F4">F4 / Folio (215×330 mm)</option><option value="Letter">Letter</option><option value="Legal">Legal</option><option value="A5">A5 (148×210 mm)</option></select></div>
+                            <div><label class="block mb-1">Orientasi</label><select id="cfg-orient" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"><option value="portrait">Potret</option><option value="landscape">Lanskap</option></select></div>
+                            <div><label class="block mb-1">Margin</label><select onchange="gantiMargin()" id="cfg-margin" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"><option value="normal">Normal</option><option value="narrow">Sempit</option><option value="wide">Lebar</option><option value="custom">Kustom (mm)</option></select></div>
+                        </div>
+                        <div id="cfg-margin-custom" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <div><label class="block mb-1">Atas (mm)</label><input type="number" inputmode="decimal" id="cfg-m0" min="5" max="40" step="1" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"></div><div><label class="block mb-1">Kanan (mm)</label><input type="number" inputmode="decimal" id="cfg-m1" min="5" max="40" step="1" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"></div><div><label class="block mb-1">Bawah (mm)</label><input type="number" inputmode="decimal" id="cfg-m2" min="5" max="40" step="1" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"></div><div><label class="block mb-1">Kiri (mm)</label><input type="number" inputmode="decimal" id="cfg-m3" min="5" max="40" step="1" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green"></div>
                         </div>
                     </div>
 
@@ -1963,9 +1998,11 @@
 
                     <div class="pt-1 flex flex-wrap justify-between gap-2">
                         <button type="button" onclick="resetKopDefault()" class="px-3 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition"><i class="fa-solid fa-rotate-left mr-1 text-olive-green"></i>Kop Bawaan</button>
-                        <div class="flex gap-2">
-                            <button type="button" onclick="closeModalCetak()" class="px-4 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition">Batal</button>
-                            <button type="submit" class="btn-primary px-4 py-2 font-bold inline-flex items-center gap-1.5"><i class="fa-solid fa-print text-sun-yellow"></i>Simpan & Cetak</button>
+                        <div class="flex flex-wrap gap-2 justify-end">
+                            <button type="button" onclick="closeModalCetak()" class="px-3.5 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition">Batal</button>
+                            <button type="button" onclick="eksporLaporan('doc')" class="btn-brown px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-file-word text-sun-yellow"></i>Unduh .doc</button>
+                            <button type="button" onclick="eksporLaporan('pdf')" class="btn-brown px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-file-pdf text-sun-yellow"></i>Unduh .pdf</button>
+                            <button type="submit" class="btn-primary px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-print text-sun-yellow"></i>Cetak</button>
                         </div>
                     </div>
                 </form>
@@ -2401,64 +2438,59 @@
             }
 
 
+            const BMI_STD = {
+                kemenkes: { nama: 'Kemenkes RI', maxN: 25.0, info: 'Kemenkes RI: Kurus berat < 17,0 · Kurus ringan 17,0–18,4 · Normal 18,5–25,0 · Kelebihan berat badan ringan 25,1–27,0 · Obesitas > 27,0.',
+                    cat: [[17, 'kb'], [18.5, 'kr'], [25.05, 'n'], [27.05, 'ow'], [Infinity, 'ob']] },
+                wpac: { nama: 'WHO Asia-Pasifik', maxN: 22.9, info: 'WHO Asia-Pasifik: Kurus berat < 17,0 · Kurus ringan 17,0–18,4 · Normal 18,5–22,9 · Berisiko 23,0–24,9 · Obesitas I 25,0–29,9 · Obesitas II ≥ 30,0.',
+                    cat: [[17, 'kb'], [18.5, 'kr'], [23, 'n'], [25, 'ri'], [30, 'o1'], [Infinity, 'o2']] }
+            };
+            const BMI_KAT = {
+                kb: ['Kurus berat', 'bg-sky-200 text-sky-900 border-sky-400', 'Risiko tinggi kekurangan gizi, anemia, dan daya tahan tubuh menurun. Segera konsultasikan ke Bidan Desa atau Puskesmas.'],
+                kr: ['Kurus ringan', 'bg-sky-100 text-sky-800 border-sky-300', 'Risiko kekurangan nutrisi, anemia, dan penurunan daya tahan tubuh. Tingkatkan asupan gizi seimbang.'],
+                n: ['Normal', 'bg-emerald-100 text-emerald-800 border-emerald-300', 'Risiko Penyakit Tidak Menular (Hipertensi, Diabetes Mellitus) rendah. Pertahankan pola makan seimbang dan aktivitas fisik.'],
+                ow: ['Kelebihan berat badan ringan', 'bg-amber-100 text-amber-800 border-amber-300', 'Potensi risiko PTM meningkat. Batasi gula, garam, lemak (G4G1L5) dan perbanyak aktivitas fisik.'],
+                ri: ['Berisiko (kelebihan berat badan)', 'bg-amber-100 text-amber-800 border-amber-300', 'Berisiko mengalami PTM. Atur pola makan (G4G1L5), perbanyak aktivitas fisik, dan pantau berat badan.'],
+                ob: ['Obesitas', 'bg-red-100 text-red-800 border-red-300', 'Risiko tinggi Hipertensi & Diabetes Mellitus. Disarankan skrining rutin di Posyandu PTM.'],
+                o1: ['Obesitas I', 'bg-red-100 text-red-800 border-red-300', 'Risiko tinggi Hipertensi & Diabetes Mellitus. Disarankan skrining rutin di Posyandu PTM.'],
+                o2: ['Obesitas II', 'bg-red-100 text-red-800 border-red-300', 'Risiko sangat tinggi PTM. Segera konsultasikan ke Bidan Desa atau Puskesmas untuk pemeriksaan lanjutan.']
+            };
+            const fmt1 = n => n.toFixed(1).replace('.', ',');
+            function bmiWarn(msg) {
+                const w = document.getElementById('bmi-warn');
+                w.textContent = msg || ''; w.classList.toggle('hidden', !msg);
+                if (msg) document.getElementById('bmi-result').classList.add('hidden');
+                return false;
+            }
+            function gantiStdBmi() {
+                document.getElementById('bmi-std-info').textContent = BMI_STD[document.getElementById('bmi-std').value].info;
+                if (!document.getElementById('bmi-result').classList.contains('hidden')) hitungbmi();
+            }
+            document.addEventListener('DOMContentLoaded', () => { const e = document.getElementById('bmi-std-info'); if (e) e.textContent = BMI_STD.kemenkes.info; });
+
             function hitungbmi(event) {
-                event.preventDefault();
-                let rawBmiBB = document.getElementById('bmi-bb').value.replace(',', '.');
-                let rawBmiTB = document.getElementById('bmi-tb').value.replace(',', '.');
+                if (event) event.preventDefault();
+                const el = id => document.getElementById(id);
+                const num = id => parseFloat(el(id).value.replace(',', '.'));
+                const bb = num('bmi-bb'), tb = num('bmi-tb'), um = num('bmi-umur'), s = BMI_STD[el('bmi-std').value];
+                if (isNaN(um)) return bmiWarn('Isi umur terlebih dahulu. Kalkulator ini khusus umur 19 tahun ke atas.');
+                if (um < 5) return bmiWarn('Umur di bawah 5 tahun: gunakan Kalkulator KMS Balita di atas.');
+                if (um < 19) return bmiWarn('Umur 5–18 tahun memakai IMT menurut umur (IMT/U), bukan batas IMT dewasa. Kalkulator ini khusus umur ≥ 19 tahun; silakan konsultasi ke Bidan Desa untuk penilaian IMT/U.');
+                if (um > 120) return bmiWarn('Umur harus antara 19 dan 120 tahun.');
+                if (isNaN(bb) || bb < 20 || bb > 300) return bmiWarn('Berat badan harus berupa angka antara 20 dan 300 kg.');
+                if (isNaN(tb) || tb < 100 || tb > 250) return bmiWarn('Tinggi badan harus berupa angka antara 100 dan 250 cm.');
+                bmiWarn('');
 
-                const bb = parseFloat(rawBmiBB);
-                const tb = parseFloat(rawBmiTB);
-
-                if (isNaN(bb) || isNaN(tb) || tb <= 0) {
-                    alert('⚠️ Masukkan angka Berat Badan dan Tinggi Badan yang valid!');
-                    return;
-                }
-
-                let heightM = tb / 100;
-                let bmiVal = bb / (heightM * heightM);
-                let bmiFormatted = bmiVal.toFixed(1);
-
-                document.getElementById('bmi-val-score').innerText = bmiFormatted;
-                
-                let minWeight = (18.5 * heightM * heightM).toFixed(1);
-                let maxWeight = (24.9 * heightM * heightM).toFixed(1);
-                document.getElementById('bmi-ideal-range').innerText = `${minWeight} - ${maxWeight} kg`;
-
-                let kategoriText = "";
-                let badgeText = "";
-                let badgeClasses = "";
-                let ptmRiskText = "";
-
-                if (bmiVal < 18.5) {
-                    kategoriText = "Kekurangan Berat Badan (Kurus)";
-                    badgeText = "Kurus";
-                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-sky-100 text-sky-800 border border-sky-300";
-                    ptmRiskText = "Risiko kekurangan nutrisi, anemia, dan penurunan daya tahan tubuh.";
-                } else if (bmiVal <= 24.9) {
-                    kategoriText = "Berat Badan Ideal / Normal";
-                    badgeText = "Normal";
-                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300";
-                    ptmRiskText = "Risiko Penyakit Tidak Menular (Hipertensi, Diabetes Mellitus) Rendah.";
-                } else if (bmiVal <= 27.0) {
-                    kategoriText = "Kelebihan Berat Badan (Overweight)";
-                    badgeText = "Overweight";
-                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300";
-                    ptmRiskText = "Potensi Risiko PTM Sedang: Batasi konsumsi gula, garam, lemak (G4G1L5).";
-                } else {
-                    kategoriText = "Obesitas";
-                    badgeText = "Obesitas";
-                    badgeClasses = "px-2.5 py-0.5 rounded-full text-[10px] font-black bg-red-100 text-red-800 border border-red-300 animate-pulse";
-                    ptmRiskText = "Risiko Tinggi Hipertensi & Diabetes Mellitus. Sangat disarankan skrining rutin di Posyandu PTM.";
-                }
-
-                const bmiBadge = document.getElementById('bmi-badge-status');
-                bmiBadge.innerText = badgeText;
-                bmiBadge.className = badgeClasses;
-
-                document.getElementById('bmi-kategori-kemenkes').innerText = "Kategori: " + kategoriText;
-                document.getElementById('bmi-ptm-risk').innerText = ptmRiskText;
-
-                document.getElementById('bmi-result').classList.remove('hidden');
+                const h = tb / 100, r = Math.round(bb / (h * h) * 10) / 10;
+                const kat = BMI_KAT[s.cat.find(c => r < c[0])[1]];
+                el('bmi-val-score').innerText = fmt1(r);
+                el('bmi-ideal-range').innerText = `${fmt1(18.5 * h * h)} – ${fmt1(s.maxN * h * h)} kg`;
+                el('bmi-badge-status').innerText = kat[0];
+                el('bmi-badge-status').className = 'px-2.5 py-0.5 rounded-full text-[10px] font-black border ' + kat[1];
+                el('bmi-kategori-kemenkes').innerText = 'Kategori: ' + kat[0];
+                el('bmi-std-label').innerText = 'Standar: ' + s.nama;
+                el('bmi-ptm-risk').innerText = kat[2];
+                window.lastBMI = { nm: el('bmi-nama').value.trim(), bb: fmt1(bb), tb: fmt1(tb), um: Math.round(um), std: s.nama };
+                el('bmi-result').classList.remove('hidden');
             }
 
             function sendQuickChat(msg) {
@@ -3357,13 +3389,19 @@
                 const p = document.getElementById('cfg-prev-' + side);
                 v ? p.setAttribute('src', v) : p.removeAttribute('src');
             }
-            function isiFormKop(k) {
-                [1, 2, 3, 4].forEach(i => document.getElementById('cfg-kop-b' + i).value = k['b' + i] || '');
+            function isiFormKop(k, c) {
+                c = c || PCFG;
+                [1, 2, 3, 4].forEach(i => gid('cfg-kop-b' + i).value = k['b' + i] || '');
                 setLogoField('kiri', k.logoKiri || ''); setLogoField('kanan', k.logoKanan || '');
-                document.getElementById('cfg-ttd-tempat').value = k.tempat || '';
-                document.getElementById('cfg-ttd-bidan').value = k.bidan || '';
+                gid('cfg-ttd-tempat').value = k.tempat || '';
+                gid('cfg-paper').value = c.paper; gid('cfg-orient').value = c.orient; gid('cfg-margin').value = c.margin;
+                c.m.forEach((v, i) => gid('cfg-m' + i).value = v);
+                gantiMargin(true);
+                gid('cfg-ttd-jenis').textContent = jenisCetak === 'kms' ? 'KMS' : 'BMI';
+                ttdDraft = JSON.parse(JSON.stringify(c.ttd[jenisCetak] || ttdDefault(jenisCetak)));
+                renderTtd();
             }
-            function resetKopDefault() { isiFormKop(KOP_LAPORAN_DEFAULT); }
+            function resetKopDefault() { isiFormKop(KOP_LAPORAN_DEFAULT, { paper: 'A4', orient: 'portrait', margin: 'normal', m: [14, 15, 20, 15], ttd: {} }); }
             function hapusLogo(side) { setLogoField(side, ''); }
 
             function bacaLogoFile(side, input) {
@@ -3384,30 +3422,165 @@
                 input.value = '';
             }
 
+            /* ===== Pengaturan cetak: kertas, margin, tanda tangan ===== */
+            const gid = id => document.getElementById(id);
+            const PCFG_KEY = 'gp_print_cfg_v2';
+            const PAPER = { A4: [210, 297], F4: [215, 330], Letter: [215.9, 279.4], Legal: [215.9, 355.6], A5: [148, 210] };
+            const MARGIN = { normal: [14, 15, 20, 15], narrow: [8, 8, 12, 8], wide: [25, 25, 25, 25] };
+            let PCFG = { paper: 'A4', orient: 'portrait', margin: 'normal', m: [14, 15, 20, 15], ttd: {} };
+            try { Object.assign(PCFG, JSON.parse(localStorage.getItem(PCFG_KEY) || '{}')); } catch (e) { }
+            let ttdDraft = [];
+            const ttdDefault = t => [{ j: t === 'kms' ? 'Orang Tua / Wali' : 'Yang Diperiksa', n: '', k: '', d: false }, { j: 'Bidan Desa Gonoharjo', n: KOP_LAPORAN.bidan || '', k: '', d: true }];
+            const CI = 'w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green';
+
+            function renderTtd() {
+                gid('cfg-ttd-list').innerHTML = ttdDraft.length ? ttdDraft.map((t, i) => `<div class="p-2.5 rounded-xl bg-white border border-olive-green/20 space-y-1.5">
+                    <div class="flex items-center justify-between"><span class="text-[11px] text-earth-brown">Penandatangan ${i + 1}</span><button type="button" onclick="ttdDel(${i})" class="px-2 py-0.5 rounded-lg bg-white border border-red-200 text-red-600 text-[10px] font-bold hover:bg-red-50"><i class="fa-solid fa-trash mr-1"></i>Hapus</button></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <input class="${CI}" placeholder="Jabatan / peran" value="${esc(t.j)}" oninput="ttdDraft[${i}].j=this.value">
+                        <input class="${CI}" placeholder="Nama (kosong = titik-titik)" value="${esc(t.n)}" oninput="ttdDraft[${i}].n=this.value">
+                        <input class="${CI}" placeholder="Keterangan (NIP, STR, dll.)" value="${esc(t.k)}" oninput="ttdDraft[${i}].k=this.value"></div>
+                    <label class="flex items-center gap-1.5 text-[11px] font-semibold text-earth-brown"><input type="checkbox" ${t.d ? 'checked' : ''} onchange="ttdDraft[${i}].d=this.checked" class="w-4 h-4 accent-olive-green">Tampilkan tempat &amp; tanggal di atas jabatan</label></div>`).join('')
+                    : '<p class="text-[11px] text-earth-brown/70 font-semibold">Tidak ada penandatangan. Bagian tanda tangan tidak akan dicetak.</p>';
+            }
+            function ttdAdd() { ttdDraft.push({ j: '', n: '', k: '', d: false }); renderTtd(); }
+            function ttdDel(i) { ttdDraft.splice(i, 1); renderTtd(); }
+            function gantiMargin(keep) {
+                const v = gid('cfg-margin').value, c = v === 'custom';
+                gid('cfg-margin-custom').classList.toggle('hidden', !c);
+                if (!c && !keep) MARGIN[v].forEach((x, i) => gid('cfg-m' + i).value = x);
+            }
+
             function cetakLaporan(type) {
                 if (type === 'kms') {
                     if (!whoReady() || !window.lastKMS) { showToast('Data WHO belum diisi, hasil KMS belum bisa dicetak.'); return; }
-                } else if (document.getElementById('bmi-result').classList.contains('hidden')) {
-                    alert('⚠️ Hitung IMT terlebih dahulu sebelum mencetak.'); return;
+                } else if (document.getElementById('bmi-result').classList.contains('hidden') || !window.lastBMI) {
+                    showToast('Hitung IMT terlebih dahulu sebelum mencetak.'); return;
                 }
                 jenisCetak = type;
-                document.getElementById('cetak-jenis').textContent = type === 'kms' ? 'KMS Balita' : 'BMI / IMT';
+                gid('cetak-jenis').textContent = type === 'kms' ? 'KMS Balita' : 'BMI / IMT';
                 isiFormKop(KOP_LAPORAN);
-                document.getElementById('modal-cetak').classList.remove('hidden');
+                gid('modal-cetak').classList.remove('hidden');
             }
-            function closeModalCetak() { document.getElementById('modal-cetak').classList.add('hidden'); }
+            function closeModalCetak() { gid('modal-cetak').classList.add('hidden'); }
 
+            function ukuran() { const [a, b] = PAPER[PCFG.paper] || PAPER.A4, l = PCFG.orient === 'landscape'; return { w: l ? b : a, h: l ? a : b, m: PCFG.m, l }; }
+            function terapkanHalaman() {
+                const p = ukuran(); let st = gid('dyn-page');
+                if (!st) { st = document.createElement('style'); st.id = 'dyn-page'; document.head.appendChild(st); }
+                st.textContent = `@page{size:${p.w}mm ${p.h}mm;margin:${p.m[0]}mm ${p.m[1]}mm ${p.m[2]}mm ${p.m[3]}mm}`;
+                gid('print-report').style.setProperty('--pm-b', p.m[2] + 'mm');
+            }
+            function bacaCfg() {
+                const v = id => gid(id).value.trim();
+                KOP_LAPORAN = Object.assign({}, KOP_LAPORAN, { b1: v('cfg-kop-b1'), b2: v('cfg-kop-b2'), b3: v('cfg-kop-b3'), b4: v('cfg-kop-b4'), logoKiri: v('cfg-logo-kiri'), logoKanan: v('cfg-logo-kanan'), tempat: v('cfg-ttd-tempat') });
+                const m = [0, 1, 2, 3].map(i => { let x = parseFloat(String(gid('cfg-m' + i).value).replace(',', '.')); x = isNaN(x) ? [14, 15, 20, 15][i] : x; return Math.min(40, Math.max(i === 2 ? 12 : 5, x)); });
+                PCFG.ttd[jenisCetak] = ttdDraft.filter(t => t.j || t.n || t.k).map(t => ({ j: t.j.trim(), n: t.n.trim(), k: t.k.trim(), d: !!t.d }));
+                Object.assign(PCFG, { paper: gid('cfg-paper').value, orient: gid('cfg-orient').value, margin: gid('cfg-margin').value, m });
+                try { localStorage.setItem(KOP_KEY, JSON.stringify(KOP_LAPORAN)); localStorage.setItem(PCFG_KEY, JSON.stringify(PCFG)); } catch (err) { showToast('Pengaturan tidak dapat disimpan di peramban ini.'); }
+            }
+            function siapkanLaporan() {
+                bacaCfg(); bangunLaporan(jenisCetak); terapkanHalaman();
+                return Promise.all([...document.querySelectorAll('#pr-kop img')].map(im => im.complete ? 1 : new Promise(r => { im.onload = im.onerror = r; setTimeout(r, 2500); })));
+            }
             function simpanDanCetak(e) {
                 e.preventDefault();
-                const v = id => document.getElementById(id).value.trim();
-                KOP_LAPORAN = { b1: v('cfg-kop-b1'), b2: v('cfg-kop-b2'), b3: v('cfg-kop-b3'), b4: v('cfg-kop-b4'),
-                    logoKiri: v('cfg-logo-kiri'), logoKanan: v('cfg-logo-kanan'), tempat: v('cfg-ttd-tempat'), bidan: v('cfg-ttd-bidan') };
-                try { localStorage.setItem(KOP_KEY, JSON.stringify(KOP_LAPORAN)); } catch (err) { showToast('Pengaturan kop tidak dapat disimpan di peramban ini.'); }
-                closeModalCetak();
-                bangunLaporan(jenisCetak);
-                const imgs = [...document.querySelectorAll('#pr-kop img')];
-                Promise.all(imgs.map(im => im.complete ? 1 : new Promise(r => { im.onload = im.onerror = r; setTimeout(r, 2500); })))
-                    .then(() => { isiStamp(); window.print(); });
+                siapkanLaporan().then(() => { closeModalCetak(); isiStamp(); window.print(); });
+            }
+
+            /* ===== Ekspor langsung .pdf dan .doc ===== */
+            function namaFile() {
+                const nm = jenisCetak === 'kms' ? gid('childName').value.trim() : (window.lastBMI || {}).nm;
+                return `GO-POSITIF_${jenisCetak.toUpperCase()}_${(nm || 'laporan').replace(/[^\w\-]+/g, '_')}_${cetakWaktu().kode}`;
+            }
+            function unduh(blob, nama) {
+                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nama;
+                document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+            }
+            function muatLib() {
+                return new Promise((ok, no) => {
+                    if (window.html2pdf) return ok();
+                    const sc = document.createElement('script');
+                    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                    sc.onload = ok; sc.onerror = () => no(new Error('Pustaka PDF gagal dimuat')); document.head.appendChild(sc);
+                });
+            }
+            async function eksporLaporan(fmt) {
+                try {
+                    await siapkanLaporan(); isiStamp();
+                    showToast('Menyiapkan file ' + fmt.toUpperCase() + '...');
+                    await (fmt === 'pdf' ? eksporPDF() : eksporDOC());
+                    closeModalCetak(); showToast('File .' + fmt + ' berhasil diunduh.');
+                } catch (err) { console.error(err); showToast('Ekspor .' + fmt + ' gagal. Periksa koneksi internet lalu coba lagi.'); }
+            }
+
+            async function eksporPDF() {
+                await muatLib();
+                const p = ukuran(), stage = document.createElement('div'), cl = gid('print-report').cloneNode(true), stamp = cetakWaktu().stamp;
+                cl.classList.add('pr-capture'); cl.style.width = (p.w - p.m[1] - p.m[3]) + 'mm';
+                stage.style.cssText = 'position:fixed;left:-99999px;top:0'; stage.appendChild(cl); document.body.appendChild(stage);
+                try {
+                    await html2pdf().set({
+                        margin: [p.m[0], p.m[3], p.m[2], p.m[1]], filename: namaFile() + '.pdf', image: { type: 'jpeg', quality: 0.95 },
+                        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#fff' },
+                        jsPDF: { unit: 'mm', format: [Math.min(p.w, p.h), Math.max(p.w, p.h)], orientation: p.l ? 'landscape' : 'portrait' },
+                        pagebreak: { mode: ['css', 'legacy'], avoid: ['.pr-chart', '.pr-ttd', '.pr-box', '.pr-h', 'tr'] }
+                    }).from(cl).toPdf().get('pdf').then(pdf => {
+                        const n = pdf.internal.getNumberOfPages(), W = pdf.internal.pageSize.getWidth(), H = pdf.internal.pageSize.getHeight();
+                        for (let i = 1; i <= n; i++) {
+                            pdf.setPage(i); pdf.setFontSize(7.5); pdf.setTextColor(100); pdf.setDrawColor(200);
+                            pdf.line(p.m[3], H - 9, W - p.m[1], H - 9);
+                            pdf.text('Printed by GO-POSITIF : ' + stamp, p.m[3], H - 5.5);
+                            pdf.text('Halaman ' + i + ' / ' + n, W / 2, H - 5.5, { align: 'center' });
+                            pdf.text('Copyright by @KreasiCahNdeso', W - p.m[1], H - 5.5, { align: 'right' });
+                        }
+                    }).save();
+                } finally { stage.remove(); }
+            }
+
+            const imgData = u => new Promise((ok, no) => {
+                if (/^data:/.test(u)) return ok(u);
+                const im = new Image(); im.crossOrigin = 'anonymous';
+                im.onload = () => { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; c.getContext('2d').drawImage(im, 0, 0); try { ok(c.toDataURL('image/png')); } catch (e) { no(e); } };
+                im.onerror = no; im.src = u;
+            });
+            const svgPng = svg => new Promise(ok => {
+                const vb = svg.getAttribute('viewBox').split(/\s+/).map(Number), im = new Image();
+                svg.setAttribute('width', vb[2]); svg.setAttribute('height', vb[3]);
+                im.onload = () => { const c = document.createElement('canvas'); c.width = vb[2] * 2; c.height = vb[3] * 2; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height); ok({ d: c.toDataURL('image/png'), r: vb[3] / vb[2] }); };
+                im.onerror = () => ok(null);
+                im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg));
+            });
+            const tabelDari = (el, cols, lebar) => {
+                const k = [...el.children]; let h = '<table width="100%" style="border-collapse:collapse">';
+                for (let i = 0; i < k.length; i += cols) h += '<tr>' + k.slice(i, i + cols).map((c, j) => `<td valign="top" align="${el.id === 'pr-ttd' ? 'center' : 'left'}" width="${lebar ? lebar[j] : Math.floor(100 / cols)}%">${c.innerHTML.replace('</b>', '</b> ')}</td>`).join('') + '</tr>';
+                return h + '</table>';
+            };
+
+            async function eksporDOC() {
+                const p = ukuran(), cl = gid('print-report').cloneNode(true), parts = [], k = KOP_LAPORAN, stamp = cetakWaktu().stamp;
+                const cw = (p.w - p.m[1] - p.m[3]) * 3.78;
+                const simpan = d => { const loc = 'file:///C:/gp/i' + parts.length + '.png'; parts.push({ loc, b64: d.split(',')[1] }); return loc; };
+                const logo = async u => { if (!u) return ''; try { return `<img src="${simpan(await imgData(u))}" width="62" height="62">`; } catch (e) { return `<img src="${esc(u)}" width="62" height="62">`; } };
+                const baris = (t, sz, b, c) => t ? `<p style="margin:0;font-size:${sz}pt;font-weight:${b ? 'bold' : 'normal'};color:${c || '#000'}">${esc(t)}</p>` : '';
+                const kop = `<table width="100%" style="border-collapse:collapse;border-bottom:4px double #000"><tr><td width="70">${await logo(k.logoKiri)}</td><td align="center" style="font-family:Arial">${baris(k.b1, 9.5, 1) + baris(k.b2, 10.5, 1) + baris(k.b3, 12.5, 1) + baris(k.b4, 8, 0, '#475569')}</td><td width="70" align="right">${await logo(k.logoKanan)}</td></tr></table>`;
+                for (const row of cl.querySelectorAll('.pr-chart-row')) {
+                    const sv = [...row.querySelectorAll('svg')];
+                    for (let i = 0; i < sv.length; i++) { const r = await svgPng(sv[i]); if (!r) continue; const w = Math.round(cw * (i ? 0.30 : 0.62)); const im = document.createElement('img'); im.src = simpan(r.d); im.width = w; im.height = Math.round(w * r.r); sv[i].replaceWith(im); }
+                    row.outerHTML = tabelDari(row, 2, [66, 34]);
+                }
+                cl.querySelectorAll('.pr-kv').forEach(e => e.outerHTML = tabelDari(e, 2));
+                const ttd = cl.querySelector('#pr-ttd'), tt = ttd.children.length ? tabelDari(ttd, Math.min(ttd.children.length, 3)) : '';
+                const css = `body,td,p{font-family:'Times New Roman',serif;font-size:10.5pt}.pr-table{border-collapse:collapse;width:100%;font-family:Arial;font-size:9pt}.pr-table th,.pr-table td{border:1px solid #94a3b8;padding:3pt 5pt}.pr-table th{background:#f1f5f9;text-align:left;font-size:8.5pt}.pr-h{font-family:Arial;font-size:9pt;font-weight:bold;text-transform:uppercase;border-bottom:1px solid #94a3b8;margin:10pt 0 4pt}.pr-box{border:1px solid #94a3b8;padding:4pt 6pt;margin:0 0 4pt}.pr-box.warn{background:#FFFBEB}.pr-st{font-weight:bold;padding:0 4pt}.ok{background:#D1FAE5;color:#065F46}.warn{background:#FEF3C7;color:#92400E}.bad{background:#FEE2E2;color:#991B1B}.info{background:#E0F2FE;color:#075985}.nm{font-weight:bold;text-decoration:underline}.ket{font-size:9pt;color:#475569}.sp{height:48pt}.pr-disclaimer{font-size:8pt;font-style:italic;color:#475569}.c{text-align:center}@page Section1{size:${p.w}mm ${p.h}mm;${p.l ? 'mso-page-orientation:landscape;' : ''}margin:${p.m[0]}mm ${p.m[1]}mm ${p.m[2]}mm ${p.m[3]}mm;mso-footer-margin:${Math.max(4, p.m[2] / 2 - 2)}mm;mso-footer:f1}div.Section1{page:Section1}`;
+                const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>${css}</style></head><body><div class="Section1">${kop}
+                    <p align="center" style="margin:10pt 0 0;font-size:12pt;font-weight:bold;text-decoration:underline;text-transform:uppercase">${esc(gid('pr-title').textContent)}</p>
+                    <p align="center" style="margin:0 0 8pt;font-weight:bold">${esc(gid('pr-nomor').textContent)}</p>
+                    ${cl.querySelector('#pr-body').innerHTML}<p>&nbsp;</p>${tt}<p class="pr-disclaimer">${cl.querySelector('.pr-disclaimer').innerHTML}</p></div>
+                    <div style="mso-element:footer" id="f1"><table width="100%" style="border-top:1px solid #cbd5e1"><tr><td style="font-family:Arial;font-size:7.5pt;color:#64748b">Printed by GO-POSITIF : ${esc(stamp)}</td><td align="right" style="font-family:Arial;font-size:7.5pt;color:#64748b">Copyright by @KreasiCahNdeso</td></tr></table></div></body></html>`;
+                const B = '----=_GP_' + Date.now(), wrap = x => x.replace(/.{1,76}/g, '$&\r\n');
+                let mht = `MIME-Version: 1.0\r\nContent-Type: multipart/related; boundary="${B}"; type="text/html"\r\n\r\n--${B}\r\nContent-Type: text/html; charset="utf-8"\r\nContent-Transfer-Encoding: base64\r\nContent-Location: file:///C:/gp/laporan.htm\r\n\r\n${wrap(btoa(unescape(encodeURIComponent(html))))}\r\n`;
+                parts.forEach(t => mht += `--${B}\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: base64\r\nContent-Location: ${t.loc}\r\n\r\n${wrap(t.b64)}\r\n`);
+                unduh(new Blob([mht + `--${B}--`], { type: 'application/msword' }), namaFile() + '.doc');
             }
 
             function bangunKop() {
@@ -3450,17 +3623,17 @@
             }
 
             function isiBMI(w) {
-                const g = id => document.getElementById(id).innerText.trim(), val = id => document.getElementById(id).value.trim();
-                const bc = document.getElementById('bmi-badge-status').className;
-                const sc = /red/.test(bc) ? 'bad' : /amber/.test(bc) ? 'warn' : /sky/.test(bc) ? 'info' : 'ok';
+                const g = id => gid(id).innerText.trim(), d = window.lastBMI;
+                const bc = gid('bmi-badge-status').className, sc = /red/.test(bc) ? 'bad' : /amber/.test(bc) ? 'warn' : /sky/.test(bc) ? 'info' : 'ok';
                 return `<div class="pr-h">I. Data Pemeriksaan</div><div class="pr-kv">
-                    ${kv('Nama', val('bmi-nama') || '-')}${kv('Tanggal Cetak', w.tgl)}
-                    ${kv('Berat Badan', val('bmi-bb') + ' kg')}${kv('Tinggi Badan', val('bmi-tb') + ' cm')}</div>
+                    ${kv('Nama', d.nm || '-')}${kv('Umur', d.um + ' tahun')}
+                    ${kv('Berat Badan', d.bb + ' kg')}${kv('Tinggi Badan', d.tb + ' cm')}
+                    ${kv('Standar Acuan', d.std)}${kv('Tanggal Cetak', w.tgl)}</div>
                     <div class="pr-h">II. Hasil Analisis IMT</div>
                     <table class="pr-table"><thead><tr><th>Parameter</th><th>Hasil</th></tr></thead><tbody>
                     <tr><td>Skor IMT</td><td><b>${esc(g('bmi-val-score'))}</b> kg/m²</td></tr>
-                    <tr><td>Kategori (Kemenkes RI)</td><td><span class="pr-st ${sc}">${esc(g('bmi-kategori-kemenkes').replace('Kategori: ', ''))}</span></td></tr>
-                    <tr><td>Rentang Berat Badan Ideal</td><td>${esc(g('bmi-ideal-range'))}</td></tr></tbody></table>
+                    <tr><td>Kategori (${esc(d.std)})</td><td><span class="pr-st ${sc}">${esc(g('bmi-kategori-kemenkes').replace('Kategori: ', ''))}</span></td></tr>
+                    <tr><td>Rentang Berat Badan Normal</td><td>${esc(g('bmi-ideal-range'))}</td></tr></tbody></table>
                     <div class="pr-h">III. Risiko & Anjuran</div>
                     <div class="pr-box ${sc === 'ok' ? '' : 'warn'}"><b>Potensi Risiko PTM:</b> ${esc(g('bmi-ptm-risk'))}</div>
                     <div class="pr-box"><b>Isi Piringku:</b> ${esc(g('bmi-piringku-text'))}</div>
@@ -3468,18 +3641,18 @@
             }
 
             function bangunLaporan(type) {
-                const w = cetakWaktu(), k = KOP_LAPORAN;
-                document.getElementById('pr-kop').innerHTML = bangunKop();
-                document.getElementById('pr-title').textContent = type === 'kms' ? 'Laporan Hasil Analisis KMS Balita' : 'Laporan Hasil Analisis BMI / IMT';
-                document.getElementById('pr-nomor').textContent = `Nomor: GP/${type.toUpperCase()}/${w.kode}`;
-                document.getElementById('pr-body').innerHTML = type === 'kms' ? isiKMS(w) : isiBMI(w);
-                document.getElementById('pr-ttd').innerHTML =
-                    `<div><p>&nbsp;</p><p><b>Orang Tua / Wali</b></p><div class="sp"></div><p>( ........................................ )</p></div>` +
-                    `<div><p>${esc(k.tempat || 'Gonoharjo')}, ${w.tgl}</p><p><b>Bidan Desa Gonoharjo</b></p><div class="sp"></div>${k.bidan ? `<p class="nm">${esc(k.bidan)}</p>` : '<p>( ........................................ )</p>'}</div>`;
+                const w = cetakWaktu(), L = PCFG.ttd[type] || ttdDefault(type), t = gid('pr-ttd');
+                gid('pr-kop').innerHTML = bangunKop();
+                gid('pr-title').textContent = type === 'kms' ? 'Laporan Hasil Analisis KMS Balita' : 'Laporan Hasil Analisis BMI / IMT';
+                gid('pr-nomor').textContent = `Nomor: GP/${type.toUpperCase()}/${w.kode}`;
+                gid('pr-body').innerHTML = type === 'kms' ? isiKMS(w) : isiBMI(w);
+                t.style.gridTemplateColumns = `repeat(${Math.min(Math.max(L.length, 1), 3)},1fr)`;
+                t.style.display = L.length ? '' : 'none';
+                t.innerHTML = L.map(x => `<div>${x.d ? `<p>${esc(KOP_LAPORAN.tempat || 'Gonoharjo')}, ${w.tgl}</p>` : '<p>&nbsp;</p>'}<p><b>${esc(x.j)}</b></p><div class="sp"></div>${x.n ? `<p class="nm">${esc(x.n)}</p>` : '<p>( ........................................ )</p>'}${x.k ? `<p class="ket">${esc(x.k)}</p>` : ''}</div>`).join('');
                 isiStamp();
             }
 
-            window.addEventListener('beforeprint', isiStamp);
+            window.addEventListener('beforeprint', () => { terapkanHalaman(); isiStamp(); });
             window.addEventListener('DOMContentLoaded', () => {
                 const sel = document.getElementById('ageSelect');
                 for (let i = 0; i <= 60; i++) {
