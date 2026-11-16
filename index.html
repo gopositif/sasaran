@@ -464,6 +464,11 @@
             #bmi-result > div:first-child, div:has(> #bmi-badge-status) { flex-wrap: wrap; gap: .5rem; }
         }
     </style>
+<style>
+        .fam-card { transition: transform .2s ease, box-shadow .2s ease; }
+        .fam-card:hover { transform: translateY(-3px); box-shadow: 0 14px 28px -10px rgba(30,70,32,.28); }
+        @media (prefers-reduced-motion: reduce) { .fam-card, .fam-card:hover { transition: none; transform: none; } }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
 
@@ -571,7 +576,7 @@
                             <div class="flex flex-wrap items-center gap-2.5 pt-1">
                                 <span id="hero-privacy-badge" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
                                     <i class="fa-solid fa-shield-halved text-emerald-600"></i>
-                                    <span>Terverifikasi (NIK/KK Disamarkan)</span>
+                                    <span>Terverifikasi Bidan Desa</span>
                                 </span>
                                 <p class="text-xs md:text-sm font-bold text-earth-brown flex items-center gap-1.5">
                                     <i class="fa-solid fa-location-dot text-olive-green"></i>
@@ -1415,107 +1420,80 @@
                 <!-- UNLOCKED STATE VIEW UNTUK TAB PROFIL -->
                 <div id="profil-unlocked-view" class="hidden space-y-6">
                     
-                    <!-- HEADER DETAIL KELUARGA -->
-                    <div class="white-card p-6 md:p-8 bg-gradient-to-r from-soft-green via-white to-soft-yellow border-2 border-olive-green/30">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div class="space-y-1.5">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-600 text-white shadow-xs">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                    Terverifikasi Bidan Desa & Sistem ILP
-                                </span>
-                                <h2 id="profil-kk-nama" class="text-2xl md:text-3xl font-black text-deep-green">Keluarga Bp. Sujatno</h2>
-                                <p id="profil-kk-nomor" class="text-xs font-bold text-earth-brown flex items-center gap-2">
-                                    <i class="fa-solid fa-house-user text-olive-green"></i>
-                                    <span>No. Kartu Keluarga: <span id="kk-masked-display">332401******0001</span> (Disamarkan)</span>
-                                </p>
-                                <p id="profil-kk-alamat" class="text-xs text-earth-brown font-semibold">
-                                    <i class="fa-solid fa-location-dot text-sun-yellow"></i> Alamat Terkonfirmasi: RT 02 / RW 01 Dusun Gonoharjo, Desa Gonoharjo
-                                </p>
+                    <!-- HEADER KELUARGA -->
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-deep-green via-[#2B5C2E] to-primary-teal text-white shadow-xl">
+                        <div class="pointer-events-none absolute -right-16 -top-16 w-56 h-56 rounded-full bg-white/10"></div>
+                        <div class="pointer-events-none absolute right-24 -bottom-20 w-48 h-48 rounded-full bg-sun-yellow/15"></div>
+                        <div class="relative p-5 sm:p-7 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                            <div class="flex items-start gap-4 min-w-0">
+                                <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl bg-white/15 ring-2 ring-white/30 flex items-center justify-center text-3xl md:text-4xl">
+                                    <i class="fa-solid fa-house-chimney-user"></i>
+                                </div>
+                                <div class="min-w-0 space-y-2.5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-400/20 ring-1 ring-emerald-300/50 text-emerald-100">
+                                        <i class="fa-solid fa-shield-halved"></i> Terverifikasi Bidan Desa &amp; Sistem ILP
+                                    </span>
+                                    <h2 id="profil-kk-nama" class="text-2xl md:text-3xl font-black leading-tight">Keluarga Bp. Sujatno</h2>
+                                    <p id="profil-kk-alamat" class="text-xs md:text-sm text-white/85 font-semibold flex items-start gap-2 leading-relaxed">
+                                        <i class="fa-solid fa-location-dot text-sun-yellow mt-0.5"></i>
+                                        <span>Alamat terkonfirmasi: RT 02 / RW 01 Dusun Gonoharjo, Desa Gonoharjo</span>
+                                    </p>
+                                    <div class="flex flex-wrap gap-2 pt-0.5">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/15 text-[11px] font-bold"><i class="fa-solid fa-users text-sun-yellow"></i> <span id="profil-jml-anggota">0 anggota</span></span>
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/15 text-[11px] font-bold"><i class="fa-solid fa-lock text-sun-yellow"></i> Data terlindungi PIN</span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="flex flex-wrap gap-2">
-                                <button onclick="openModalUsulan()" class="btn-brown px-4 py-2.5 text-xs font-bold flex items-center space-x-1.5 shadow-sm">
-                                    <i class="fa-solid fa-user-plus text-sun-yellow"></i>
-                                    <span>Usulan Tambah/Hapus Anggota</span>
+                            <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 w-full lg:w-64 shrink-0">
+                                <button onclick="openModalPassword()" class="flex-1 px-4 py-3 rounded-xl bg-white text-deep-green text-xs font-extrabold flex items-center justify-center gap-2 shadow-md hover:bg-soft-yellow active:scale-[.98] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-sun-yellow/60">
+                                    <i class="fa-solid fa-key text-sun-yellow"></i><span>Ubah Password</span>
+                                </button>
+                                <button onclick="openModalUsulan()" class="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/35 text-white text-xs font-extrabold flex items-center justify-center gap-2 hover:bg-white/20 active:scale-[.98] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50">
+                                    <i class="fa-solid fa-user-plus text-sun-yellow"></i><span>Usulan Tambah/Hapus Anggota</span>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- BOX REKAM KEHADIRAN POSYANDU KELUARGA BULAN KE BULAN -->
-                    <div class="white-card p-6 space-y-4 border-l-4 border-emerald-500 bg-emerald-50/20">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-200 pb-3">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-lg">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                </div>
+                    <!-- REKAM KEHADIRAN POSYANDU (3 BULAN TERAKHIR) -->
+                    <div class="rounded-3xl bg-white border border-emerald-200 shadow-md overflow-hidden">
+                        <div class="p-5 md:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-emerald-50 to-white border-b border-emerald-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-calendar-check"></i></div>
                                 <div>
-                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg">Rekam Kehadiran Posyandu Bulanan</h3>
-                                    <p class="text-xs text-earth-brown font-medium">Riwayat partisipasi posyandu keluarga tahun 2026</p>
+                                    <h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">Rekam Kehadiran Posyandu Bulanan</h3>
+                                    <p class="text-xs text-earth-brown font-medium">Riwayat 3 bulan terakhir</p>
                                 </div>
                             </div>
-
-                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold shadow-sm animate-pulse">
-                                <i class="fa-solid fa-award text-amber-300 text-sm"></i>
-                                <span>Apresiasi: Keluarga Sangat Rutin Posyandu!</span>
-                            </div>
+                            <span id="kehadiran-ringkas-badge" class="inline-flex items-center gap-2 self-start sm:self-auto px-3.5 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-extrabold shadow-sm">
+                                <i class="fa-solid fa-award text-amber-300"></i><span>Keluarga rutin Posyandu</span>
+                            </span>
                         </div>
-
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 pt-1">
-                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
-                                <span class="block text-[11px] font-bold text-earth-brown">Mei 2026</span>
-                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
-                                </span>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
-                                <span class="block text-[11px] font-bold text-earth-brown">Juni 2026</span>
-                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
-                                </span>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
-                                <span class="block text-[11px] font-bold text-earth-brown">Juli 2026</span>
-                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
-                                </span>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
-                                <span class="block text-[11px] font-bold text-earth-brown">Agustus 2026</span>
-                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
-                                </span>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
-                                <span class="block text-[11px] font-bold text-earth-brown">September 2026</span>
-                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
-                                </span>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-white border border-emerald-300 text-center space-y-1 shadow-xs">
-                                <span class="block text-[11px] font-bold text-earth-brown">Oktober 2026</span>
-                                <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-[9px] mr-0.5"></i> Hadir (100%)
-                                </span>
-                            </div>
+                        <div class="p-5 md:p-6 space-y-4">
+                            <div id="kehadiran-3bulan" class="grid grid-cols-1 min-[460px]:grid-cols-3 gap-3"></div>
+                            <p class="text-xs text-emerald-900 font-medium bg-emerald-50 p-3.5 rounded-2xl border border-emerald-100 leading-relaxed flex gap-2.5">
+                                <i class="fa-solid fa-user-nurse text-emerald-600 mt-0.5"></i>
+                                <span><strong>Apresiasi Bidan Desa:</strong> <span id="apresiasi-nama">Keluarga Bp. Sujatno</span> telah menunjukkan kepedulian tinggi terhadap kesehatan keluarga dengan rajin hadir di jadwal Posyandu ILP. Pertahankan motivasi hidup sehat!</span>
+                            </p>
                         </div>
-
-                        <p class="text-xs text-emerald-900 font-semibold italic bg-white p-3 rounded-xl border border-emerald-200 leading-relaxed">
-                            💬 <strong>Apresiasi Bidan Desa:</strong> "Keluarga Bp. Sujatno telah menunjukkan kepedulian tinggi terhadap kesehatan keluarga dengan rajin hadir di setiap jadwal Posyandu ILP. Pertahankan motivasi hidup sehat!"
-                        </p>
                     </div>
 
-                    <!-- DAFTAR KARTU ANGGOTA KELUARGA -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
+                    <!-- DAFTAR ANGGOTA KELUARGA -->
+                    <div class="space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
                             <h3 class="font-extrabold text-deep-green text-base md:text-lg flex items-center gap-2">
                                 <i class="fa-solid fa-users text-olive-green"></i>
-                                <span>Daftar Anggota Keluarga Terdaftar:</span>
+                                <span>Daftar Anggota Keluarga Terdaftar</span>
                             </h3>
-                            <span class="text-xs text-earth-brown font-semibold">*Warna kartu menyesuaikan kategori usia</span>
+                            <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-earth-brown" aria-label="Keterangan warna kartu menurut kategori usia">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-pink-200"><i class="w-2.5 h-2.5 rounded-full bg-pink-500"></i>Balita</span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-sky-200"><i class="w-2.5 h-2.5 rounded-full bg-sky-500"></i>Remaja</span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-emerald-200"><i class="w-2.5 h-2.5 rounded-full bg-emerald-600"></i>Usia Produktif</span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-amber-200"><i class="w-2.5 h-2.5 rounded-full bg-amber-500"></i>Lansia</span>
+                            </div>
                         </div>
 
-                        <div id="family-cards-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div id="family-cards-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                             <!-- DITERAPKAN DINAMIS VIA JAVASCRIPT -->
                         </div>
                     </div>
@@ -1704,7 +1682,7 @@
                         <div class="absolute inset-x-0 top-1/2 h-0.5 bg-red-500 shadow-md animate-ping"></div>
                     </div>
                     <p class="text-xs text-earth-brown font-medium">Arahkan kamera pada kode barcode kartu posyandu keluarga Anda.</p>
-                    <button onclick="simulasiScanSuccess('3324010101900001')" class="btn-primary w-full py-2.5 text-xs font-bold">Simulasi Scan Barcode Berhasil</button>
+                    <button onclick="simulasiScanSuccess('GP-0001')" class="btn-primary w-full py-2.5 text-xs font-bold">Simulasi Scan Barcode Berhasil</button>
                 </div>
 
                 <div id="barcode-upload-tab" class="hidden space-y-3 text-center py-2">
@@ -1713,22 +1691,22 @@
                         <p class="text-xs font-bold text-deep-green">Pilih atau Seret Foto Barcode Kartu</p>
                         <p class="text-[10px] text-earth-brown">Format disukai: JPG, PNG, WEBP</p>
                     </div>
-                    <button onclick="simulasiScanSuccess('3324010101900001')" class="btn-primary w-full py-2.5 text-xs font-bold">Simulasi Unggah Foto Berhasil</button>
+                    <button onclick="simulasiScanSuccess('GP-0001')" class="btn-primary w-full py-2.5 text-xs font-bold">Simulasi Unggah Foto Berhasil</button>
                 </div>
 
                 <div id="barcode-manual-tab" class="hidden space-y-3">
                     <div>
-                        <label class="block text-xs font-bold text-deep-green mb-1">Nomor Barcode / NIK / KK:</label>
-                        <input type="text" id="input-barcode-manual" placeholder="Contoh: 3324010101900001" class="w-full p-2.5 bg-white rounded-xl border border-olive-green/30 text-xs font-extrabold focus:outline-none focus:ring-2 focus:ring-olive-green">
+                        <label class="block text-xs font-bold text-deep-green mb-1">Kode Barcode Keluarga:</label>
+                        <input type="text" id="input-barcode-manual" placeholder="Contoh: GP-0001" class="w-full p-2.5 bg-white rounded-xl border border-olive-green/30 text-xs font-extrabold focus:outline-none focus:ring-2 focus:ring-olive-green">
                     </div>
 
                     <div>
                         <div class="flex items-center justify-between mb-1">
-                            <label class="text-xs font-bold text-deep-green">PIN / Password Sasaran (6 Digit):</label>
+                            <label class="text-xs font-bold text-deep-green">PIN / Password Sasaran (min. 6 karakter):</label>
                             <span class="text-[10px] text-earth-brown font-bold">*Wajib Diisi</span>
                         </div>
                         <div class="relative">
-                            <input type="password" id="input-pin-manual" maxlength="8" placeholder="Masukkan PIN (Default: 123456)" class="w-full p-2.5 pr-10 bg-white rounded-xl border border-olive-green/30 text-xs font-extrabold focus:outline-none focus:ring-2 focus:ring-olive-green">
+                            <input type="password" id="input-pin-manual" maxlength="20" placeholder="Masukkan PIN (Default: 123456)" class="w-full p-2.5 pr-10 bg-white rounded-xl border border-olive-green/30 text-xs font-extrabold focus:outline-none focus:ring-2 focus:ring-olive-green">
                             <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-2.5 text-earth-brown hover:text-deep-green text-xs">
                                 <i id="pin-eye-icon" class="fa-solid fa-eye"></i>
                             </button>
@@ -1737,7 +1715,7 @@
 
                     <div class="p-2.5 rounded-xl bg-soft-yellow border border-amber-200 text-[10px] text-earth-brown font-medium leading-relaxed">
                         <i class="fa-solid fa-circle-info text-amber-600 mr-1"></i>
-                        <strong>Petunjuk Demo:</strong> Gunakan Barcode: <span class="font-mono font-bold text-deep-green">3324010101900001</span> dan PIN Default: <span class="font-mono font-bold text-earth-brown">123456</span>.
+                        <strong>Petunjuk Demo:</strong> Gunakan Barcode: <span class="font-mono font-bold text-deep-green">GP-0001</span> dan PIN Default: <span class="font-mono font-bold text-earth-brown">123456</span>.
                     </div>
 
                     <button onclick="prosesManualLogin()" class="btn-brown w-full py-2.5 text-xs font-bold shadow-xs">Proses Verifikasi Data & PIN</button>
@@ -1746,6 +1724,40 @@
         </div>
 
         <!-- MODAL 2: DETAIL ANGGOTA KELUARGA -->
+        <!-- MODAL UBAH PASSWORD -->
+        <div id="modal-password" class="fixed inset-0 z-50 bg-stone-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="if(event.target===this)closeModalPassword()">
+            <div class="bg-white rounded-3xl w-full max-w-md max-h-[92vh] overflow-y-auto shadow-2xl">
+                <div class="p-5 bg-gradient-to-r from-deep-green to-primary-teal text-white flex items-center justify-between rounded-t-3xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i class="fa-solid fa-key text-sun-yellow"></i></div>
+                        <div><h3 class="font-extrabold text-base leading-tight">Ubah Password</h3><p class="text-[11px] text-white/80 font-medium">Perbarui password login sasaran</p></div>
+                    </div>
+                    <button onclick="closeModalPassword()" aria-label="Tutup" class="w-8 h-8 rounded-lg hover:bg-white/15 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="p-5 space-y-3.5 text-xs">
+                    <div>
+                        <label for="pw-lama" class="block font-bold text-deep-green mb-1">Password saat ini</label>
+                        <div class="relative"><input type="password" id="pw-lama" autocomplete="current-password" class="w-full p-3 pr-10 rounded-xl border border-olive-green/30 font-bold focus:outline-none focus:ring-2 focus:ring-olive-green"><button type="button" onclick="toggleFieldPw('pw-lama',this)" aria-label="Tampilkan password" class="absolute right-3 top-3 text-earth-brown"><i class="fa-solid fa-eye"></i></button></div>
+                    </div>
+                    <div>
+                        <label for="pw-baru" class="block font-bold text-deep-green mb-1">Password baru <span class="font-medium text-earth-brown">(6 sampai 20 karakter)</span></label>
+                        <div class="relative"><input type="password" id="pw-baru" maxlength="20" autocomplete="new-password" oninput="cekKekuatanPw(this.value)" class="w-full p-3 pr-10 rounded-xl border border-olive-green/30 font-bold focus:outline-none focus:ring-2 focus:ring-olive-green"><button type="button" onclick="toggleFieldPw('pw-baru',this)" aria-label="Tampilkan password" class="absolute right-3 top-3 text-earth-brown"><i class="fa-solid fa-eye"></i></button></div>
+                        <div class="mt-2 h-1.5 rounded-full bg-stone-200 overflow-hidden"><div id="pw-bar" class="h-full w-0 rounded-full transition-all duration-300"></div></div>
+                        <p id="pw-bar-label" class="mt-1 text-[11px] text-earth-brown font-semibold">Gunakan kombinasi huruf dan angka agar lebih aman.</p>
+                    </div>
+                    <div>
+                        <label for="pw-konfirm" class="block font-bold text-deep-green mb-1">Ulangi password baru</label>
+                        <div class="relative"><input type="password" id="pw-konfirm" maxlength="20" autocomplete="new-password" class="w-full p-3 pr-10 rounded-xl border border-olive-green/30 font-bold focus:outline-none focus:ring-2 focus:ring-olive-green"><button type="button" onclick="toggleFieldPw('pw-konfirm',this)" aria-label="Tampilkan password" class="absolute right-3 top-3 text-earth-brown"><i class="fa-solid fa-eye"></i></button></div>
+                    </div>
+                    <p id="pw-msg" class="hidden p-3 rounded-xl font-bold leading-relaxed" role="alert"></p>
+                    <div class="flex gap-2.5 pt-1">
+                        <button onclick="closeModalPassword()" class="flex-1 py-3 rounded-xl border border-olive-green/30 text-earth-brown font-bold hover:bg-soft-green transition">Batal</button>
+                        <button id="pw-simpan" onclick="simpanPasswordBaru()" class="flex-[1.4] py-3 rounded-xl bg-deep-green text-white font-extrabold shadow-md hover:bg-olive-green transition flex items-center justify-center gap-2"><i class="fa-solid fa-floppy-disk text-sun-yellow"></i><span>Simpan Password</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="modal-detail-anggota" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
             <div class="white-card p-6 max-w-lg w-full bg-[#FAF7F0] space-y-4 border-2 border-olive-green/30 max-h-[88vh] overflow-y-auto">
                 <div class="flex items-center justify-between border-b border-olive-green/10 pb-3">
@@ -1789,10 +1801,6 @@
                     <div>
                         <label class="block mb-1">Nama Lengkap Anggota Usulan:</label>
                         <input type="text" id="usulan-nama" placeholder="Nama lengkap..." class="w-full p-2.5 bg-white rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green" required>
-                    </div>
-                    <div>
-                        <label class="block mb-1">NIK (jika ada):</label>
-                        <input type="text" id="usulan-nik" placeholder="NIK 16 digit..." class="w-full p-2.5 bg-white rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
                     </div>
                     <div>
                         <label class="block mb-1">Alasan / Catatan Tambahan:</label>
@@ -2136,14 +2144,8 @@
             let lastChatTimestamp = 0;
             const minChatIntervalMs = 3000;
 
-            function maskKKNumber(kk) {
-                if (!kk || kk.length < 16) return "3324************";
-                return kk.substring(0, 6) + "******" + kk.substring(12);
-            }
-
             const mockFamilyDatabase = {
-                "3324010101900001": {
-                    kk: "3324010101900001",
+                "GP-0001": {
                     pin: "123456",
                     kepalaKeluarga: "Sujatno",
                     rt: "02",
@@ -2154,7 +2156,6 @@
                     anggota: [
                         {
                             id: "A1",
-                            nik: "3324010101900001",
                             nama: "Sujatno",
                             peran: "Ayah / Kepala Keluarga",
                             kategori: "Usia Produktif",
@@ -2165,7 +2166,6 @@
                         },
                         {
                             id: "A2",
-                            nik: "3324010101900002",
                             nama: "Siti Ratnah",
                             peran: "Ibu",
                             kategori: "Usia Produktif",
@@ -2176,7 +2176,6 @@
                         },
                         {
                             id: "A3",
-                            nik: "3324010101900003",
                             nama: "Budi Sujatno",
                             peran: "Anak Balita",
                             kategori: "Balita",
@@ -2187,7 +2186,6 @@
                         },
                         {
                             id: "A4",
-                            nik: "3324010101900004",
                             nama: "Maya Sujatno",
                             peran: "Anak Remaja",
                             kategori: "Remaja",
@@ -2198,7 +2196,6 @@
                         },
                         {
                             id: "A5",
-                            nik: "3324010101900005",
                             nama: "Mbah Maimunah",
                             peran: "Nenek",
                             kategori: "Lansia",
@@ -2294,7 +2291,7 @@
                 const pinVal = document.getElementById('input-pin-manual').value.trim();
 
                 if(!barcodeVal) {
-                    alert('⚠️ Silakan masukkan nomor barcode / NIK / KK!');
+                    alert('⚠️ Silakan masukkan kode barcode keluarga!');
                     return;
                 }
                 if(!pinVal) {
@@ -2302,15 +2299,15 @@
                     return;
                 }
 
-                const familyData = mockFamilyDatabase[barcodeVal] || mockFamilyDatabase["3324010101900001"];
+                const familyData = mockFamilyDatabase[barcodeVal] || mockFamilyDatabase["GP-0001"];
                 if(familyData) {
-                    if(pinVal === familyData.pin || pinVal === "123456") {
+                    if(pinVal === familyData.pin) {
                         simulasiLoginSuccess(barcodeVal);
                     } else {
                         alert('❌ PIN / Password Salah! Silakan coba lagi.');
                     }
                 } else {
-                    alert('⚠️ Barcode / NIK tidak terdaftar di sistem!');
+                    alert('⚠️ Kode barcode tidak terdaftar di sistem!');
                 }
             }
 
@@ -2320,10 +2317,10 @@
 
             function simulasiLoginSuccess(barcodeVal) {
                 closeBarcodeModal();
-                const familyData = mockFamilyDatabase[barcodeVal] || mockFamilyDatabase["3324010101900001"];
+                const familyData = mockFamilyDatabase[barcodeVal] || mockFamilyDatabase["GP-0001"];
                 
                 isUserLoggedIn = true;
-                currentKKNumber = familyData.kk;
+                currentKKNumber = mockFamilyDatabase[barcodeVal] ? barcodeVal : "GP-0001";
 
                 document.getElementById('kms-lock-icon').className = "fa-solid fa-check text-[10px] ml-1 text-emerald-500 font-bold";
                 document.getElementById('profil-lock-icon').className = "fa-solid fa-check text-[10px] ml-1 text-emerald-500 font-bold";
@@ -2337,7 +2334,7 @@
                 document.getElementById('hero-privacy-badge').classList.remove('hidden');
 
                 document.getElementById('sticky-status-title').innerText = "Terverifikasi: " + familyData.kepalaKeluarga;
-                document.getElementById('sticky-status-sub').innerText = "No. KK: " + maskKKNumber(familyData.kk);
+                document.getElementById('sticky-status-sub').innerText = `Dusun ${familyData.dusun} RT ${familyData.rt}/RW ${familyData.rw}`;
                 document.getElementById('sticky-status-icon').className = "w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold flex-shrink-0";
                 document.getElementById('sticky-status-icon').innerHTML = '<i class="fa-solid fa-user-check"></i>';
                 document.getElementById('sticky-action-btn').className = "px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold shadow-xs flex items-center gap-1 transition";
@@ -2347,79 +2344,158 @@
                 document.getElementById('profil-locked-view').classList.add('hidden');
                 document.getElementById('profil-unlocked-view').classList.remove('hidden');
                 document.getElementById('profil-kk-nama').innerText = "Keluarga Bp. " + familyData.kepalaKeluarga;
-                document.getElementById('kk-masked-display').innerText = maskKKNumber(familyData.kk);
-                document.getElementById('profil-kk-alamat').innerHTML = `<i class="fa-solid fa-location-dot text-sun-yellow"></i> Alamat Terkonfirmasi: RT ${familyData.rt} / RW ${familyData.rw} Dusun ${familyData.dusun}, Desa Gonoharjo`;
+                                document.getElementById('profil-kk-alamat').innerHTML = `<i class="fa-solid fa-location-dot text-sun-yellow mt-0.5"></i><span>Alamat terkonfirmasi: RT ${familyData.rt} / RW ${familyData.rw} Dusun ${familyData.dusun}, Desa Gonoharjo</span>`;
 
                 document.getElementById('kms-locked-view').classList.add('hidden');
                 document.getElementById('kms-unlocked-view').classList.remove('hidden');
 
                 renderFamilyCards(familyData);
+                renderKehadiranRingkas(familyData);
                 updateKehadiranChart(familyData.kehadiranData);
             }
+
+            const LABEL_METRIK = { tensi:"Tensi", gulaDarah:"Gula Darah", bb:"Berat", tb:"Tinggi", imt:"IMT", kolesterol:"Kolesterol", asamUrat:"Asam Urat" };
+            function labelMetrik(k) { return LABEL_METRIK[k] || k; }
+
+            const TEMA_KATEGORI = {
+                balita:   { icon:"fa-baby", grad:"from-rose-400 to-pink-600", ring:"border-pink-200", iconText:"text-pink-600", tile:"bg-pink-50 text-pink-800", noteBg:"bg-pink-50", noteBorder:"border-pink-400", btn:"bg-pink-600 hover:bg-pink-700" },
+                remaja:   { icon:"fa-user-graduate", grad:"from-sky-400 to-blue-600", ring:"border-sky-200", iconText:"text-sky-600", tile:"bg-sky-50 text-sky-800", noteBg:"bg-sky-50", noteBorder:"border-sky-400", btn:"bg-sky-600 hover:bg-sky-700" },
+                produktif:{ icon:"fa-user-tie", grad:"from-emerald-500 to-teal-700", ring:"border-emerald-200", iconText:"text-emerald-700", tile:"bg-emerald-50 text-emerald-800", noteBg:"bg-emerald-50", noteBorder:"border-emerald-500", btn:"bg-emerald-700 hover:bg-emerald-800" },
+                lansia:   { icon:"fa-person-cane", grad:"from-amber-400 to-orange-600", ring:"border-amber-200", iconText:"text-amber-600", tile:"bg-amber-50 text-amber-800", noteBg:"bg-amber-50", noteBorder:"border-amber-500", btn:"bg-amber-600 hover:bg-amber-700" }
+            };
 
             function renderFamilyCards(familyData) {
                 const container = document.getElementById('family-cards-container');
                 container.innerHTML = "";
+                document.getElementById('profil-jml-anggota').innerText = familyData.anggota.length + " anggota";
 
                 familyData.anggota.forEach(member => {
-                    let borderTheme = "border-olive-green/30";
-                    let badgeBg = "bg-soft-green text-deep-green";
-                    let iconClass = "fa-user";
+                    const kat = (member.kategori || "").toLowerCase();
+                    const t = kat.includes("balita") ? TEMA_KATEGORI.balita : kat.includes("remaja") ? TEMA_KATEGORI.remaja : kat.includes("lansia") ? TEMA_KATEGORI.lansia : TEMA_KATEGORI.produktif;
+                    const tiles = Object.entries(member.hasilDetail || {}).slice(0, 3).map(([k, v]) => `
+                        <div class="rounded-xl ${t.tile} px-2 py-2 text-center min-w-0">
+                            <span class="block text-[10px] font-bold opacity-80 truncate">${labelMetrik(k)}</span>
+                            <span class="block text-[11px] font-black leading-tight break-words">${String(v).split(" (")[0]}</span>
+                        </div>`).join("");
 
-                    if (member.kategori === "Balita") {
-                        borderTheme = "border-olive-green/40";
-                        badgeBg = "bg-soft-green text-deep-green";
-                        iconClass = "fa-baby";
-                    } else if (member.kategori === "Remaja") {
-                        borderTheme = "border-sky-300";
-                        badgeBg = "bg-sky-100 text-sky-800";
-                        iconClass = "fa-user-graduate";
-                    } else if (member.kategori === "Lansia") {
-                        borderTheme = "border-sun-yellow/40";
-                        badgeBg = "bg-soft-yellow text-earth-brown";
-                        iconClass = "fa-person-cane";
-                    } else {
-                        borderTheme = "border-emerald-300";
-                        badgeBg = "bg-emerald-100 text-emerald-800";
-                        iconClass = "fa-users-between-lines";
-                    }
-
-                    const cardHtml = `
-                        <div class="white-card p-5 space-y-3.5 border-2 ${borderTheme} flex flex-col justify-between">
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${badgeBg} flex items-center gap-1">
-                                        <i class="fa-solid ${iconClass}"></i> ${member.kategori}
-                                    </span>
-                                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                                        <i class="fa-solid fa-check text-[9px]"></i> Terkonfirmasi
-                                    </span>
+                    container.insertAdjacentHTML('beforeend', `
+                        <article class="fam-card rounded-3xl overflow-hidden bg-white border-2 ${t.ring} shadow-md flex flex-col">
+                            <div class="relative bg-gradient-to-br ${t.grad} text-white p-4">
+                                <div class="pointer-events-none absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/15"></div>
+                                <div class="relative flex items-center gap-3">
+                                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-white ${t.iconText} flex items-center justify-center text-2xl shadow-md"><i class="fa-solid ${t.icon}"></i></div>
+                                    <div class="min-w-0">
+                                        <h4 class="font-black text-base leading-tight break-words">${member.nama}</h4>
+                                        <p class="text-[11px] font-semibold text-white/90">${member.peran}</p>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    <h4 class="font-black text-deep-green text-base">${member.nama}</h4>
-                                    <p class="text-xs font-bold text-earth-brown">${member.peran} (${member.usiaDetail})</p>
-                                    <p class="text-[10px] text-earth-brown/70 font-medium">NIK: ${member.nik.substring(0, 6)}******${member.nik.substring(12)}</p>
-                                </div>
-
-                                <div class="p-3 rounded-xl bg-base-cream border border-olive-green/15 text-xs space-y-1">
-                                    <p class="font-extrabold text-deep-green text-[11px]">Catatan Posyandu (${member.tglTerakhir}):</p>
-                                    <p class="text-earth-brown font-medium leading-relaxed">${member.keteranganBidan}</p>
+                                <div class="relative mt-3 flex flex-wrap gap-1.5">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-white/25 text-[11px] font-extrabold">${member.kategori}</span>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-white/25 text-[11px] font-extrabold">${member.usiaDetail}</span>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-white text-emerald-700 text-[11px] font-extrabold"><i class="fa-solid fa-circle-check"></i> Terkonfirmasi</span>
                                 </div>
                             </div>
-
-                            <button onclick="openModalDetailAnggota('${member.id}')" class="w-full btn-primary py-2 text-xs font-bold flex items-center justify-center space-x-1.5 shadow-xs">
-                                <i class="fa-solid fa-id-card-clip text-sun-yellow"></i>
-                                <span>Lihat Detail Rekam Health</span>
-                            </button>
-                        </div>
-                    `;
-                    container.innerHTML += cardHtml;
+                            <div class="p-4 flex-1 flex flex-col gap-3">
+                                <div class="grid grid-cols-3 gap-2">${tiles}</div>
+                                <div class="rounded-2xl ${t.noteBg} border-l-4 ${t.noteBorder} p-3 text-xs space-y-1">
+                                    <p class="font-extrabold text-deep-green"><i class="fa-solid fa-user-nurse mr-1"></i>Catatan Bidan</p>
+                                    <p class="text-earth-brown font-medium leading-relaxed">${member.keteranganBidan}</p>
+                                </div>
+                                <p class="text-[11px] text-earth-brown font-semibold mt-auto"><i class="fa-regular fa-calendar mr-1"></i>Pemeriksaan terakhir: ${member.tglTerakhir}</p>
+                                <button onclick="openModalDetailAnggota('${member.id}')" class="w-full ${t.btn} text-white py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm active:scale-[.98] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-sun-yellow/60">
+                                    <i class="fa-solid fa-notes-medical"></i><span>Lihat Detail Rekam Kesehatan</span>
+                                </button>
+                            </div>
+                        </article>`);
                 });
             }
 
+            function renderKehadiranRingkas(familyData) {
+                const nama = ["Mei","Juni","Juli","Agustus","September","Oktober"];
+                const data = familyData.kehadiranData || [];
+                const n = Math.min(3, data.length);
+                const vals = data.slice(-n), labels = nama.slice(nama.length - n);
+                let hadir = 0;
+                document.getElementById('kehadiran-3bulan').innerHTML = vals.map((v, i) => {
+                    if (v >= 100) hadir++;
+                    const c = v >= 100 ? ["emerald","fa-check","Hadir"] : v > 0 ? ["amber","fa-minus","Sebagian"] : ["rose","fa-xmark","Tidak hadir"];
+                    return `<div class="rounded-2xl border border-${c[0]}-200 bg-${c[0]}-50/50 p-3.5 flex items-center gap-3 min-[460px]:flex-col min-[460px]:text-center">
+                        <div class="w-10 h-10 shrink-0 rounded-full bg-${c[0]}-500 text-white flex items-center justify-center shadow-sm"><i class="fa-solid ${c[1]}"></i></div>
+                        <div class="flex-1 w-full">
+                            <p class="font-extrabold text-sm text-deep-green">${labels[i]} 2026</p>
+                            <p class="text-[11px] font-bold text-${c[0]}-700">${c[2]} ${v}%</p>
+                            <div class="mt-1.5 h-1.5 rounded-full bg-${c[0]}-100 overflow-hidden"><div class="h-full rounded-full bg-${c[0]}-500" style="width:${v}%"></div></div>
+                        </div></div>`;
+                }).join("");
+                document.getElementById('kehadiran-ringkas-badge').lastElementChild.innerText = `${hadir} dari ${n} bulan hadir`;
+                document.getElementById('apresiasi-nama').innerText = "Keluarga Bp. " + familyData.kepalaKeluarga;
+            }
+
+            /* ===== UBAH PASSWORD ===== */
+            // Isi dengan URL Web App Google Apps Script agar password baru tercatat di Google Sheet.
+            // Data dikirim (POST JSON): { aksi:"ubahPassword", kode, passwordHash(SHA-256), waktu }
+            const GOOGLE_SHEET_URL = "";
+
+            function openModalPassword() {
+                ['pw-lama','pw-baru','pw-konfirm'].forEach(id => { const el = document.getElementById(id); el.value = ""; el.type = "password"; });
+                document.getElementById('pw-msg').classList.add('hidden');
+                cekKekuatanPw("");
+                document.getElementById('modal-password').classList.remove('hidden');
+                setTimeout(() => document.getElementById('pw-lama').focus(), 50);
+            }
+            function closeModalPassword() { document.getElementById('modal-password').classList.add('hidden'); }
+            function toggleFieldPw(id, btn) {
+                const el = document.getElementById(id), show = el.type === "password";
+                el.type = show ? "text" : "password";
+                btn.innerHTML = `<i class="fa-solid ${show ? 'fa-eye-slash' : 'fa-eye'}"></i>`;
+            }
+            function cekKekuatanPw(v) {
+                let s = 0;
+                if (v.length >= 6) s++;
+                if (v.length >= 9) s++;
+                if (/[A-Za-z]/.test(v) && /\d/.test(v)) s++;
+                if (/[^A-Za-z0-9]/.test(v)) s++;
+                const lv = v ? [["25%","bg-red-500","Lemah"],["50%","bg-amber-500","Cukup"],["75%","bg-lime-500","Baik"],["100%","bg-emerald-600","Kuat"]][Math.max(0, s - 1)] : ["0%","","Gunakan kombinasi huruf dan angka agar lebih aman."];
+                const bar = document.getElementById('pw-bar');
+                bar.style.width = lv[0];
+                bar.className = "h-full rounded-full transition-all duration-300 " + lv[1];
+                document.getElementById('pw-bar-label').innerText = v ? "Kekuatan password: " + lv[2] : lv[2];
+            }
+            function setPwMsg(text, ok) {
+                const m = document.getElementById('pw-msg');
+                m.className = "p-3 rounded-xl font-bold leading-relaxed " + (ok ? "bg-emerald-50 text-emerald-800 border border-emerald-200" : "bg-red-50 text-red-800 border border-red-200");
+                m.innerText = text;
+            }
+            async function kirimPasswordKeSheet(kode, pwBaru) {
+                if (!GOOGLE_SHEET_URL) return false;
+                try {
+                    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pwBaru));
+                    const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+                    await fetch(GOOGLE_SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({ aksi: "ubahPassword", kode: kode, passwordHash: hash, waktu: new Date().toISOString() }) });
+                    return true;
+                } catch (e) { return false; }
+            }
+            async function simpanPasswordBaru() {
+                const fam = mockFamilyDatabase[currentKKNumber];
+                const lama = document.getElementById('pw-lama').value, baru = document.getElementById('pw-baru').value, konf = document.getElementById('pw-konfirm').value;
+                if (!fam) return setPwMsg("Sesi login tidak ditemukan. Silakan login ulang.", false);
+                if (lama !== fam.pin) return setPwMsg("Password saat ini salah.", false);
+                if (baru.length < 6 || baru.length > 20) return setPwMsg("Password baru harus 6 sampai 20 karakter.", false);
+                if (baru === lama) return setPwMsg("Password baru harus berbeda dari password saat ini.", false);
+                if (baru !== konf) return setPwMsg("Ulangi password baru dengan isian yang sama.", false);
+
+                const btn = document.getElementById('pw-simpan');
+                btn.disabled = true; btn.classList.add('opacity-60');
+                fam.pin = baru;
+                const tersimpan = await kirimPasswordKeSheet(currentKKNumber, baru);
+                setPwMsg(tersimpan ? "Password berhasil diubah dan dikirim ke Google Sheet. Gunakan password baru saat login berikutnya." : "Password berhasil diubah untuk sesi ini. Hubungkan Google Sheet agar tersimpan permanen.", true);
+                btn.disabled = false; btn.classList.remove('opacity-60');
+                setTimeout(closeModalPassword, 2400);
+            }
+
             function openModalDetailAnggota(memberId) {
-                const familyData = mockFamilyDatabase[currentKKNumber] || mockFamilyDatabase["3324010101900001"];
+                const familyData = mockFamilyDatabase[currentKKNumber] || mockFamilyDatabase["GP-0001"];
                 const member = familyData.anggota.find(m => m.id === memberId);
                 if (!member) return;
 
@@ -2429,7 +2505,7 @@
                 for (const [key, value] of Object.entries(member.hasilDetail)) {
                     metricsHtml += `
                         <div class="p-2.5 rounded-xl bg-white border border-olive-green/20 text-center">
-                            <span class="block text-[10px] text-earth-brown uppercase font-bold">${key}</span>
+                            <span class="block text-[10px] text-earth-brown font-bold">${labelMetrik(key)}</span>
                             <span class="text-xs font-black text-deep-green">${value}</span>
                         </div>
                     `;
