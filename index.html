@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="id">
 <head>
     <!-- ===== BAGIAN 1 DARI 4 : MULAI (head, CSS, header, tab Beranda) ===== -->
@@ -495,6 +495,9 @@
         @media (min-width: 1536px) { html { font-size: 17px; } }
         @media (min-width: 1920px) { html { font-size: 18px; } }
         @media (prefers-reduced-motion: reduce) { section[id^="content-"], #kmsHasilPanel, #kmsDiagramPanel { animation: none !important; } html { scroll-behavior: auto; } }
+    </style>
+<style>
+        #print-report .pr-chart img, #print-report .pr-bell img { display: block; margin: 0 auto; max-width: 100%; height: auto; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
@@ -1176,7 +1179,6 @@
                                         <button type="button" id="btnRecumbent" onclick="setMeasureType('recumbent')" class="kc-choice text-left text-xs"><div class="font-extrabold">Terlentang (PB)</div><div class="text-[10px] opacity-75">Standar 0–24 Bulan</div></button>
                                         <button type="button" id="btnStanding" onclick="setMeasureType('standing')" class="kc-choice is-active text-left text-xs"><div class="font-extrabold">Berdiri (TB)</div><div class="text-[10px] opacity-75">Standar 24–60 Bulan</div></button>
                                     </div>
-                                    <p class="text-[11px] text-earth-brown/70 mt-1">*Otomatis menyesuaikan saat usia diubah (&lt; 24 bln terlentang, &ge; 24 bln berdiri). Jika cara ukur berbeda dari standar, nilai dikoreksi 0,7 cm sesuai aturan WHO.</p>
                                 </div>
 
                                 <div>
@@ -1339,7 +1341,6 @@
                                         <div><label class="block mb-1" for="bmi-jk">Jenis Kelamin:</label><select id="bmi-jk" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow"><option value="boys">Laki-laki</option><option value="girls">Perempuan</option></select></div>
                                     </div>
                                 </div>
-                                <p id="bmi-std-info" class="text-[11px] leading-relaxed font-semibold text-earth-brown bg-soft-yellow/50 border border-sun-yellow/40 rounded-xl px-3 py-2"></p>
                                 <div>
                                     <label class="block mb-1">Nama (Opsional, untuk laporan cetak):</label>
                                     <input type="text" id="bmi-nama" placeholder="Contoh: Siti Ratnah" class="w-full p-2.5 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-sun-yellow">
@@ -2721,10 +2722,9 @@
             }
             function gantiStdBmi() {
                 const el = id => document.getElementById(id), k = el('bmi-std').value, r = el('bmi-grup').value === 'remaja';
-                el('bmi-std-info').textContent = (r ? BFA_STD : BMI_STD)[k].info;
+                
                 if (!el('bmi-result').classList.contains('hidden')) hitungbmi();
             }
-            document.addEventListener('DOMContentLoaded', () => { const e = document.getElementById('bmi-std-info'); if (e) e.textContent = BMI_STD.kemenkes.info; });
 
             function hitungbmi(event) {
                 if (event) event.preventDefault();
@@ -3402,8 +3402,10 @@
           const displayX = indKey === 'wflh' ? childX.toFixed(1) : childX;
 
           const boxW = 150;
-          const boxX = cx > W - pad.right - boxW - 14 ? cx - boxW - 12 : cx + 12;
-          const boxY = cy < pad.top + 36 ? cy + 10 : cy - 32;
+          // label ditempatkan di sudut kosong plot (kiri-atas; kanan-bawah bila titik berada di kiri-atas) agar tidak menutupi garis kurva
+          const nearTL = cx < pad.left + boxW + 24 && cy < pad.top + 50;
+          const boxX = nearTL ? W - pad.right - boxW - 8 : pad.left + 8;
+          const boxY = nearTL ? H - pad.bottom - 34 : pad.top + 8;
 
           const childMarkerSvg = `
             <line x1="${cx}" y1="${pad.top}" x2="${cx}" y2="${H - pad.bottom}" stroke="${pinColor}" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.75" />
@@ -3705,7 +3707,7 @@ v = urlGambarAman(v);
             function bacaLogoFile(side, input) {
                 const f = input.files && input.files[0];
                 if (!f) return;
-if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 2 * 1024 * 1024) { input.value = ''; showToast('Logo harus PNG/JPG/WEBP/GIF dengan ukuran maksimal 2 MB.'); return; }
+if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 5 * 1024 * 1024) { input.value = ''; showToast('Logo harus PNG/JPG/WEBP/GIF dengan ukuran maksimal 5 MB.'); return; }
                 const r = new FileReader();
                 r.onload = e => {
                     const im = new Image();
@@ -3820,13 +3822,10 @@ if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 2 * 1024 * 1024) {
             });
             const IMG_DONE = new Map();
             const imgData = u => { if (!IMG_CACHE.has(u)) IMG_CACHE.set(u, imgRaw(u).then(d => { IMG_DONE.set(u, d); return d; })); return IMG_CACHE.get(u); };
-            const svgPng = svg => new Promise(ok => {
-                const vb = svg.getAttribute('viewBox').split(/\s+/).map(Number), im = new Image();
-                svg.setAttribute('width', vb[2]); svg.setAttribute('height', vb[3]);
-                im.onload = () => { const c = document.createElement('canvas'); c.width = vb[2] * 3; c.height = vb[3] * 3; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height); ok({ d: c.toDataURL('image/png'), r: vb[3] / vb[2] }); };
-                im.onerror = () => ok(null);
-                im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg));
-            });
+            const svgPng = async svg => {
+const vb = (svg.getAttribute('viewBox') || '').trim().split(/\s+/).map(Number);
+try { const d = await svgKePngData(new XMLSerializer().serializeToString(svg)); return d && vb[2] > 0 ? { d, r: vb[3] / vb[2] } : null; } catch (e) { return null; }
+};
 
             /* ===== PDF: halaman dirender sebagai gambar beresolusi tinggi (3x), lalu dirangkai ke berkas PDF tanpa pustaka luar ===== */
             function cssDokumen(scope) {
@@ -4125,8 +4124,9 @@ if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 2 * 1024 * 1024) {
                 const w = cetakWaktu(), p = ukuran(), cw = p.w - p.m[1] - p.m[3], ch = p.h - p.m[0] - p.m[2], root = gid('print-report');
                 const L = PCFG.ttd[type] || ttdDefault(type), px = 96 / 25.4, cap = ch * px;
                 const title = type === 'kms' ? 'Laporan Hasil Analisis KMS Balita' : 'Laporan Hasil Analisis BMI / IMT', nomor = `Nomor: GP/${type.toUpperCase()}/${w.kode}`;
-                const body = type === 'kms' ? isiKMS(w, cw, ch) : isiBMI(w, cw, ch);
-                window.lastReport = { title, nomor, blocks: body, L, w };
+                const body0 = type === 'kms' ? isiKMS(w, cw, ch) : isiBMI(w, cw, ch);
+                const body = await gambarkanSvg(body0);
+                window.lastReport = { title, nomor, blocks: body0, L, w };
                 const ttd = `<div class="pr-ttd" style="grid-template-columns:repeat(${Math.min(Math.max(L.length, 1), 3)},1fr);${L.length ? '' : 'display:none'}">${ttdCells(L, w)}</div><p class="pr-disclaimer">${DISCLAIMER}</p>`;
                 const blocks = [`<div class="pr-kop">${bangunKop()}</div><h2 class="pr-title">${title}</h2><p class="pr-nomor">${nomor}</p>`, ...body, ttd];
                 root.innerHTML = `<div class="pr-flow" style="width:${cw}mm">${blocks.map(b => `<div class="pr-blk">${b}</div>`).join('')}</div>`;
@@ -4223,6 +4223,38 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="javascript:" i]').forEach(a => a.removeAttribute('href'));
     if (!MODE_DEMO) { const d = document.getElementById('demo-hint'); if (d) d.remove(); }
 });
+</script>
+<script>
+/* ===== V14: diagram laporan dijadikan gambar PNG berukuran pasti (anti-geser di HP, cetak, PDF, Word) ===== */
+async function svgKePngData(svgStr) {
+    const vb = (svgStr.match(/viewBox="([\d.\s-]+)"/) || [])[1];
+    if (!vb) return null;
+    const [, , w, h] = vb.trim().split(/\s+/).map(Number);
+    if (!(w > 0 && h > 0)) return null;
+    const skala = Math.min(3, 3000 / w);
+    let s = svgStr.replace(/<svg\b([^>]*)>/, (m, a) => '<svg' + a.replace(/\s(width|height|style)="[^"]*"/g, '') + ' width="' + w + '" height="' + h + '">');
+    if (!/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/.test(s.slice(0, 300))) s = s.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    const img = new Image();
+    await new Promise((ok, no) => { img.onload = ok; img.onerror = () => no(new Error('svg')); img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s); });
+    if (img.decode) { try { await img.decode(); } catch (e) {} }
+    const c = document.createElement('canvas'); c.width = Math.round(w * skala); c.height = Math.round(h * skala);
+    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL('image/png');
+}
+async function gambarkanSvg(blocks) {
+    const out = [];
+    for (const b of blocks) {
+        let res = '', last = 0, m; const re = /<svg\b[\s\S]*?<\/svg>/g;
+        while ((m = re.exec(b))) {
+            res += b.slice(last, m.index); last = re.lastIndex;
+            const lebar = (m[0].match(/<svg\b[^>]*?\swidth="([^"]+)"/) || [])[1];
+            let png = null; try { png = await svgKePngData(m[0]); } catch (e) { png = null; }
+            res += png ? '<img src="' + png + '" alt="Diagram" style="display:block;margin:0 auto;width:' + (lebar || '100%') + ';max-width:100%;height:auto">' : m[0];
+        }
+        out.push(res + b.slice(last));
+    }
+    return out;
+}
 </script>
 </body>
     </html>
