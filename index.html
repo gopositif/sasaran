@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <!-- ===== BAGIAN 1 DARI 4 : MULAI (head, CSS, header, tab Beranda) ===== -->
@@ -498,6 +498,21 @@
     </style>
 <style>
         #print-report .pr-chart img, #print-report .pr-bell img { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+    </style>
+<style>
+        #proses-overlay { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(28,25,23,.62); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+        #proses-overlay.aktif { display: flex; }
+        .proses-card { width: 100%; max-width: 340px; background: #fff; border-radius: 24px; padding: 28px 22px 24px; text-align: center; box-shadow: 0 30px 60px -20px rgba(0,0,0,.55); }
+        .proses-spin { width: 58px; height: 58px; margin: 0 auto 16px; border-radius: 50%; border: 5px solid #EBF2DF; border-top-color: #1E4620; animation: prosesPutar .9s linear infinite; }
+        .proses-card.selesai .proses-spin { animation: none; border-color: #10b981; background: #10b981; position: relative; }
+        .proses-card.selesai .proses-spin::after { content: ""; position: absolute; left: 19px; top: 10px; width: 12px; height: 24px; border: solid #fff; border-width: 0 5px 5px 0; transform: rotate(45deg); }
+        .proses-bar { height: 8px; border-radius: 99px; background: #EBF2DF; overflow: hidden; margin-top: 16px; }
+        .proses-bar > i { display: block; height: 100%; width: 40%; border-radius: 99px; background: linear-gradient(90deg, #7C9246, #1E4620); animation: prosesGeser 1.2s ease-in-out infinite; }
+        .proses-bar.tentu > i { animation: none; transition: width .35s ease; }
+        @keyframes prosesPutar { to { transform: rotate(360deg); } }
+        @keyframes prosesGeser { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+        @media (prefers-reduced-motion: reduce) { .proses-spin { animation-duration: 2.4s; } .proses-bar > i { animation: none; width: 100%; } }
+        #modal-cetak button[disabled] { opacity: .55; cursor: not-allowed; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
@@ -1521,6 +1536,7 @@
                             <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-earth-brown" aria-label="Keterangan warna kartu menurut kategori usia">
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-pink-200"><i class="w-2.5 h-2.5 rounded-full bg-pink-500"></i>Balita</span>
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-sky-200"><i class="w-2.5 h-2.5 rounded-full bg-sky-500"></i>Remaja</span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-fuchsia-200"><i class="w-2.5 h-2.5 rounded-full bg-fuchsia-500"></i>Ibu Hamil/Menyusui</span>
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-emerald-200"><i class="w-2.5 h-2.5 rounded-full bg-emerald-600"></i>Usia Produktif</span>
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-amber-200"><i class="w-2.5 h-2.5 rounded-full bg-amber-500"></i>Lansia</span>
                             </div>
@@ -2398,7 +2414,8 @@
                 balita:   { icon:"fa-baby", grad:"from-rose-400 to-pink-600", ring:"border-pink-200", iconText:"text-pink-600", tile:"bg-pink-50 text-pink-800", noteBg:"bg-pink-50", noteBorder:"border-pink-400", btn:"bg-pink-600 hover:bg-pink-700" },
                 remaja:   { icon:"fa-user-graduate", grad:"from-sky-400 to-blue-600", ring:"border-sky-200", iconText:"text-sky-600", tile:"bg-sky-50 text-sky-800", noteBg:"bg-sky-50", noteBorder:"border-sky-400", btn:"bg-sky-600 hover:bg-sky-700" },
                 produktif:{ icon:"fa-user-tie", grad:"from-emerald-500 to-teal-700", ring:"border-emerald-200", iconText:"text-emerald-700", tile:"bg-emerald-50 text-emerald-800", noteBg:"bg-emerald-50", noteBorder:"border-emerald-500", btn:"bg-emerald-700 hover:bg-emerald-800" },
-                lansia:   { icon:"fa-person-cane", grad:"from-amber-400 to-orange-600", ring:"border-amber-200", iconText:"text-amber-600", tile:"bg-amber-50 text-amber-800", noteBg:"bg-amber-50", noteBorder:"border-amber-500", btn:"bg-amber-600 hover:bg-amber-700" }
+                lansia:   { icon:"fa-person-cane", grad:"from-amber-400 to-orange-600", ring:"border-amber-200", iconText:"text-amber-600", tile:"bg-amber-50 text-amber-800", noteBg:"bg-amber-50", noteBorder:"border-amber-500", btn:"bg-amber-600 hover:bg-amber-700" },
+                ibu:      { icon:"fa-person-pregnant", grad:"from-fuchsia-500 to-purple-700", ring:"border-fuchsia-200", iconText:"text-fuchsia-600", tile:"bg-fuchsia-50 text-fuchsia-800", noteBg:"bg-fuchsia-50", noteBorder:"border-fuchsia-500", btn:"bg-fuchsia-600 hover:bg-fuchsia-700" }
             };
 
             function renderFamilyCards(familyData) {
@@ -2407,8 +2424,13 @@
                 document.getElementById('profil-jml-anggota').innerText = familyData.anggota.length + " anggota";
 
                 familyData.anggota.forEach(member => {
-                    const kat = (member.kategori || "").toLowerCase();
-                    const t = kat.includes("balita") ? TEMA_KATEGORI.balita : kat.includes("remaja") ? TEMA_KATEGORI.remaja : kat.includes("lansia") ? TEMA_KATEGORI.lansia : TEMA_KATEGORI.produktif;
+                    const kat = ((member.kategori || "") + " " + (member.peran || "")).toLowerCase();
+                    let t;
+                    if (/hamil|menyusui|nifas|busui|bumil/.test(kat)) t = { ...TEMA_KATEGORI.ibu, icon: /hamil|bumil/.test(kat) ? "fa-person-pregnant" : "fa-person-breastfeeding" };
+                    else if (kat.includes("balita")) t = TEMA_KATEGORI.balita;
+                    else if (kat.includes("remaja")) t = TEMA_KATEGORI.remaja;
+                    else if (kat.includes("lansia")) t = TEMA_KATEGORI.lansia;
+                    else t = { ...TEMA_KATEGORI.produktif, icon: /ayah|bapak|suami|kepala/.test(kat) ? "fa-person" : /ibu|istri/.test(kat) ? "fa-person-dress" : "fa-briefcase" };
                     const tiles = Object.entries(member.hasilDetail || {}).slice(0, 3).map(([k, v]) => `
                         <div class="rounded-xl ${t.tile} px-2 py-2 text-center min-w-0">
                             <span class="block text-[10px] font-bold opacity-80 truncate">${labelMetrik(k)}</span>
@@ -4231,7 +4253,7 @@ async function svgKePngData(svgStr) {
     if (!vb) return null;
     const [, , w, h] = vb.trim().split(/\s+/).map(Number);
     if (!(w > 0 && h > 0)) return null;
-    const skala = Math.min(3, 3000 / w);
+    const skala = Math.min(window.innerWidth < 820 ? 2 : 3, 3000 / w); // lebih ringan di HP
     let s = svgStr.replace(/<svg\b([^>]*)>/, (m, a) => '<svg' + a.replace(/\s(width|height|style)="[^"]*"/g, '') + ' width="' + w + '" height="' + h + '">');
     if (!/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/.test(s.slice(0, 300))) s = s.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
     const img = new Image();
@@ -4255,6 +4277,75 @@ async function gambarkanSvg(blocks) {
     }
     return out;
 }
+</script>
+<div id="proses-overlay" role="alertdialog" aria-modal="true" aria-live="polite" aria-labelledby="proses-judul">
+    <div class="proses-card" id="proses-card">
+        <div class="proses-spin" aria-hidden="true"></div>
+        <h3 id="proses-judul" style="font-weight:800;color:#1E4620;font-size:1.05rem">Sedang diproses</h3>
+        <p id="proses-sub" style="margin-top:4px;font-size:.8rem;font-weight:600;color:#5A3B21">Mohon tunggu sebentar...</p>
+        <div class="proses-bar" id="proses-bar"><i></i></div>
+        <p style="margin-top:14px;font-size:.7rem;font-weight:600;color:#78716c;line-height:1.5">Jangan menutup halaman atau menekan tombol lagi sampai proses selesai.</p>
+    </div>
+</div>
+<script>
+/* ===== V15: indikator proses + cetak menunggu gambar siap ===== */
+let sedangProses = false, _failsafe = null;
+const _el = id => document.getElementById(id);
+function kunciTombolCetak(on) { document.querySelectorAll('#modal-cetak button, #modal-cetak input[type=submit]').forEach(b => { b.disabled = on; }); }
+function mulaiProses(judul, sub) {
+    sedangProses = true;
+    _el('proses-card').classList.remove('selesai');
+    _el('proses-judul').textContent = judul; _el('proses-sub').textContent = sub || 'Mohon tunggu sebentar...';
+    const bar = _el('proses-bar'); bar.classList.remove('tentu'); bar.firstElementChild.style.width = '';
+    _el('proses-overlay').classList.add('aktif'); kunciTombolCetak(true);
+    clearTimeout(_failsafe); _failsafe = setTimeout(() => selesaiProses(false), 180000);
+}
+function ubahProses(sub, persen) {
+    _el('proses-sub').textContent = sub;
+    if (typeof persen === 'number') { const bar = _el('proses-bar'); bar.classList.add('tentu'); bar.firstElementChild.style.width = Math.max(6, Math.min(100, persen)) + '%'; }
+}
+function selesaiProses(sukses, pesan) {
+    clearTimeout(_failsafe);
+    const tutup = () => { _el('proses-overlay').classList.remove('aktif'); sedangProses = false; kunciTombolCetak(false); };
+    if (sukses) { _el('proses-card').classList.add('selesai'); _el('proses-judul').textContent = 'Berhasil'; ubahProses(pesan || 'Selesai.', 100); setTimeout(tutup, 1100); }
+    else tutup();
+}
+async function tungguGambarSiap() {
+    const imgs = [...document.querySelectorAll('#print-report img')];
+    await Promise.all(imgs.map(im => im.decode ? im.decode().catch(() => {}) : (im.complete ? 1 : new Promise(r => { im.onload = im.onerror = r; }))));
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await new Promise(r => setTimeout(r, 250));
+}
+const _toastAsli = window.showToast;
+window.showToast = function (m) {
+    if (sedangProses && /^(Membuat PDF|Menyiapkan)/.test(String(m))) {
+        const mm = String(m).match(/halaman (\d+) dari (\d+)/);
+        ubahProses(String(m).replace(/\.\.\.$/, ''), mm ? ((+mm[1] - 1) / +mm[2]) * 100 : undefined);
+        return;
+    }
+    return _toastAsli.apply(this, arguments);
+};
+const _eksporAsli = window.eksporLaporan;
+window.eksporLaporan = async function (fmt) {
+    if (sedangProses) return;
+    const nama = fmt === 'doc' ? 'Word (.docx)' : 'PDF';
+    mulaiProses('Membuat file ' + nama, 'Menyusun laporan dan diagram');
+    let ok = true;
+    try { await tungguGambarSiapAwal(); await _eksporAsli.call(this, fmt); }
+    catch (e) { ok = false; console.error(e); }
+    selesaiProses(ok, 'File ' + nama + ' sedang diunduh.');
+};
+async function tungguGambarSiapAwal() { await new Promise(r => setTimeout(r, 60)); } // beri kesempatan overlay tampil dulu
+window.simpanDanCetak = function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (sedangProses) return;
+    mulaiProses('Menyiapkan halaman cetak', 'Menyusun laporan dan diagram');
+    new Promise(r => setTimeout(r, 60))
+        .then(() => siapkanLaporan())
+        .then(() => { ubahProses('Memuat diagram'); return tungguGambarSiap(); })
+        .then(() => { closeModalCetak(); selesaiProses(false); setTimeout(() => window.print(), 150); })
+        .catch(err => { console.error(err); selesaiProses(false); showToast('Laporan gagal disusun. Coba lagi.'); });
+};
 </script>
 </body>
     </html>
