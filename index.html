@@ -3624,6 +3624,7 @@
                 jenisCetak = type;
                 gid('cetak-jenis').textContent = type === 'kms' ? 'KMS Balita' : 'BMI / IMT';
                 isiFormKop(KOP_LAPORAN);
+                [KOP_LAPORAN.logoKiri, KOP_LAPORAN.logoKanan].forEach(u => u && imgData(u).catch(() => { }));
                 gid('modal-cetak').classList.remove('hidden');
             }
             function closeModalCetak() { gid('modal-cetak').classList.add('hidden'); }
@@ -3644,7 +3645,7 @@
                     chart: { on: ck('cfg-g-on'), growth: ck('cfg-g-growth'), bell: ck('cfg-g-bell'), idx: { wfa: ck('cfg-g-wfa'), lhfa: ck('cfg-g-lhfa'), wflh: ck('cfg-g-wflh') } } });
                 try { localStorage.setItem(KOP_KEY, JSON.stringify(KOP_LAPORAN)); localStorage.setItem(PCFG_KEY, JSON.stringify(PCFG)); } catch (err) { showToast('Pengaturan tidak dapat disimpan di peramban ini.'); }
             }
-            async function siapkanLaporan() { bacaCfg(); terapkanHalaman(); await bangunLaporan(jenisCetak); }
+            async function siapkanLaporan() { bacaCfg(); terapkanHalaman(); await Promise.all([KOP_LAPORAN.logoKiri, KOP_LAPORAN.logoKanan].filter(Boolean).map(u => imgData(u).catch(() => { }))); await bangunLaporan(jenisCetak); }
             function simpanDanCetak(e) {
                 e.preventDefault();
                 siapkanLaporan().then(() => { closeModalCetak(); window.print(); }).catch(err => { console.error(err); showToast('Laporan gagal disusun. Coba lagi.'); });
@@ -3675,12 +3676,15 @@
                     showToast(gagalLogo ? 'File .' + ext + ' diunduh, tetapi logo dari alamat web tidak dapat disematkan. Unggah logo dari perangkat agar ikut tercetak.' : 'File .' + ext + ' berhasil diunduh.');
                 } catch (err) { console.error(err); showToast('Ekspor .' + ext + ' gagal. Periksa koneksi internet lalu coba lagi.'); }
             }
-            const imgData = u => new Promise((ok, no) => {
+            const IMG_CACHE = new Map();
+            const imgRaw = u => new Promise((ok, no) => {
                 if (/^data:/.test(u)) return ok(u);
                 const im = new Image(); im.crossOrigin = 'anonymous';
                 im.onload = () => { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; c.getContext('2d').drawImage(im, 0, 0); try { ok(c.toDataURL('image/png')); } catch (e) { no(e); } };
                 im.onerror = no; im.src = u;
             });
+            const IMG_DONE = new Map();
+            const imgData = u => { if (!IMG_CACHE.has(u)) IMG_CACHE.set(u, imgRaw(u).then(d => { IMG_DONE.set(u, d); return d; })); return IMG_CACHE.get(u); };
             const svgPng = svg => new Promise(ok => {
                 const vb = svg.getAttribute('viewBox').split(/\s+/).map(Number), im = new Image();
                 svg.setAttribute('width', vb[2]); svg.setAttribute('height', vb[3]);
@@ -3690,9 +3694,14 @@
             });
 
             /* ===== PDF: halaman dirender sebagai gambar beresolusi tinggi (3x), lalu dirangkai ke berkas PDF tanpa pustaka luar ===== */
-            function cssDokumen() {
+            function cssDokumen(scope) {
+                const relevan = sel => /#print-report/.test(sel) || sel.split(',').some(q => {
+                    const t = q.replace(/::?[a-z-]+(\([^)]*\))?/gi, '').trim();
+                    if (!t || /^(\*|html|body|:root)/.test(t)) return true;
+                    try { return scope.matches(t) || !!scope.querySelector(t); } catch (e) { return true; }
+                });
                 let out = '';
-                for (const ss of document.styleSheets) { let r; try { r = ss.cssRules; } catch (e) { continue; } for (const x of r) if (x.type === 1) out += x.cssText + '\n'; }
+                for (const ss of document.styleSheets) { let r; try { r = ss.cssRules; } catch (e) { continue; } for (const x of r) if (x.type === 1 && (!scope || relevan(x.selectorText))) out += x.cssText + '\n'; }
                 return out.replace(/'Plus Jakarta Sans'|"Plus Jakarta Sans"|Quicksand/g, 'Arial');
             }
             async function rasterPage(pg, p, css, scale) {
@@ -3739,10 +3748,11 @@
                 return new Blob(parts, { type: 'application/pdf' });
             }
             async function eksporPDF() {
-                const p = ukuran(), pages = [...gid('print-report').querySelectorAll('.pr-page')], css = cssDokumen(), imgs = [];
-                for (const pg of pages) {
-                    let cv;
-                    try { cv = await rasterPage(pg, p, css, 3); } catch (e) { console.warn('Render bawaan gagal, memakai cadangan:', e); cv = await rasterFallback(pg, p); }
+                const p = ukuran(), pages = [...gid('print-report').querySelectorAll('.pr-page')], css = cssDokumen(gid('print-report')), imgs = [], sc = window.innerWidth < 820 ? 2.5 : 3;
+                for (let i = 0; i < pages.length; i++) {
+                    const pg = pages[i]; let cv;
+                    showToast(`Membuat PDF: halaman ${i + 1} dari ${pages.length}...`); await new Promise(r => setTimeout(r, 30));
+                    try { cv = await rasterPage(pg, p, css, sc); } catch (e) { console.warn('Render bawaan gagal, memakai cadangan:', e); cv = await rasterFallback(pg, p); }
                     const blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.95));
                     imgs.push({ b: new Uint8Array(await blob.arrayBuffer()), w: cv.width, h: cv.height });
                 }
@@ -3871,7 +3881,7 @@
             }
 
             function bangunKop() {
-                const k = KOP_LAPORAN, img = (c, u) => u ? `<img class="${c}" src="${esc(u)}" alt="">` : '';
+                const k = KOP_LAPORAN, img = (c, u) => u ? `<img class="${c}" src="${esc(IMG_DONE.get(u) || u)}" alt="">` : '';
                 return img('logo-l', k.logoKiri) + img('logo-r', k.logoKanan) +
                     [['k1', k.b1], ['k2', k.b2], ['k3', k.b3], ['k4', k.b4]].map(([c, t]) => t ? `<div class="${c}">${esc(t)}</div>` : '').join('');
             }
