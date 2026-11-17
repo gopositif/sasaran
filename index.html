@@ -516,13 +516,61 @@
     </style>
 
 <style>
-/* === V17: Beranda sasaran (alur, jadwal, info, grafik) === */
+/* === V18: alur + jadwal/info/grafik sama dgn web utama === */
+.tone-green{--c:#7C9246;--d:#3F5A1F;--b:#F3F7EA;--m:#DDE8C6}
+.tone-sky{--c:#6BA7C4;--d:#2F5F7A;--b:#EEF6FA;--m:#D3E7F1}
+.tone-amber{--c:#E0A24E;--d:#7A4B12;--b:#FEF6EA;--m:#F8E3BF}
+.tone-pink{--c:#D98BA3;--d:#8A3A55;--b:#FCF0F4;--m:#F5D9E2}
+.tone-violet{--c:#9C8CC9;--d:#54448A;--b:#F4F1FB;--m:#E0D9F1}
+.tone-rose{--c:#D9867F;--d:#8A3B34;--b:#FDF1EE;--m:#F6D9D4}
+.v8-num{width:1.85rem;height:1.85rem;border-radius:9999px;background:#FBE3BE;color:#5A3B21;font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #EBC48A;box-shadow:0 2px 0 #EBC48A}
+.v8-sub{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:.9rem;color:var(--deep-green);margin-bottom:.75rem}
+.v8-sub i{color:var(--olive-green)}.v8-sub-evt i{color:#E0A24E}
+.v8-chip{display:inline-block;padding:.15rem .65rem;border-radius:9999px;font-size:.72rem;font-weight:800;background:var(--m,#EBF2DF);color:var(--d,#1E4620);border:1px solid var(--c,#7C9246)}
+.v8-leg{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .75rem;border-radius:9999px;background:var(--b);color:var(--d);font-weight:800;font-size:.78rem;border:1.5px solid var(--m)}
+.v8-leg i{width:.7rem;height:.7rem;border-radius:9999px;background:var(--c);display:inline-block}
+/* jadwal rutin: pastel sesuai nama posyandu */
+.sch-card{display:flex;gap:.85rem;align-items:stretch;padding:.75rem;border-radius:16px;background:linear-gradient(100deg,var(--b),#fff 80%);border:1px solid var(--m);border-left:6px solid var(--c);box-shadow:0 5px 12px -8px rgba(90,59,33,.25);transition:transform .2s,box-shadow .2s}
+.sch-card:hover{transform:translateY(-2px);box-shadow:0 10px 18px -10px rgba(90,59,33,.3)}
+.sch-date{min-width:4.1rem;border-radius:14px;background:var(--m);color:var(--d);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.4rem .3rem;border:1px solid var(--c);box-shadow:0 2px 0 var(--c)}
+.sch-date b{font-size:1.65rem;line-height:1;font-weight:900;font-family:Quicksand,sans-serif}.sch-date small{font-size:.72rem;font-weight:800;letter-spacing:.08em;margin-top:.15rem}
+.sch-pn{display:inline-block;background:var(--m);color:var(--d);font-weight:800;font-size:.72rem;padding:.15rem .65rem;border-radius:9999px;border:1px solid var(--c)}
+.sch-card h5{color:var(--deep-green);font-weight:800;font-size:.95rem;line-height:1.35;margin-top:.3rem}
+.sch-meta{font-size:.8rem;font-weight:600;color:#5A3B21;display:flex;flex-wrap:wrap;gap:.2rem .9rem;margin-top:.3rem}.sch-meta i{color:var(--c);margin-right:.25rem}
+/* acara khusus: krim-kuning / hijau lembut + ikon logo */
+.evt-card{--ea:#F3A94B;--eb:#FEF4E6;--em:#FBE3BE;--ek:#EBC48A;--ed:#7A4B12;position:relative;overflow:hidden;display:flex;gap:.9rem;padding:1rem;border-radius:18px;color:var(--earth-brown);background:linear-gradient(135deg,var(--eb),#fff 88%);border:1.5px dashed var(--ek);box-shadow:0 8px 16px -12px rgba(90,59,33,.35);transition:transform .2s}
+.evt-card.b{--ea:#7C9246;--eb:#EBF2DF;--em:#D6E4BB;--ek:#B4CA86;--ed:#2F4A1A}
+.evt-card:hover{transform:translateY(-2px)}
+.evt-card::after{content:"";position:absolute;right:-34px;top:-34px;width:120px;height:120px;border-radius:9999px;background:var(--em);opacity:.55}
+.evt-ic{position:relative;width:3.4rem;height:3.4rem;border-radius:16px;background:#fff;border:2px solid var(--em);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;color:var(--ed);box-shadow:0 3px 0 var(--em)}
+.evt-badge{position:relative;display:inline-flex;align-items:center;gap:.3rem;background:var(--em);color:var(--ed);font-weight:900;font-size:.68rem;letter-spacing:.08em;padding:.15rem .6rem;border-radius:9999px;text-transform:uppercase}
+.evt-badge i{color:var(--ea)}
+.evt-card h5{font-weight:900;font-size:1.02rem;line-height:1.3;margin:.35rem 0 .15rem;position:relative;color:var(--deep-green)}
+.evt-card p{font-size:.82rem;font-weight:500;color:var(--earth-brown);position:relative}
+.evt-meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem;position:relative}
+.evt-pill{background:#fff;border:1px solid var(--em);color:var(--earth-brown);border-radius:9999px;padding:.15rem .65rem;font-size:.76rem;font-weight:700}
+.evt-pill i{color:var(--ea)}
+.evt-pill.pn{background:var(--m);color:var(--d);border-color:var(--c)}
+/* info & penyuluhan */
+.v8-info{display:flex;gap:.9rem;padding:1rem;border-radius:16px;background:linear-gradient(100deg,var(--b),#fff 85%);border:1px solid var(--m);border-left:6px solid var(--c);box-shadow:0 5px 12px -8px rgba(90,59,33,.22);transition:transform .2s}
+.v8-info:hover{transform:translateY(-2px)}
+.v8-info-ic{width:3rem;height:3rem;border-radius:14px;background:var(--m);color:var(--d);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:1px solid var(--c)}
+/* filter & statistik grafik */
+.v8-f{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.v8-f>span{font-size:.75rem;font-weight:800;color:var(--earth-brown)}
+.v8-f input,.v8-f select{width:100%;padding:.5rem .75rem;background:#fff;color:var(--deep-green);font-weight:700;border:1px solid rgba(124,146,70,.35)}
+.v8-stat{background:linear-gradient(160deg,#fff,#F3F7EA);border:1px solid rgba(124,146,70,.22);border-radius:14px;padding:.6rem .5rem;text-align:center}
+.v8-stat span{display:block;font-size:.72rem;font-weight:700;color:var(--earth-brown)}.v8-stat b{font-size:1.2rem;font-weight:900;color:var(--deep-green);font-family:Quicksand,sans-serif}
+.v8-f input,.v8-f select{border-radius:.75rem;min-height:2.6rem;font-size:.85rem}
+.v8-f input:focus,.v8-f select:focus{outline:none;box-shadow:0 0 0 3px rgba(243,169,75,.45)}
+.v8-f select:disabled{background:#F3F7EA;opacity:.85;cursor:not-allowed}
+.sch-card,.evt-card,.v8-info{min-width:0}
+@media(max-width:420px){.sch-date{min-width:3.4rem}.sch-date b{font-size:1.4rem}.evt-ic{width:2.8rem;height:2.8rem;font-size:1.3rem}.evt-card::after{display:none}}
+
 .sx-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;padding-bottom:1rem;margin-bottom:1.25rem;border-bottom:1px dashed rgba(124,146,70,.38)}
 .sx-ico{width:2.9rem;height:2.9rem;border-radius:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;background:linear-gradient(135deg,#1E4620,#7C9246);box-shadow:0 8px 16px -8px rgba(30,70,32,.65)}
 .sx-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:800;padding:.3rem .85rem;border-radius:999px;background:#EBF2DF;color:#1E4620;border:1px solid rgba(124,146,70,.35);white-space:nowrap}
 .sx-badge.warn{background:#FEF4E6;color:#5A3B21;border-color:rgba(243,169,75,.55)}
-.sx-dot{width:.5rem;height:.5rem;border-radius:50%;background:#E07A5F;animation:sxp 1.6s infinite}
-@keyframes sxp{0%{box-shadow:0 0 0 0 rgba(224,122,95,.55)}100%{box-shadow:0 0 0 .55rem rgba(224,122,95,0)}}
 .sx-flow{display:grid;grid-template-columns:1fr;gap:1rem}
 @media(min-width:640px){.sx-flow{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.sx-flow{grid-template-columns:repeat(4,1fr);gap:1.4rem}}
@@ -533,38 +581,6 @@
 .sx-step h4{font-weight:800;font-size:.85rem;color:#1E4620;margin-bottom:.35rem}
 .sx-step p{font-size:.75rem;line-height:1.6;color:#5A3B21;font-weight:500}
 @media(min-width:1024px){.sx-step:not(:last-child)::after{content:"\203A";position:absolute;right:-1.15rem;top:2rem;width:1.7rem;height:1.7rem;border-radius:50%;background:#fff;border:2px solid rgba(124,146,70,.45);color:#1E4620;font-weight:800;line-height:1.35rem;text-align:center;z-index:2}}
-.sx-jgrid,.sx-igrid{display:grid;grid-template-columns:1fr;gap:1.25rem}
-@media(min-width:768px){.sx-jgrid,.sx-igrid{grid-template-columns:1fr 1fr}}
-.sx-sub{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:.85rem;color:#1E4620;margin-bottom:.75rem}
-.sx-sub i{width:1.7rem;height:1.7rem;border-radius:.55rem;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;background:#EBF2DF;color:#7C9246}
-.sx-sub.k i{background:#FEF4E6;color:#E07A5F}
-.sx-jcard{display:flex;gap:.9rem;align-items:center;padding:.8rem;border-radius:1rem;background:#fff;border:1px solid rgba(124,146,70,.18);border-left:5px solid var(--c);box-shadow:0 4px 12px -8px rgba(30,70,32,.4);transition:transform .2s,box-shadow .2s}
-.sx-jcard:hover{transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(30,70,32,.45)}
-.sx-jdate{flex:0 0 3.7rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.5rem .3rem;border-radius:.9rem;line-height:1.1;background:var(--c);color:var(--dt,#fff)}
-.sx-jdate b{font-size:1.45rem;font-weight:800}
-.sx-jdate small{font-size:.62rem;font-weight:800;letter-spacing:.1em}
-.sx-jbody{min-width:0;flex:1}
-.sx-chip{display:inline-block;max-width:100%;padding:.12rem .6rem;border-radius:999px;font-size:.66rem;font-weight:800;background:#EBF2DF;background:color-mix(in srgb,var(--c) 15%,#fff);color:var(--ct,var(--c))}
-.sx-jt{font-size:.8rem;font-weight:800;color:#1E4620;margin-top:.3rem;overflow-wrap:anywhere}
-.sx-jm{font-size:.72rem;font-weight:600;color:#5A3B21;margin-top:.1rem}
-.sx-jm i{margin-right:.35rem;color:var(--c)}
-.sx-icard{padding:1rem 1.05rem;border-radius:1rem;background:#fff;border:1px solid rgba(124,146,70,.18);border-top:4px solid var(--c);box-shadow:0 4px 12px -8px rgba(30,70,32,.4);transition:transform .2s,box-shadow .2s}
-.sx-icard:hover{transform:translateY(-3px);box-shadow:0 14px 24px -12px rgba(30,70,32,.45)}
-.sx-icard h4{font-size:.9rem;font-weight:800;color:#1E4620;margin:.5rem 0 .3rem;line-height:1.4}
-.sx-icard p{font-size:.78rem;line-height:1.65;color:#5A3B21;font-weight:500}
-.sx-filter{display:grid;grid-template-columns:1fr;gap:.75rem;padding:1rem;border-radius:1rem;background:#FAF7F0;border:1px solid rgba(124,146,70,.2);align-items:end}
-@media(min-width:560px){.sx-filter{grid-template-columns:repeat(3,1fr)}}
-.sx-filter label{display:block;font-size:.66rem;font-weight:800;color:#5A3B21;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
-.sx-sel{width:100%;padding:.6rem .75rem;border-radius:.8rem;background:#fff;border:1px solid rgba(124,146,70,.35);font-size:.8rem;font-weight:700;color:#1E4620}
-.sx-sel:focus{outline:none;box-shadow:0 0 0 3px rgba(243,169,75,.45)}
-.sx-reset{padding:.6rem .9rem;border-radius:.8rem;font-size:.78rem;font-weight:800;background:#5A3B21;color:#fff;transition:background .2s}
-.sx-reset:hover{background:#422a17}
-.sx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
-@media(min-width:640px){.sx-stats{gap:1rem}}
-.sx-stat{padding:.7rem .5rem;border-radius:1rem;text-align:center;background:linear-gradient(180deg,#fff,#EBF2DF);border:1px solid rgba(124,146,70,.25)}
-.sx-stat span{display:block;font-size:.66rem;font-weight:800;color:#5A3B21;text-transform:uppercase;letter-spacing:.04em}
-.sx-stat b{display:block;font-size:1.35rem;font-weight:800;color:#1E4620;margin-top:.15rem}
-.sx-empty{padding:2rem 1rem;text-align:center;border-radius:1rem;border:2px dashed rgba(124,146,70,.4);background:#FAF7F0;color:#5A3B21;font-size:.8rem;font-weight:600}
 </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
@@ -745,53 +761,101 @@
                     </div>
                 </div>
 
-                <!-- JADWAL POSYANDU (mengikuti web utama) -->
-                <div class="white-card p-5 sm:p-6 md:p-8">
-                    <div class="sx-head"><div class="flex items-center gap-3 min-w-0"><div class="sx-ico" style="background:linear-gradient(135deg,#F3A94B,#E07A5F)"><i class="fa-solid fa-calendar-days text-lg"></i></div><div class="min-w-0"><h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">Jadwal Posyandu</h3><p id="jadwal-subtitle" class="text-xs text-earth-brown font-medium">Warna kartu mengikuti nama Posyandu</p></div></div><span id="jadwal-badge" class="sx-badge warn"><i class="fa-regular fa-calendar"></i>Bulan Ini</span></div>
-                    <div class="sx-jgrid">
-                        <div>
-                            <h4 class="sx-sub"><i class="fa-solid fa-repeat"></i>Jadwal Posyandu Rutin</h4>
-                            <div id="jadwal-list-container" class="space-y-3">
-                                <div class="sx-jcard" style="--c:#7C9246;"><div class="sx-jdate"><b>12</b><small>OKT</small></div><div class="sx-jbody"><span class="sx-chip">Posyandu Balita &amp; Stunting (RW 01)</span><p class="sx-jt">Dusun Gonoharjo RT 02 / RW 01</p><p class="sx-jm"><i class="fa-regular fa-clock"></i>08.00 - 11.30 WIB</p></div></div>
-                                <div class="sx-jcard" style="--c:#F3A94B;--dt:#5A3B21;--ct:#5A3B21;"><div class="sx-jdate"><b>25</b><small>OKT</small></div><div class="sx-jbody"><span class="sx-chip">Posyandu Lansia &amp; PTM (RW 02)</span><p class="sx-jt">Posko Kesehatan RT 05 / RW 02</p><p class="sx-jm"><i class="fa-regular fa-clock"></i>08.30 - 12.00 WIB</p></div></div>
+                                <!-- ===== V8: JADWAL POSYANDU & ACARA KHUSUS ===== -->
+                <div class="white-card p-5 sm:p-6 space-y-5" id="jadwal-kegiatan">
+                    <div class="flex items-center justify-between gap-3 border-b border-olive-green/10 pb-3.5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-soft-yellow flex-shrink-0"><i class="fa-solid fa-calendar-days text-xl text-sun-yellow"></i></div>
+                            <div>
+                                <h3 class="font-extrabold text-deep-green text-base sm:text-lg md:text-xl leading-tight">Jadwal Posyandu</h3>
+                                <p class="text-xs text-earth-brown font-medium">Warna kartu mengikuti nama Posyandu</p>
                             </div>
                         </div>
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-soft-green text-deep-green border border-olive-green/30 flex-shrink-0">Bulan Ini</span>
+                    </div>
+                    <div id="jadwal-legend" class="flex flex-wrap gap-2"></div>
+                    <div class="grid lg:grid-cols-2 gap-5 lg:gap-6">
                         <div>
-                            <h4 class="sx-sub k"><i class="fa-solid fa-star"></i>Jadwal Posyandu Khusus / Acara Khusus</h4>
-                            <div id="jadwal-khusus-container" class="space-y-3">
-                                <div class="sx-jcard" style="--c:#2A7B88;"><div class="sx-jdate"><b>18</b><small>OKT</small></div><div class="sx-jbody"><span class="sx-chip">Bulan Vitamin A &amp; Obat Cacing</span><p class="sx-jt">Balai Desa Gonoharjo</p><p class="sx-jm"><i class="fa-regular fa-clock"></i>08.00 - 11.00 WIB</p></div></div>
-                                <div class="sx-jcard" style="--c:#E07A5F;"><div class="sx-jdate"><b>29</b><small>OKT</small></div><div class="sx-jbody"><span class="sx-chip">Kelas Ibu Hamil &amp; Menyusui</span><p class="sx-jt">Pos Kesehatan RT 03 / RW 01</p><p class="sx-jm"><i class="fa-regular fa-clock"></i>09.00 - 11.30 WIB</p></div></div>
-                            </div>
+                            <h4 class="v8-sub"><i class="fa-regular fa-calendar-check"></i> Jadwal Posyandu Rutin</h4>
+                            <div id="jadwal-rutin" class="space-y-3"></div>
+                        </div>
+                        <div>
+                            <h4 class="v8-sub v8-sub-evt"><i class="fa-solid fa-wand-magic-sparkles"></i> Jadwal Posyandu Khusus / Acara Khusus</h4>
+                            <div id="jadwal-acara" class="space-y-3"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- INFO & PENYULUHAN (mengikuti web utama) -->
-                <div class="white-card p-5 sm:p-6 md:p-8">
-                    <div class="sx-head"><div class="flex items-center gap-3 min-w-0"><div class="sx-ico" style="background:linear-gradient(135deg,#2A7B88,#7C9246)"><i class="fa-solid fa-bullhorn text-lg"></i></div><div class="min-w-0"><h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">Info &amp; Penyuluhan</h3><p class="text-xs text-earth-brown font-medium">Informasi layanan dan edukasi kesehatan terbaru</p></div></div><span class="sx-badge warn"><span class="sx-dot"></span>Penting</span></div>
-                    <div class="sx-igrid">
-                        <article class="sx-icard" style="--c:#F3A94B"><span class="sx-chip" style="background:#FEF4E6;color:#1E4620">Edukasi Ibu &amp; Anak</span><h4>Pentingnya Vitamin A &amp; Obat Cacing Bulan Oktober</h4><p>Dihimbau orang tua membawa balita sesuai jadwal kelompok posyandu masing-masing...</p></article>
-                        <article class="sx-icard" style="--c:#7C9246"><span class="sx-chip" style="background:#EBF2DF;color:#1E4620">Usia Produktif</span><h4>Skrining Dini Tekanan Darah &amp; Gula Darah Warga Desa</h4><p>Layanan gratis cek tensi dan konsultasi kesehatan untuk pencegahan PTM...</p></article>
+                <!-- ===== V8: INFO & PENYULUHAN (isi sama dengan web Sasaran) ===== -->
+                <div class="white-card p-5 sm:p-6 space-y-4" id="info-penyuluhan">
+                    <div class="flex items-center justify-between gap-3 border-b border-olive-green/10 pb-3.5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-soft-green flex-shrink-0"><i class="fa-solid fa-bullhorn text-xl text-olive-green"></i></div>
+                            <div>
+                                <h3 class="font-extrabold text-deep-green text-base sm:text-lg md:text-xl leading-tight">Info &amp; Penyuluhan</h3>
+                                <p class="text-xs text-earth-brown font-medium">Informasi layanan dan edukasi kesehatan terbaru</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-soft-yellow text-earth-brown border border-sun-yellow/50 flex-shrink-0"><i class="fa-solid fa-circle-exclamation mr-1 text-sun-yellow"></i>Penting</span>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <article class="v8-info tone-pink">
+                            <div class="v8-info-ic"><i class="fa-solid fa-baby"></i></div>
+                            <div class="space-y-1.5 min-w-0">
+                                <span class="v8-chip">Edukasi Ibu &amp; Anak</span>
+                                <h4 class="font-extrabold text-deep-green text-sm md:text-base leading-snug">Pentingnya Vitamin A &amp; Obat Cacing Bulan Oktober</h4>
+                                <p class="text-xs md:text-sm text-earth-brown font-medium leading-relaxed">Dihimbau orang tua membawa balita sesuai jadwal kelompok posyandu masing-masing...</p>
+                            </div>
+                        </article>
+                        <article class="v8-info tone-violet">
+                            <div class="v8-info-ic"><i class="fa-solid fa-stethoscope"></i></div>
+                            <div class="space-y-1.5 min-w-0">
+                                <span class="v8-chip">Usia Produktif</span>
+                                <h4 class="font-extrabold text-deep-green text-sm md:text-base leading-snug">Skrining Dini Tekanan Darah &amp; Gula Darah Warga Desa</h4>
+                                <p class="text-xs md:text-sm text-earth-brown font-medium leading-relaxed">Layanan gratis cek tensi dan konsultasi kesehatan untuk pencegahan PTM...</p>
+                            </div>
+                        </article>
                     </div>
                 </div>
 
-                <!-- GRAFIK KEHADIRAN POSYANDU KELUARGA (mengikuti web utama) -->
-                <div class="white-card p-5 sm:p-6 md:p-8 space-y-5">
-                    <div class="sx-head"><div class="flex items-center gap-3 min-w-0"><div class="sx-ico" style="background:linear-gradient(135deg,#1E4620,#2A7B88)"><i class="fa-solid fa-chart-line text-lg"></i></div><div class="min-w-0"><h3 class="font-extrabold text-deep-green text-base md:text-lg leading-tight">Grafik Kehadiran Posyandu Keluarga</h3><p id="chart-subtitle" class="text-xs text-earth-brown font-medium">Silakan login barcode &amp; PIN untuk menampilkan grafik kehadiran keluarga Anda.</p></div></div><span class="sx-badge"><i class="fa-solid fa-bolt text-sun-yellow"></i>Data Interaktif</span></div>
-                    <div class="sx-filter">
-                        <div><label for="kh-dari">Dari Bulan</label><select id="kh-dari" class="sx-sel" onchange="applyKhFilter()"></select></div>
-                        <div><label for="kh-sampai">Sampai Bulan</label><select id="kh-sampai" class="sx-sel" onchange="applyKhFilter()"></select></div>
-                        <button type="button" class="sx-reset" onclick="resetKhFilter()"><i class="fa-solid fa-rotate-left mr-1.5"></i>Atur Ulang</button>
+                <!-- ===== V8: GRAFIK KEHADIRAN POSYANDU ===== -->
+                <div class="white-card p-5 sm:p-6 md:p-8 space-y-5" id="grafik-kehadiran">
+                    <div class="border-b border-olive-green/10 pb-4">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <h3 class="font-extrabold text-deep-green text-base sm:text-lg md:text-xl">Grafik Kehadiran Posyandu Keluarga</h3>
+                            <span class="px-2.5 py-0.5 bg-soft-green text-deep-green text-xs font-bold rounded-full border border-olive-green/30">Data Interaktif</span>
+                        </div>
+                        <p id="chart-subtitle" class="text-xs text-earth-brown mt-1 font-medium">Silakan login barcode &amp; PIN untuk menampilkan grafik kehadiran keluarga Anda.</p>
                     </div>
-                    <p class="text-[11px] text-earth-brown font-medium"><i class="fa-solid fa-circle-info text-olive-green mr-1"></i>Arahkan kursor / sentuh <span class="font-bold">titik grafik</span> untuk melihat angka.</p>
-                    <div class="sx-stats">
-                        <div class="sx-stat"><span>Rata-rata</span><b id="kh-avg">-</b></div>
-                        <div class="sx-stat"><span>Tertinggi</span><b id="kh-max">-</b></div>
-                        <div class="sx-stat"><span>Terakhir</span><b id="kh-last">-</b></div>
+                
+                    <div class="bg-base-cream p-3.5 sm:p-4 rounded-2xl border border-olive-green/15 space-y-3">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                            <label class="v8-f"><span><i class="fa-regular fa-calendar mr-1"></i>Dari Tanggal</span>
+                                <input type="date" id="filter-dari" value="2026-05-01" min="2026-05-01" max="2026-10-31" onchange="applyKhFilter('dari')"></label>
+                            <label class="v8-f"><span><i class="fa-regular fa-calendar-check mr-1"></i>Sampai Tanggal</span>
+                                <input type="date" id="filter-sampai" value="2026-10-31" min="2026-05-01" max="2026-10-31" onchange="applyKhFilter('sampai')"></label>
+                            <label class="v8-f col-span-2 lg:col-span-1"><span><i class="fa-solid fa-house-medical mr-1"></i>Nama Posyandu</span>
+                                <select id="filter-posyandu" disabled title="Data kehadiran keluarga dihitung gabungan dari seluruh Posyandu"><option value="semua">Semua Posyandu</option></select></label>
+                            <label class="v8-f col-span-2 lg:col-span-1"><span><i class="fa-solid fa-users mr-1"></i>Sasaran</span>
+                                <select id="filter-sasaran" disabled title="Data kehadiran keluarga dihitung gabungan seluruh anggota"><option value="semua">Seluruh Anggota Keluarga (Total)</option></select></label>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="text-[11px] text-earth-brown font-medium"><i class="fa-solid fa-heart text-olive-green mr-1"></i>Arahkan kursor / sentuh <b>titik grafik</b> untuk melihat angka.</span>
+                            <button type="button" onclick="resetKhFilter()" class="px-3 py-1.5 text-xs font-bold bg-white text-earth-brown rounded-xl border border-olive-green/25 hover:bg-soft-yellow"><i class="fa-solid fa-rotate-left mr-1 text-olive-green"></i>Atur Ulang</button>
+                        </div>
                     </div>
-                    <div id="kh-canvas-wrap" class="hidden w-full h-64 sm:h-72 md:h-80 relative"><canvas id="kehadiranKeluargaChart"></canvas></div>
-                    <div id="kh-empty" class="sx-empty"><i class="fa-solid fa-chart-simple text-2xl text-olive-green block mb-2"></i>Belum ada data kehadiran. Silakan login Barcode &amp; PIN atau ubah rentang bulan.</div>
-                    <p class="text-center text-xs font-bold text-olive-green">&#10024; Setiap kehadiran keluarga adalah langkah nyata menciptakan lingkungan sehat bersama.</p>
+                
+                    <div id="chart-stats" class="grid grid-cols-3 gap-2.5 sm:gap-3">
+                        <div class="v8-stat"><span>Rata-rata</span><b id="st-avg">-</b></div>
+                        <div class="v8-stat"><span>Tertinggi</span><b id="st-max">-</b></div>
+                        <div class="v8-stat"><span>Terakhir</span><b id="st-last">-</b></div>
+                    </div>
+                
+                    <div class="w-full h-64 sm:h-72 md:h-80 relative">
+                        <canvas id="kehadiranKeluargaChart"></canvas>
+                        <div id="chart-empty" class="hidden absolute inset-0 flex items-center justify-center text-center text-sm font-bold text-earth-brown bg-white/85 rounded-xl p-4">Silakan login Barcode &amp; PIN untuk menampilkan grafik kehadiran keluarga Anda.</div>
+                    </div>
+                    <p class="text-center text-xs text-earth-brown font-medium italic">✨ Setiap kehadiran keluarga adalah langkah nyata menciptakan lingkungan sehat bersama.</p>
                 </div>
 
             </section>
@@ -2615,74 +2679,54 @@
             }
 
             function initKehadiranChart() {
-                khInitSelects();
-                const ctx = document.getElementById('kehadiranKeluargaChart').getContext('2d');
-                kehadiranChartInstance = new Chart(ctx, {
+                const canvasEl = document.getElementById('kehadiranKeluargaChart');
+                if (!canvasEl || typeof Chart === 'undefined') return;
+                kehadiranChartInstance = new Chart(canvasEl.getContext('2d'), {
                     type: 'line',
-                    data: {
-                        labels: KH_LABELS.slice(),
-                        datasets: [{
-                            label: 'Persentase Kehadiran Posyandu Keluarga (%)',
-                            data: [0, 0, 0, 0, 0, 0],
-                            borderColor: '#1E4620',
-                            backgroundColor: 'rgba(124, 146, 70, 0.12)',
-                            borderWidth: 3,
-                            pointBackgroundColor: '#F3A94B',
-                            pointBorderColor: '#FFFFFF',
-                            pointBorderWidth: 3,
-                            pointRadius: 6,
-                            pointHoverRadius: 9,
-                            fill: true,
-                            tension: 0.35
-                        }]
-                    },
+                    data: { labels: [], datasets: [{ label: '', data: [], borderColor: '#1E4620', borderWidth: 3, backgroundColor: 'rgba(30,70,32,0.12)', fill: true, tension: 0.35, pointBackgroundColor: '#7C9246', pointBorderColor: '#ffffff', pointBorderWidth: 3, pointRadius: 6, pointHoverRadius: 9 }] },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
+                        responsive: true, maintainAspectRatio: false,
                         plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) { return ` Kehadiran: ${context.raw}%`; }
-                                }
-                            }
+                            legend: { display: true, position: 'top' },
+                            tooltip: { backgroundColor: '#1E4620', titleFont: { size: 13, weight: 'bold' }, bodyFont: { size: 13 }, padding: 10, displayColors: false,
+                                callbacks: { label: c => `Kehadiran: ${c.raw}%` } }
                         },
-                        scales: {
-                            y: { min: 0, max: 100, ticks: { stepSize: 20, callback: v => v + '%' }, grid: { color: 'rgba(124,146,70,.15)' } }, x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: true } }
-                        }
+                        scales: { y: { min: 0, max: 100, grid: { color: 'rgba(124, 146, 70, 0.15)' }, ticks: { stepSize: 20, callback: v => v + '%' } }, x: { grid: { display: false } } }
                     }
                 });
+                applyKhFilter();
             }
-
-            const KH_LABELS = ['Mei 2026', 'Juni 2026', 'Juli 2026', 'Agustus 2026', 'September 2026', 'Oktober 2026'];
+            const KH_BULAN = [['2026-05','Mei'],['2026-06','Jun'],['2026-07','Jul'],['2026-08','Agu'],['2026-09','Sep'],['2026-10','Okt']];
             let khData = [], khLoaded = false;
-            function khInitSelects() {
-                const a = document.getElementById('kh-dari'), b = document.getElementById('kh-sampai');
-                if (!a || !b || a.options.length) return;
-                KH_LABELS.forEach((l, i) => { a.add(new Option(l, i)); b.add(new Option(l, i)); });
-                a.value = 0; b.value = KH_LABELS.length - 1;
-            }
-            function applyKhFilter() {
-                const a = document.getElementById('kh-dari'), b = document.getElementById('kh-sampai');
-                if (!a || !b) return;
-                let s = +a.value, e = +b.value;
-                if (s > e) { [s, e] = [e, s]; a.value = s; b.value = e; }
-                const vals = khLoaded ? khData.slice(s, e + 1) : [];
-                const has = vals.length > 0;
-                document.getElementById('kh-empty').classList.toggle('hidden', has);
-                document.getElementById('kh-canvas-wrap').classList.toggle('hidden', !has);
-                document.getElementById('kh-avg').textContent = has ? Math.round(vals.reduce((x, y) => x + y, 0) / vals.length) + '%' : '-';
-                document.getElementById('kh-max').textContent = has ? Math.max(...vals) + '%' : '-';
-                document.getElementById('kh-last').textContent = has ? vals[vals.length - 1] + '%' : '-';
-                if (has && kehadiranChartInstance) {
-                    kehadiranChartInstance.data.labels = KH_LABELS.slice(s, e + 1);
-                    kehadiranChartInstance.data.datasets[0].data = vals;
+            function applyKhFilter(src) {
+                const $ = id => document.getElementById(id);
+                if (!$('filter-dari')) return;
+                let dari = $('filter-dari').value, sampai = $('filter-sampai').value;
+                if (dari && sampai && dari > sampai) { if (src === 'dari') sampai = dari; else dari = sampai; $('filter-dari').value = dari; $('filter-sampai').value = sampai; }
+                const rows = !khLoaded ? [] : KH_BULAN.map((b, i) => {
+                    const [y, m] = b[0].split('-').map(Number);
+                    const awal = b[0] + '-01', akhir = b[0] + '-' + String(new Date(y, m, 0).getDate()).padStart(2, '0');
+                    const ok = (!dari || akhir >= dari) && (!sampai || awal <= sampai);
+                    return ok && khData[i] !== undefined ? { l: b[1] + ' ' + y, v: khData[i] } : null;
+                }).filter(Boolean);
+                if (kehadiranChartInstance) {
+                    const ds = kehadiranChartInstance.data.datasets[0];
+                    kehadiranChartInstance.data.labels = rows.map(r => r.l);
+                    ds.data = rows.map(r => r.v);
+                    ds.label = 'Kehadiran Keluarga — Seluruh Anggota (%)';
                     kehadiranChartInstance.update();
                 }
+                const em = $('chart-empty');
+                em.classList.toggle('hidden', rows.length > 0);
+                em.textContent = khLoaded ? 'Tidak ada data pada rentang tanggal ini. Silakan ubah tanggal.' : 'Silakan login Barcode & PIN untuk menampilkan grafik kehadiran keluarga Anda.';
+                const v = rows.map(r => r.v);
+                $('st-avg').textContent = v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) + '%' : '-';
+                $('st-max').textContent = v.length ? Math.max(...v) + '%' : '-';
+                $('st-last').textContent = v.length ? v[v.length - 1] + '%' : '-';
             }
             function resetKhFilter() {
-                document.getElementById('kh-dari').value = 0;
-                document.getElementById('kh-sampai').value = KH_LABELS.length - 1;
+                document.getElementById('filter-dari').value = '2026-05-01';
+                document.getElementById('filter-sampai').value = '2026-10-31';
                 applyKhFilter();
             }
             function updateKehadiranChart(dataArr) {
@@ -4353,6 +4397,34 @@ window.simpanDanCetak = function (e) {
         .then(() => { closeModalCetak(); selesaiProses(false); setTimeout(() => window.print(), 150); })
         .catch(err => { console.error(err); selesaiProses(false); showToast('Laporan gagal disusun. Coba lagi.'); });
 };
+</script>
+<script id="v18-js">
+/* Jadwal Posyandu: data & tampilan sama dengan web utama. Edit data di bagian ini saja. */
+(function(){
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+window.POSYANDU=[
+ {id:'dusun',nama:'Posyandu Dusun Gonoharjo',tone:'green'},
+ {id:'balai',nama:'Posyandu Balai Desa',tone:'sky'},
+ {id:'posko',nama:'Posyandu Posko RT 05',tone:'amber'}
+];
+window.V8_TONE={green:'#6B8A3A',sky:'#3F86A8',amber:'#C9812A',pink:'#C0607F',violet:'#8573BD',rose:'#CF7068'};
+const PZ=Object.fromEntries(POSYANDU.map(p=>[p.id,p]));
+
+/* 2) JADWAL RUTIN */
+const JADWAL=[
+ {p:'dusun',hari:'12',bln:'OKT',judul:'Posyandu Balita & Pendampingan Tumbuh Kembang',sub:'Kami menantikan kehadiran buah hati & bunda',jam:'08.00 - 11.30 WIB',tempat:'Dusun Gonoharjo RT 02 / RW 01'},
+ {p:'balai',hari:'18',bln:'OKT',judul:'Posyandu Remaja & Edukasi Nutrisi Diri',sub:'Ruang ceria & pendampingan remaja sehat',jam:'14.00 - 16.30 WIB',tempat:'Balai Desa Gonoharjo'},
+ {p:'posko',hari:'25',bln:'OKT',judul:'Posyandu Lansia & Skrining Kebugaran Usia Emas',sub:'Silaturahmi & pemeriksaan kesehatan lansia',jam:'08.30 - 12.00 WIB',tempat:'Posko Kesehatan RT 05'}
+];
+/* 3) ACARA KHUSUS (contoh — ganti sesuai kegiatan sebenarnya). v:'a' ungu-pink, 'b' oranye-merah */
+const ACARA=[
+ {p:'dusun',v:'a',icon:'fa-capsules',judul:'Bulan Vitamin A & Obat Cacing',desk:'Pemberian Vitamin A dan obat cacing gratis untuk balita. Jangan lupa bawa Buku KIA.',hari:'20',bln:'OKT',jam:'08.00 - 11.00 WIB',tempat:'Dusun Gonoharjo RT 02 / RW 01'},
+ {p:'posko',v:'b',icon:'fa-person-walking',judul:'Senam Sehat & Jalan Santai Lansia',desk:'Senam bersama, cek tensi gratis, dan door prize untuk lansia Gonoharjo.',hari:'28',bln:'OKT',jam:'06.30 - 09.00 WIB',tempat:'Posko Kesehatan RT 05'}
+];
+
+
+})();
 </script>
 </body>
     </html>
