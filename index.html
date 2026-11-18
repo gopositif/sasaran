@@ -616,6 +616,30 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
 }
 @media print{header,nav{position:static!important}}
 </style>
+<style id="v20-polish">
+/* V20: isian kalkulator, modal cetak, kop terkunci */
+#ageInput::placeholder,#heightInput::placeholder,#weightInput::placeholder{color:#8B8F7C;font-weight:500;opacity:1}
+#ageInput,#heightInput,#weightInput{-moz-appearance:textfield;appearance:textfield}
+#ageInput::-webkit-outer-spin-button,#ageInput::-webkit-inner-spin-button,#heightInput::-webkit-outer-spin-button,#heightInput::-webkit-inner-spin-button,#weightInput::-webkit-outer-spin-button,#weightInput::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.kc-nudge{min-width:44px;min-height:44px}
+input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-allowed}
+.kop-locked-btn{opacity:.5;cursor:not-allowed;pointer-events:none}
+#modal-cetak{padding:max(1rem,env(safe-area-inset-top)) max(1rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(1rem,env(safe-area-inset-left))}
+@media (max-width:640px){
+  #modal-cetak{align-items:flex-end;padding:0}
+  #modal-cetak>div{border-radius:20px 20px 0 0;max-height:92dvh;padding-bottom:max(1.25rem,env(safe-area-inset-bottom))}
+}
+@media (max-width:480px){#modal-cetak .grid.grid-cols-2{grid-template-columns:1fr}}
+#btn-unduh-docx[aria-disabled="true"]{opacity:.6;filter:saturate(.5);cursor:not-allowed}
+@media (max-width:480px){#modal-cetak .flex.flex-wrap.justify-end>button{flex:1 1 calc(50% - .25rem);justify-content:center}}
+</style>
+<style id="v22-wm">
+/* V22: watermark hak cipta di tengah halaman laporan */
+#print-report .pr-wm{position:absolute;top:0;right:0;bottom:0;left:0;z-index:20;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#print-report .pr-wm img{display:block;width:74%;max-height:72%;object-fit:contain}
+#wm-row.wm-locked{opacity:.9;cursor:not-allowed}
+#wm-row input:disabled{cursor:not-allowed}
+</style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased bg-[#FAF7F0] pb-20 md:pb-16">
 
@@ -1228,17 +1252,17 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label for="ageInput" class="kc-label !mb-0">Umur Anak (Bulan Penuh)</label>
-                                        <span id="ageYearsLabel" class="kc-pill">2 tahun 0 bulan</span>
+                                        <span id="ageYearsLabel" class="kc-pill">Belum diisi</span>
                                     </div>
                                     <div class="flex items-center gap-2.5">
                                         <div class="relative flex-1">
-                                            <input type="number" id="ageInput" min="0" max="60" step="1" value="24" oninput="handleAgeChange(this.value)" class="kc-input pr-11 text-base">
+                                            <input type="number" id="ageInput" min="0" max="60" step="1" inputmode="numeric" placeholder="Contoh: 20" oninput="handleAgeChange(this.value)" class="kc-input pr-11 text-base">
                                             <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-earth-brown/60">bln</span>
                                         </div>
                                         <select id="ageSelect" onchange="handleAgeChange(this.value)" aria-label="Pilih Umur Bulan" class="kc-input !w-auto !py-2.5 text-xs cursor-pointer"></select>
                                     </div>
                                     <div class="mt-2.5">
-                                        <input type="range" id="ageSlider" min="0" max="60" step="1" value="24" oninput="handleAgeChange(this.value)" class="w-full h-2 bg-soft-green rounded-lg appearance-none cursor-pointer">
+                                        <input type="range" id="ageSlider" min="0" max="60" step="1" value="0" oninput="handleAgeChange(this.value)" class="w-full h-2 bg-soft-green rounded-lg appearance-none cursor-pointer">
                                         <div class="flex justify-between text-[10px] font-semibold text-earth-brown/60 mt-1"><span>0 bln</span><span>12</span><span>24</span><span>36</span><span>48</span><span>60 bln</span></div>
                                     </div>
                                 </div>
@@ -1254,12 +1278,12 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label for="heightInput" id="heightLabel" class="kc-label !mb-0">Tinggi Badan (cm)</label>
-                                        <button type="button" onclick="setMedianHeight()" class="kc-link">Isi Median (<span id="quickMedianHeightHint">87.1</span> cm)</button>
+                                        <button type="button" onclick="setMedianHeight()" class="kc-link">Isi Median (<span id="quickMedianHeightHint">–</span> cm)</button>
                                     </div>
                                     <div class="flex items-center gap-2">
                                     <button type="button" onclick="adjustHeight(-0.5)" class="kc-nudge">−0.5</button>
                                     <div class="relative flex-1">
-                                        <input type="number" id="heightInput" min="45" max="125" step="any" inputmode="decimal" value="87.1" oninput="calculateAll()" class="kc-input pr-10 text-base">
+                                        <input type="number" id="heightInput" min="45" max="125" step="any" inputmode="decimal" placeholder="Contoh: 82.5" oninput="calculateAll()" class="kc-input pr-10 text-base">
                                         <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-earth-brown/60">cm</span>
                                     </div>
                                     <button type="button" onclick="adjustHeight(0.5)" class="kc-nudge">+0.5</button>
@@ -1269,12 +1293,12 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label for="weightInput" class="kc-label !mb-0">Berat Badan Aktual (kg)</label>
-                                        <button type="button" onclick="setMedianWeight()" class="kc-link">Isi Median (<span id="quickMedianWeightHint">12.2</span> kg)</button>
+                                        <button type="button" onclick="setMedianWeight()" class="kc-link">Isi Median (<span id="quickMedianWeightHint">–</span> kg)</button>
                                     </div>
                                     <div class="flex items-center gap-2">
                                     <button type="button" onclick="adjustWeight(-0.1)" class="kc-nudge">−0.1</button>
                                     <div class="relative flex-1">
-                                        <input type="number" id="weightInput" min="1" max="45" step="any" inputmode="decimal" value="12.20" oninput="calculateAll()" class="kc-input pr-10 text-base">
+                                        <input type="number" id="weightInput" min="1" max="45" step="any" inputmode="decimal" placeholder="Contoh: 11.2" oninput="calculateAll()" class="kc-input pr-10 text-base">
                                         <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-earth-brown/60">kg</span>
                                     </div>
                                     <button type="button" onclick="adjustWeight(0.1)" class="kc-nudge">+0.1</button>
@@ -2133,6 +2157,13 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                 </div>
 
                 <form onsubmit="simpanDanCetak(event)" class="space-y-3 text-xs font-bold text-deep-green">
+                    <div id="kop-lock-info" class="hidden flex items-start gap-2.5 p-3 rounded-xl bg-soft-yellow border border-sun-yellow/50 text-earth-brown font-semibold leading-snug" role="note">
+                        <i class="fa-solid fa-lock text-amber-500 mt-0.5"></i>
+                        <div class="flex-1">
+                            <p>Kop surat (Baris 1 sampai 4 dan logo) dan unduh .docx terkunci untuk pengunjung umum. Cetak dan unduh .pdf tetap bisa dengan kop resmi Posyandu.</p>
+                            <button type="button" onclick="closeModalCetak(); openBarcodeModal('manual')" class="mt-1.5 underline font-extrabold text-deep-green">Login sebagai sasaran terdaftar untuk membuka kunci</button>
+                        </div>
+                    </div>
                     <div>
                         <label class="block mb-1">Baris 1 (Pemerintah Kabupaten):</label>
                         <input type="text" id="cfg-kop-b1" placeholder="PEMERINTAH KABUPATEN KENDAL" class="w-full p-2 bg-base-cream rounded-xl border border-olive-green/20 focus:outline-none focus:ring-2 focus:ring-olive-green">
@@ -2191,6 +2222,14 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                         <div id="cfg-ttd-list" class="space-y-2"></div>
                     </div>
 
+                    <label id="wm-row" class="flex items-start gap-3 p-3 rounded-xl bg-white border border-olive-green/20 cursor-pointer">
+                        <input type="checkbox" id="cfg-wm" checked onchange="PCFG.wm = this.checked" class="mt-0.5 w-4 h-4 flex-shrink-0 accent-[#1E4620]">
+                        <span class="flex-1 min-w-0">
+                            <span class="block font-extrabold">Watermark logo GO-Positif di setiap halaman <i id="ico-kunci-wm" class="fa-solid fa-lock text-[10px] text-amber-500" style="display:none"></i></span>
+                            <span id="wm-note" class="block text-[11px] font-semibold text-earth-brown mt-0.5 leading-snug"></span>
+                        </span>
+                    </label>
+
                     <div class="p-3 rounded-xl bg-white border border-olive-green/20 space-y-2">
                         <span class="font-extrabold block">Kertas &amp; Margin</span>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -2225,7 +2264,7 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                         <button type="button" onclick="resetKopDefault()" class="px-3 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition"><i class="fa-solid fa-rotate-left mr-1 text-olive-green"></i>Kop Bawaan</button>
                         <div class="flex flex-wrap gap-2 justify-end">
                             <button type="button" onclick="closeModalCetak()" class="px-3.5 py-2 bg-white border border-olive-green/30 text-earth-brown rounded-xl font-bold hover:bg-soft-yellow transition">Batal</button>
-                            <button type="button" onclick="eksporLaporan('doc')" class="btn-brown px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-file-word text-sun-yellow"></i>Unduh .docx</button>
+                            <button type="button" id="btn-unduh-docx" onclick="eksporLaporan('doc')" class="btn-brown px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-file-word text-sun-yellow"></i>Unduh .docx<i id="ico-kunci-docx" class="fa-solid fa-lock text-[10px] text-amber-300" style="display:none"></i></button>
                             <button type="button" onclick="eksporLaporan('pdf')" class="btn-brown px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-file-pdf text-sun-yellow"></i>Unduh .pdf</button>
                             <button type="submit" class="btn-primary px-3.5 py-2 font-bold inline-flex items-center gap-1.5 rounded-xl"><i class="fa-solid fa-print text-sun-yellow"></i>Cetak</button>
                         </div>
@@ -3206,6 +3245,14 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
         // =========================================================================
 
         window.handleAgeChange = function(val) {
+          if (String(val).trim() === '') {
+            document.getElementById('ageSelect').value = '';
+            document.getElementById('ageSlider').value = 0;
+            document.getElementById('ageYearsLabel').textContent = 'Belum diisi';
+            ['quickMedianHeightHint', 'quickMedianWeightHint'].forEach(id => document.getElementById(id).textContent = '–');
+            if (typeof kmsAktif !== 'undefined' && kmsAktif) setKMSAktif(false);
+            return;
+          }
           let parsed = parseInt(val, 10);
           if (isNaN(parsed)) parsed = 0;
           parsed = Math.max(0, Math.min(60, parsed));
@@ -3224,6 +3271,7 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
 
 
         window.adjustHeight = function(delta) {
+          if (!umurTerisi()) return;
           let cur = parseFloat(document.getElementById('heightInput').value) || 75;
           let next = Math.max(45, Math.min(125, +(cur + delta).toFixed(1)));
           document.getElementById('heightInput').value = next;
@@ -3231,6 +3279,7 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
         };
 
         window.adjustWeight = function(delta) {
+          if (!umurTerisi()) return;
           let cur = parseFloat(document.getElementById('weightInput').value) || 10;
           let next = Math.max(1, Math.min(45, +(cur + delta).toFixed(2)));
           document.getElementById('weightInput').value = next;
@@ -3238,6 +3287,7 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
         };
 
         window.setMedianHeight = function() {
+          if (!umurTerisi()) return;
           const fullLHFA = getFullLHFATable(state.gender, state.position);
           if (fullLHFA && fullLHFA[state.age]) {
             const median = fullLHFA[state.age][6];
@@ -3248,6 +3298,7 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
         };
 
         window.setMedianWeight = function() {
+          if (!umurTerisi()) return;
           const dataset = WHO_DB[`wfa_${state.gender}`];
           if (dataset && dataset[state.age]) {
             const median = dataset[state.age][6];
@@ -3727,10 +3778,10 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
             window.resetDefault = function () {
                 state.age = 24; state.measureType = 'standing'; state.position = 'standing'; state.height = 87.1; state.weight = 12.2;
                 document.getElementById('childName').value = '';
-                ['ageInput', 'ageSelect', 'ageSlider'].forEach(id => document.getElementById(id).value = 24);
-                document.getElementById('ageYearsLabel').textContent = formatYM(24);
-                document.getElementById('heightInput').value = '87.1';
-                document.getElementById('weightInput').value = '12.20';
+                ['ageInput', 'heightInput', 'weightInput', 'ageSelect'].forEach(id => document.getElementById(id).value = '');
+                document.getElementById('ageSlider').value = 0;
+                document.getElementById('ageYearsLabel').textContent = 'Belum diisi';
+                ['quickMedianHeightHint', 'quickMedianWeightHint'].forEach(id => document.getElementById(id).textContent = '–');
                 state.zoomMode = 'focus'; setActive('zoomFocusBtn', true); setActive('zoomFullBtn', false);
                 setGender('boys');
             };
@@ -3744,15 +3795,55 @@ nav.no-scrollbar::-webkit-scrollbar{display:none}
                 b1: 'PEMERINTAH KABUPATEN KENDAL',
                 b2: 'KECAMATAN LIMBANGAN - DESA GONOHARJO',
                 b3: 'POSYANDU INTEGRASI LAYANAN PRIMER (ILP)',
-                b4: 'Sekretariat: Jl. Raya Gonoharjo No. 12, Limbangan, Kendal. Email: posyandu.gonoharjo@gmail.com',
+                b4: 'Sekretariat: Jl. Air Panas No.02, Limbangan, Kendal. Email: posyandugonoharjo@gmail.com',
                 logoKiri: 'https://lh3.googleusercontent.com/d/1Pu9EO5ArNXsAwCYr7mRLfeVc0OV3L5_w',
                 logoKanan: 'https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv',
                 tempat: 'Gonoharjo',
                 bidan: ''
             };
-            const KOP_KEY = 'gp_kop_laporan_v1';
+            const KOP_KEY = 'gp_kop_laporan_v2'; // v2: membuang kop lama yang tersimpan di peramban
             let KOP_LAPORAN = Object.assign({}, KOP_LAPORAN_DEFAULT);
             try { const s = JSON.parse(localStorage.getItem(KOP_KEY) || 'null'); if (s) Object.assign(KOP_LAPORAN, s); } catch (e) { }
+            function docxDiizinkan() {
+                if (isUserLoggedIn) return true;
+                showToast('Unduh .docx khusus sasaran terdaftar. Silakan login dengan Barcode & PIN dulu.');
+                return false;
+            }
+            /* ===== Watermark hak cipta GO-Positif di tengah setiap halaman ===== */
+            const WM_LOGO_URL = 'https://lh3.googleusercontent.com/d/1r5Z3o71WH4mpF5qn1Dfeav_V7qNnYldv';
+            const WM_ALPHA = 0.13; // 0 = hilang, 1 = pekat. Makin kecil makin samar
+            const WM_CAPTION = '© GO-Positif Gonoharjo';
+            let WM_PROMISE = null;
+            /* Pengunjung belum login: selalu aktif. Sudah login: mengikuti pilihan di modal (bawaan aktif) */
+            function wmAktif() { return !isUserLoggedIn || PCFG.wm !== false; }
+            function wmCadangan() {
+                const t = (y, s, w, txt) => `<text x="500" y="${y}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${s}" font-weight="${w}" fill="#1E4620" fill-opacity="${WM_ALPHA}">${txt}</text>`;
+                return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360">${t(190, 170, 800, 'GO-Positif')}${t(290, 46, 700, WM_CAPTION)}</svg>`);
+            }
+            function siapkanWatermark() {
+                if (!WM_PROMISE) WM_PROMISE = (async () => {
+                    try {
+                        const du = await imgData(WM_LOGO_URL);
+                        const im = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = du; });
+                        const W = 1000, lw = 760, lh = Math.round(lw * im.naturalHeight / im.naturalWidth), c = document.createElement('canvas');
+                        c.width = W; c.height = lh + 120;
+                        const x = c.getContext('2d'); x.globalAlpha = WM_ALPHA;
+                        x.drawImage(im, (W - lw) / 2, 0, lw, lh);
+                        x.fillStyle = '#1E4620'; x.textAlign = 'center'; x.font = '700 46px "Plus Jakarta Sans", Arial, sans-serif';
+                        x.fillText(WM_CAPTION, W / 2, lh + 80);
+                        return c.toDataURL('image/png');
+                    } catch (e) { console.warn('Watermark memakai cadangan teks:', e); WM_PROMISE = null; return wmCadangan(); }
+                })();
+                return WM_PROMISE;
+            }
+            const KOP_TERKUNCI = ['b1', 'b2', 'b3', 'b4', 'logoKiri', 'logoKanan'];
+            /* Kop yang dipakai saat mencetak/ekspor: pengunjung belum login selalu memakai kop bawaan */
+            function kopBerlaku() {
+                if (isUserLoggedIn) return KOP_LAPORAN;
+                const k = Object.assign({}, KOP_LAPORAN);
+                KOP_TERKUNCI.forEach(f => { k[f] = KOP_LAPORAN_DEFAULT[f]; });
+                return k;
+            }
             let jenisCetak = 'kms';
 
             const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -3791,7 +3882,27 @@ v = urlGambarAman(v);
                 ['wfa', 'lhfa', 'wflh'].forEach(k => id('cfg-g-' + k).checked = (g.idx || {})[k] !== false);
                 id('cfg-g-idx').classList.toggle('hidden', jenisCetak !== 'kms');
             }
-            function resetKopDefault() { isiFormKop(KOP_LAPORAN_DEFAULT, { paper: 'A4', orient: 'portrait', margin: 'normal', m: [14, 15, 20, 15], ttd: {} }); }
+            function resetKopDefault() { isiFormKop(KOP_LAPORAN_DEFAULT, { paper: 'A4', orient: 'portrait', margin: 'normal', m: [14, 15, 20, 15], ttd: {} }); terapkanKunciKop(); }
+            function terapkanKunciKop() {
+                const kunci = !isUserLoggedIn, d = document;
+                ['cfg-kop-b1', 'cfg-kop-b2', 'cfg-kop-b3', 'cfg-kop-b4', 'cfg-logo-kiri', 'cfg-logo-kanan'].forEach(id => {
+                    const e = d.getElementById(id); e.readOnly = kunci; e.classList.toggle('kop-locked', kunci);
+                    e.setAttribute('aria-readonly', kunci ? 'true' : 'false');
+                });
+                d.querySelectorAll('#modal-cetak input[type=file]').forEach(e => { e.disabled = kunci; if (e.parentElement) e.parentElement.classList.toggle('kop-locked-btn', kunci); });
+                d.querySelectorAll('#modal-cetak button[onclick^="hapusLogo"]').forEach(b => { b.disabled = kunci; });
+                const info = d.getElementById('kop-lock-info'); if (info) info.classList.toggle('hidden', !kunci);
+                const bd = d.getElementById('btn-unduh-docx'), ik = d.getElementById('ico-kunci-docx');
+                if (bd) { bd.setAttribute('aria-disabled', kunci ? 'true' : 'false'); bd.title = kunci ? 'Terkunci: login sebagai sasaran terdaftar untuk mengunduh .docx' : ''; }
+                if (ik) ik.style.display = kunci ? 'inline-block' : 'none';
+                const cb = d.getElementById('cfg-wm');
+                if (cb) {
+                    cb.checked = wmAktif(); cb.disabled = kunci;
+                    const ikw = d.getElementById('ico-kunci-wm'); if (ikw) ikw.style.display = kunci ? 'inline-block' : 'none';
+                    const nt = d.getElementById('wm-note'); if (nt) nt.textContent = kunci ? 'Wajib aktif untuk pengunjung umum sebagai hak cipta GO-Positif. Login sebagai sasaran terdaftar untuk menonaktifkannya.' : 'Tampil di tengah setiap halaman cetak dan PDF. Hilangkan centang untuk menonaktifkan. Tidak berlaku pada file .docx.';
+                    const rw = d.getElementById('wm-row'); if (rw) rw.classList.toggle('wm-locked', kunci);
+                }
+            }
             function hapusLogo(side) { setLogoField(side, ''); }
 
             function bacaLogoFile(side, input) {
@@ -3850,7 +3961,7 @@ if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 5 * 1024 * 1024) {
                 }
                 jenisCetak = type;
                 gid('cetak-jenis').textContent = type === 'kms' ? 'KMS Balita' : 'BMI / IMT';
-                isiFormKop(KOP_LAPORAN);
+                isiFormKop(kopBerlaku()); terapkanKunciKop();
                 [KOP_LAPORAN.logoKiri, KOP_LAPORAN.logoKanan].forEach(u => u && imgData(u).catch(() => { }));
                 gid('modal-cetak').classList.remove('hidden');
             }
@@ -3865,7 +3976,9 @@ if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 5 * 1024 * 1024) {
             }
             function bacaCfg() {
                 const v = id => gid(id).value.trim(), ck = id => gid(id).checked;
-                KOP_LAPORAN = Object.assign({}, KOP_LAPORAN, { b1: v('cfg-kop-b1'), b2: v('cfg-kop-b2'), b3: v('cfg-kop-b3'), b4: v('cfg-kop-b4'), logoKiri: urlGambarAman(v('cfg-logo-kiri')), logoKanan: urlGambarAman(v('cfg-logo-kanan')), tempat: v('cfg-ttd-tempat') });
+                const kopForm = { b1: v('cfg-kop-b1'), b2: v('cfg-kop-b2'), b3: v('cfg-kop-b3'), b4: v('cfg-kop-b4'), logoKiri: urlGambarAman(v('cfg-logo-kiri')), logoKanan: urlGambarAman(v('cfg-logo-kanan')), tempat: v('cfg-ttd-tempat') };
+                if (!isUserLoggedIn) KOP_TERKUNCI.forEach(f => { delete kopForm[f]; });
+                KOP_LAPORAN = Object.assign({}, KOP_LAPORAN, kopForm);
                 const m = [0, 1, 2, 3].map(i => { let x = parseFloat(String(gid('cfg-m' + i).value).replace(',', '.')); x = isNaN(x) ? [14, 15, 20, 15][i] : x; return Math.min(40, Math.max(i === 2 ? 12 : 5, x)); });
                 PCFG.ttd[jenisCetak] = ttdDraft.filter(t => t.j || t.n || t.k).map(t => ({ j: t.j.trim(), n: t.n.trim(), k: t.k.trim(), d: !!t.d }));
                 Object.assign(PCFG, { paper: gid('cfg-paper').value, orient: gid('cfg-orient').value, margin: gid('cfg-margin').value, m,
@@ -3893,6 +4006,7 @@ if (!/^image\/(png|jpe?g|webp|gif)$/.test(f.type) || f.size > 5 * 1024 * 1024) {
             });
             let gagalLogo = false;
             async function eksporLaporan(fmt) {
+                if (fmt === 'doc' && !docxDiizinkan()) return;
                 const ext = fmt === 'doc' ? 'docx' : 'pdf';
                 try {
                     gagalLogo = false;
@@ -3985,8 +4099,9 @@ try { const d = await svgKePngData(new XMLSerializer().serializeToString(svg)); 
 
             /* ===== Word: berkas .docx sungguhan (OOXML) dengan gambar tertanam, tabel, dan footer halaman ===== */
             async function eksporDOC() {
+                if (!isUserLoggedIn) throw new Error('Ekspor .docx dikunci untuk pengunjung umum');
                 await muatScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js', () => window.JSZip);
-                const p = ukuran(), lr = window.lastReport, k = KOP_LAPORAN, zip = new JSZip(), media = [];
+                const p = ukuran(), lr = window.lastReport, k = kopBerlaku(), zip = new JSZip(), media = [];
                 const tw = mm => Math.round(mm * 56.693), emu = mm => Math.round(mm * 36000), cwMm = p.w - p.m[1] - p.m[3], cwT = tw(cwMm);
                 const xe = t => String(t).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 const rPr = o => `<w:rPr>${o.f ? `<w:rFonts w:ascii="${o.f}" w:hAnsi="${o.f}" w:cs="${o.f}"/>` : ''}${o.b ? '<w:b/>' : ''}${o.i ? '<w:i/>' : ''}${o.c ? `<w:color w:val="${o.c}"/>` : ''}${o.sz ? `<w:sz w:val="${Math.round(o.sz * 2)}"/><w:szCs w:val="${Math.round(o.sz * 2)}"/>` : ''}${o.u ? '<w:u w:val="single"/>' : ''}${o.fill ? `<w:shd w:val="clear" w:color="auto" w:fill="${o.fill}"/>` : ''}</w:rPr>`;
@@ -4105,7 +4220,7 @@ try { const d = await svgKePngData(new XMLSerializer().serializeToString(svg)); 
             }
 
             function bangunKop() {
-                const k = KOP_LAPORAN, img = (c, u) => u ? `<img class="${c}" src="${esc(IMG_DONE.get(u) || u)}" alt="">` : '';
+                const k = kopBerlaku(), img = (c, u) => u ? `<img class="${c}" src="${esc(IMG_DONE.get(u) || u)}" alt="">` : '';
                 return img('logo-l', k.logoKiri) + img('logo-r', k.logoKanan) +
                     [['k1', k.b1], ['k2', k.b2], ['k3', k.b3], ['k4', k.b4]].map(([c, t]) => t ? `<div class="${c}">${esc(t)}</div>` : '').join('');
             }
@@ -4236,17 +4351,19 @@ try { const d = await svgKePngData(new XMLSerializer().serializeToString(svg)); 
                     const last = pages[pages.length - 1], prev = pages[pages.length - 2];
                     if (last && prev && last.length === 1 && prev.length > 1) { const mv = prev[prev.length - 1]; if (mv.h + last[0].h <= cap) { prev.pop(); last.unshift(mv); } }
                     const m = p.m, n = pages.length;
-                    root.innerHTML = pages.map((pg, i) => `<section class="pr-page" style="width:${p.w}mm;height:${p.h - 0.5}mm;padding:${m[0]}mm ${m[1]}mm ${m[2]}mm ${m[3]}mm">${pg.map(u => u.idx.map(k => `<div class="pr-blk"${u.z ? ` style="zoom:${u.z.toFixed(3)}"` : ''}>${blocks[k]}</div>`).join('')).join('')}<div class="pr-pfoot" style="left:${m[3]}mm;right:${m[1]}mm;bottom:${Math.max(4, m[2] - 11)}mm"><span>Printed by GO-POSITIF : ${w.stamp}</span><span>Halaman ${i + 1} / ${n}</span><span>Copyright by @KreasiCahNdeso</span></div></section>`).join('');
+                    const wmSrc = wmAktif() ? await siapkanWatermark() : '', wmHtml = wmSrc ? `<div class="pr-wm"><img src="${wmSrc}" alt=""></div>` : '';
+                    root.innerHTML = pages.map((pg, i) => `<section class="pr-page" style="width:${p.w}mm;height:${p.h - 0.5}mm;padding:${m[0]}mm ${m[1]}mm ${m[2]}mm ${m[3]}mm">${pg.map(u => u.idx.map(k => `<div class="pr-blk"${u.z ? ` style="zoom:${u.z.toFixed(3)}"` : ''}>${blocks[k]}</div>`).join('')).join('')}${wmHtml}<div class="pr-pfoot" style="left:${m[3]}mm;right:${m[1]}mm;bottom:${Math.max(4, m[2] - 11)}mm"><span>Printed by GO-POSITIF : ${w.stamp}</span><span>Halaman ${i + 1} / ${n}</span><span>Copyright by @KreasiCahNdeso</span></div></section>`).join('');
                 } finally { root.classList.remove('pr-measure'); }
             }
 
             window.addEventListener('beforeprint', terapkanHalaman);
             window.addEventListener('DOMContentLoaded', () => {
                 const sel = document.getElementById('ageSelect');
+                { const o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'Pilih'; o0.selected = true; sel.appendChild(o0); }
                 for (let i = 0; i <= 60; i++) {
                     const o = document.createElement('option');
                     o.value = i; o.textContent = `${i} bln (${Math.floor(i / 12)} th ${i % 12} bln)`;
-                    if (i === 24) o.selected = true;
+                    
                     sel.appendChild(o);
                 }
                 ['kiri', 'kanan'].forEach(s => document.getElementById('cfg-logo-' + s).addEventListener('input', e => {
@@ -4267,9 +4384,18 @@ function setKMSAktif(on) {
     document.getElementById('kms-calc').dataset.aktif = on ? '1' : '0';
     document.getElementById('btnHitungKMSLabel').textContent = on ? 'Hitung Ulang' : 'Hitung & Tampilkan Hasil';
 }
+function umurTerisi() {
+    const e = document.getElementById('ageInput');
+    if (e.value.trim() === '') { showToast('Isi umur anak (bulan) dulu, contoh: 20.'); e.focus(); return false; }
+    return true;
+}
+function isiDulu(id, teks) { showToast('Isi ' + teks + '.'); document.getElementById(id).focus(); }
 function hitungKMS() {
     const n = id => parseFloat(String(document.getElementById(id).value).replace(',', '.'));
     const um = n('ageInput'), tb = n('heightInput'), bb = n('weightInput');
+    if (document.getElementById('ageInput').value.trim() === '') return isiDulu('ageInput', 'umur anak dalam bulan, contoh: 20');
+    if (document.getElementById('heightInput').value.trim() === '') return isiDulu('heightInput', 'panjang/tinggi badan dalam cm, contoh: 82.5');
+    if (document.getElementById('weightInput').value.trim() === '') return isiDulu('weightInput', 'berat badan dalam kg, contoh: 11.2');
     if (!(um >= 0 && um <= 60)) return showToast('Umur harus 0 sampai 60 bulan.');
     if (!(tb >= 45 && tb <= 125)) return showToast('Panjang/tinggi badan harus 45 sampai 125 cm.');
     if (!(bb >= 1 && bb <= 45)) return showToast('Berat badan harus 1 sampai 45 kg.');
@@ -4359,7 +4485,7 @@ async function gambarkanSvg(blocks) {
 /* ===== V15: indikator proses + cetak menunggu gambar siap ===== */
 let sedangProses = false, _failsafe = null;
 const _el = id => document.getElementById(id);
-function kunciTombolCetak(on) { document.querySelectorAll('#modal-cetak button, #modal-cetak input[type=submit]').forEach(b => { b.disabled = on; }); }
+function kunciTombolCetak(on) { document.querySelectorAll('#modal-cetak button, #modal-cetak input[type=submit]').forEach(b => { b.disabled = on; }); if (!on) terapkanKunciKop(); }
 function mulaiProses(judul, sub) {
     sedangProses = true;
     _el('proses-card').classList.remove('selesai');
@@ -4395,6 +4521,7 @@ window.showToast = function (m) {
 };
 const _eksporAsli = window.eksporLaporan;
 window.eksporLaporan = async function (fmt) {
+    if (fmt === 'doc' && !docxDiizinkan()) return; // sebelum layar proses tampil
     if (sedangProses) return;
     const nama = fmt === 'doc' ? 'Word (.docx)' : 'PDF';
     mulaiProses('Membuat file ' + nama, 'Menyusun laporan dan diagram');
