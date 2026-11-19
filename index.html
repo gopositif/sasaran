@@ -488,10 +488,44 @@
         input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 4px rgba(124,146,70,.2); border-color: #7C9246 !important; }
         section[id^="content-"]:not(.hidden) { animation: tabIn .4s cubic-bezier(.2,.7,.2,1) both; }
         @keyframes tabIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-        /* KMS: sebelum dihitung, hanya form yang tampil di tengah */
+        /* ===== KMS & IMT: tata letak responsif =====
+           HP / tablet portrait (< 1024px) : atas-bawah (KMS di atas, IMT di bawah)
+           Tablet landscape / laptop / PC (>= 1024px): sebelum dihitung -> KMS kiri, IMT kanan
+           Setelah hasil KMS atau IMT muncul : baris atas KMS (+hasil), diagram penuh, IMT di bawah (rata tengah) */
+        #kms-calc #kmsMainGrid > * { min-width: 0; }
+        #kms-calc #kmsInputPanel, #kms-calc #kmsHasilPanel, #kms-calc #kmsDiagramPanel,
+        #kms-calc #kmsSumber, #kms-calc #kmsBmiCol { grid-column: 1 / -1; width: 100%; }
+        #kms-calc #kmsBmiCol { max-width: 48rem; margin-inline: auto; }
         #kms-calc[data-aktif="0"] #kmsHasilPanel, #kms-calc[data-aktif="0"] #kmsDiagramPanel { display: none; }
-        #kms-calc[data-aktif="0"] #kmsInputPanel { grid-column: 1 / -1; width: 100%; max-width: 46rem; margin-inline: auto; }
+        #kms-calc[data-aktif="0"] #kmsInputPanel { max-width: 48rem; margin-inline: auto; }
         #kms-calc[data-aktif="1"] #kmsHasilPanel, #kms-calc[data-aktif="1"] #kmsDiagramPanel { animation: tabIn .45s cubic-bezier(.2,.7,.2,1) both; }
+        @media (min-width: 1024px) {
+            #kms-calc #kmsMainGrid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+            /* sudah dihitung: input kiri + hasil kanan, diagram penuh, IMT di bawah */
+            #kms-calc[data-aktif="1"] #kmsInputPanel { grid-column: span 5 / span 5; max-width: none; }
+            #kms-calc[data-aktif="1"] #kmsHasilPanel { grid-column: span 7 / span 7; }
+            #kms-calc[data-aktif="1"] #kmsBmiCol, #kms-calc[data-aktif="0"][data-bmi="1"] #kmsBmiCol { max-width: 56rem; }
+            /* belum ada hasil sama sekali: KMS kiri, IMT kanan sejajar */
+            #kms-calc[data-aktif="0"][data-bmi="0"] #kmsInputPanel,
+            #kms-calc[data-aktif="0"][data-bmi="0"] #kmsBmiCol { grid-column: span 6 / span 6; max-width: none; margin-inline: 0; }
+            #kms-calc[data-aktif="0"][data-bmi="0"] #kmsSumber { order: 10; }
+        }
+        /* Mode Ramah Lansia memperbesar huruf: sejajar hanya di layar >= 1280px */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            body.mode-lansia #kms-calc[data-aktif="0"][data-bmi="0"] #kmsInputPanel,
+            body.mode-lansia #kms-calc[data-aktif="0"][data-bmi="0"] #kmsBmiCol { grid-column: 1 / -1; max-width: 48rem; margin-inline: auto; }
+            body.mode-lansia #kms-calc[data-aktif="0"][data-bmi="0"] #kmsSumber { order: 0; }
+        }
+
+        /* ===== Footer: navigasi dengan penanda halaman aktif ===== */
+        .ft-nav { display: flex; flex-direction: column; gap: .25rem; margin: 0; padding: 0; list-style: none; }
+        .ft-nav .ft-link { display: flex; align-items: center; gap: .65rem; min-height: 2.25rem; padding: .4rem .75rem; border-radius: .75rem; border: 1px solid transparent; color: var(--earth-brown); font-weight: 600; text-decoration: none; transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+        .ft-nav .ft-chev { font-size: .6rem; color: var(--olive-green); flex-shrink: 0; transition: transform .2s ease, color .2s ease; }
+        .ft-nav .ft-link:hover { background: #EBF2DF; border-color: rgba(124,146,70,.3); color: var(--deep-green); }
+        .ft-nav .ft-link:hover .ft-chev { transform: translateX(3px); }
+        .ft-nav .ft-link.active { background-image: linear-gradient(180deg, #2d6a30, #1E4620); color: #fff; font-weight: 800; box-shadow: 0 2px 8px rgba(30,70,32,.25); }
+        .ft-nav .ft-link.active .ft-chev { color: var(--sun-yellow); }
+        @media (prefers-reduced-motion: reduce) { .ft-nav .ft-link, .ft-nav .ft-chev { transition: none; } .ft-nav .ft-link:hover .ft-chev { transform: none; } }
         @media (max-width: 380px) { html { font-size: 15px; } }
         @media (min-width: 1536px) { html { font-size: 17px; } }
         @media (min-width: 1920px) { html { font-size: 18px; } }
@@ -925,7 +959,7 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
             <section id="content-layanan" class="hidden space-y-8">
                 <div class="text-center max-w-2xl mx-auto space-y-2">
                     <span class="px-3.5 py-1 rounded-full text-xs font-extrabold bg-soft-green text-deep-green border border-olive-green/30 shadow-xs">
-                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Siklus Hidup Terpadu (ILP)
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Siklus Hidup Terpadu (ILP) - Edisi Holographic 3D
                     </span>
                     <h2 class="text-2xl md:text-3xl font-black text-deep-green">Program Layanan Utama Sasaran</h2>
                     <p class="text-xs md:text-sm text-earth-brown font-medium">
@@ -1209,7 +1243,7 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
                     </div>
 
                     <!-- ===== KALKULATOR KMS BALITA (0 - 60 BULAN) - TEMA ADAPTIF L / P ===== -->
-                    <div id="kms-calc" data-aktif="0" class="space-y-6">
+                    <div id="kms-calc" data-aktif="0" data-bmi="0" class="space-y-6">
 
                         <div id="toastBox" class="kc-toast"><i class="fa-solid fa-circle-check text-emerald-300"></i><span id="toastMessage">Pesan notifikasi</span></div>
 
@@ -1227,10 +1261,10 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <div id="kmsMainGrid" class="grid grid-cols-1 gap-6 items-start">
 
                             <!-- Panel kiri: input data anak -->
-                            <div id="kmsInputPanel" class="lg:col-span-5 white-card p-5 md:p-6 space-y-4 border-2 border-olive-green/20">
+                            <div id="kmsInputPanel" class="white-card p-5 md:p-6 space-y-4 border-2 border-olive-green/20">
                                 <div class="flex items-center justify-between pb-3 border-b border-olive-green/10">
                                     <div class="flex items-center gap-2.5"><span id="stepBadge1" class="kc-step">1</span><h3 class="font-extrabold text-deep-green text-base">Data Antropometri Anak</h3></div>
                                     <span class="text-[11px] font-semibold text-earth-brown/60">Otomatis 3 indeks</span>
@@ -1312,7 +1346,7 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
 </div>
 
                             <!-- Panel kanan: hasil 3 indeks -->
-                            <div id="kmsHasilPanel" class="lg:col-span-7 white-card p-5 md:p-6 border-2 border-olive-green/20">
+                            <div id="kmsHasilPanel" class="white-card p-5 md:p-6 border-2 border-olive-green/20">
                                 <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-olive-green/10">
                                     <div class="flex items-center gap-2.5">
                                         <span id="stepBadge2" class="kc-step">2</span>
@@ -1325,7 +1359,6 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
                                 </div>
                                 <div id="threeResultsContainer" class="space-y-4"></div>
                             </div>
-                        </div>
 
                         <!-- Diagram kurva pertumbuhan & distribusi normal -->
                         <div id="kmsDiagramPanel" class="white-card p-4 md:p-6 border-2 border-olive-green/20">
@@ -1405,11 +1438,10 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
                             </div>
                         </div>
 
-                        <p class="text-center text-[11px] text-earth-brown/70 font-medium">Sumber data: WHO Child Growth Standards (0–60 bulan) & Permenkes RI No. 2 Tahun 2020 tentang Standar Antropometri Anak.</p>
-                    </div>
+                        <p id="kmsSumber" class="text-center text-[11px] text-earth-brown/70 font-medium">Sumber data: WHO Child Growth Standards (0–60 bulan) & Permenkes RI No. 2 Tahun 2020 tentang Standar Antropometri Anak.</p>
 
-                    <!-- ===== KALKULATOR BMI / IMT (tetap, ditambah tombol cetak) ===== -->
-                    <div class="max-w-3xl mx-auto w-full">
+                    <!-- ===== KALKULATOR BMI / IMT: kanan KMS di layar lebar, di bawah KMS pada layar kecil / setelah hasil muncul ===== -->
+                    <div id="kmsBmiCol">
                         <!-- KALKULATOR BMI / IMT -->
                         <div class="white-card p-6 md:p-8 space-y-5 border-2 border-sun-yellow/40">
                             <div class="flex items-center space-x-3 border-b border-olive-green/10 pb-3.5">
@@ -1516,6 +1548,8 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
                             </div>
                         </div>
                     </div>
+                    </div><!-- /#kmsMainGrid -->
+                    </div><!-- /#kms-calc -->
 
                 </div>
 
@@ -2061,12 +2095,12 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
 
                 <div class="space-y-3">
                     <h4 class="font-extrabold text-sm text-deep-green border-b border-olive-green/10 pb-1">Navigasi</h4>
-                    <ul class="space-y-2 text-earth-brown font-medium">
-                        <li><a href="javascript:void(0)" onclick="switchTab('beranda')" class="hover:text-olive-green transition">Beranda</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchTab('layanan')" class="hover:text-olive-green transition">Layanan ILP</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchTab('kms')" class="hover:text-olive-green transition">Kalkulator KMS & BMI</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchTab('profil')" class="hover:text-olive-green transition">Profil Keluarga</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchTab('kontak')" class="hover:text-olive-green transition">Kontak & Lokasi</a></li>
+                    <ul class="ft-nav" aria-label="Navigasi footer">
+                        <li><a href="javascript:void(0)" onclick="switchTab('beranda')" data-ft-tab="beranda" class="ft-link active" aria-current="page"><i class="fa-solid fa-chevron-right ft-chev" aria-hidden="true"></i><span>Beranda</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('layanan')" data-ft-tab="layanan" class="ft-link"><i class="fa-solid fa-chevron-right ft-chev" aria-hidden="true"></i><span>Layanan ILP</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('kms')" data-ft-tab="kms" class="ft-link"><i class="fa-solid fa-chevron-right ft-chev" aria-hidden="true"></i><span>Kalkulator KMS &amp; BMI</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('profil')" data-ft-tab="profil" class="ft-link"><i class="fa-solid fa-chevron-right ft-chev" aria-hidden="true"></i><span>Profil Keluarga</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="switchTab('kontak')" data-ft-tab="kontak" class="ft-link"><i class="fa-solid fa-chevron-right ft-chev" aria-hidden="true"></i><span>Kontak &amp; Lokasi</span></a></li>
                     </ul>
                 </div>
 
@@ -2365,6 +2399,11 @@ input.kop-locked{background-color:#EFEDE6!important;color:#5A3B21;cursor:not-all
                     targetBtn.setAttribute('aria-current', 'page');
                     targetBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 }
+                document.querySelectorAll('[data-ft-tab]').forEach(a => {
+                    const on = a.dataset.ftTab === tabName;
+                    a.classList.toggle('active', on);
+                    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+                });
                 try { if (location.hash !== '#' + tabName) history.replaceState(null, '', '#' + tabName); } catch (e) {}
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -4578,6 +4617,26 @@ const ACARA=[
     }
     window.addEventListener('hashchange', bukaDariHash);
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bukaDariHash); else bukaDariHash();
+})();
+
+/* ===== V23: tata letak KMS & IMT - IMT turun ke bawah saat hasilnya muncul ===== */
+(function () {
+    function init() {
+        var hasil = document.getElementById('bmi-result'), kalk = document.getElementById('kms-calc');
+        if (!hasil || !kalk || !window.MutationObserver) return;
+        var lebar = window.matchMedia('(min-width: 1024px)');
+        new MutationObserver(function () {
+            var tampil = !hasil.classList.contains('hidden');
+            if (tampil === (kalk.dataset.bmi === '1')) return;
+            var tadiSejajar = lebar.matches && kalk.dataset.aktif === '0';
+            kalk.dataset.bmi = tampil ? '1' : '0';
+            if (tampil && tadiSejajar) setTimeout(function () {
+                var kolom = document.getElementById('kmsBmiCol');
+                if (kolom) kolom.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 120);
+        }).observe(hasil, { attributes: true, attributeFilter: ['class'] });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 </body>
